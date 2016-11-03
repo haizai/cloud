@@ -1,0 +1,13 @@
+body {
+/* 	font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif; */
+	background: #f5f5f5;
+	margin: 0;
+}
+.title-img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 200px;
+	width: 442px;
+	height: 59px;
+}
