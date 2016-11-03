@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body{
+			margin: 40px 10px;
+		}
+	</style>
+	<title>file</title>
+</head>
+<body>
+	<div id='div'>
+   	<p>password:<input type="text"></p>
+    <p><input type="file" multiple="multiple"></p>
+    <p><input type="button" value="上传"></p>
+  </div>
+	<pre id="info"></pre>
+
+	<script src='js/jquery-3.1.1.min.js'></script>
+	<script>
+
+		$('#div [type=button]').on('click', function() {
+			if($('#div [type=file]').val() == '') {
+				$('#info').text('error! \n\n no file')
+				return
+			}
+			var formData = new FormData();
+			formData.append('file', $('#div [type=file]')[0].files[0]);
+	  	$.ajax({
+		    url: '/ajax/file?password=' + $('#div [type=text]').val(),
+		    type: 'POST',
+		    cache: false,
+		    data: formData,
+		    processData: false,
+		    contentType: false,
+		    success: function(XHR) {
+		    	$('#info').text(XHR)
+		    }
+			})
+		})
+	</script>
+</body>
+</html>
