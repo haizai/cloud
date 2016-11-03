@@ -10,6 +10,7 @@ var formidable = require('formidable');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var fileRoute = require('./routes/file');
+var animesRoute = require('./routes/animes');
 var ajaxRoute = require('./routes/ajax/file')
 
 var app = express();
@@ -30,6 +31,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/file', fileRoute);
 app.use('/ajax', ajaxRoute);
+app.use('/animes', animesRoute);
 
 
 
