@@ -6,12 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var formidable = require('formidable');
 
-
-var index = require('./routes/index');
-var users = require('./routes/users');
-var fileRoute = require('./routes/file');
-var animesRoute = require('./routes/animes');
-var ajaxRoute = require('./routes/ajax/file')
+var routes = require('./routes/routes');
 
 var app = express();
 
@@ -27,13 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
-app.use('/file', fileRoute);
-app.use('/ajax', ajaxRoute);
-app.use('/animes', animesRoute);
-
-
+app.use('/', routes);
 
 
 // catch 404 and forward to error handler
