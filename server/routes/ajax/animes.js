@@ -2,6 +2,8 @@ var mongoose = require('mongoose')
 var fs = require('fs')
 var path = require('path')
 var util = require('util');
+var co = require('co')
+
 
 var express = require('express');
 var router = express.Router();
@@ -46,19 +48,28 @@ var animeSchma = new mongoose.Schema({
 
 var Anime = mongoose.model('Anime', animeSchma);
 
-// Anime.find({}).exec((err, doc) => {
-// 	console.log(util.inspect(doc))
-// })
-
 router.get('/animes', (req, res) => {
 
 	console.log(req.query)
+  let keyword = req.query.keyword ? decodeURIComponent(req.query.keyword).replace(/[\*\.\?\+\$\^\[\]\(\)\{\}\|\\\/]/g,'') : ''
+  let skip = req.query.page ? parseInt(req.query.page, 10) * 10 - 10 : 0
 
-  let keyword = req.query.keyword ? decodeURIComponent(req.query.keyword) : ''
+  co(function* () {
+    var animes = yield Anime
+      .find(
+        {allTitle: new RegExp(keyword, 'i')},
+        {_id: 0, title: 1, allTitle: 1, info: 1, rating: 1, year: 1, id: 1}
+        )
+      .limit(10)
+      .skip(skip)
+      .exec();
+    var count = yield Anime.find({allTitle: new RegExp(keyword, 'i')}).count().exec()
 
-
-  Anime.find({title: new RegExp(keyword, 'i')}, (err, doc) => {
+    return yield {animes, count}
+  }).then(doc=> {
     res.send(doc)
+  }, err => {
+    console.error(err)
   })
 
 })
