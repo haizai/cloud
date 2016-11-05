@@ -1,6 +1,8 @@
 {
   "name": "cloud",
-  "version": "0.0.1",
+  "description": "个人云服务器",
+  "version": "0.0.2",
+  "author": "github.com/haizai",
   "private": true,
   "scripts": {
     "server": "node ./server/bin/www",
