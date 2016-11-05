@@ -3,12 +3,13 @@
 <head>
 	<%- include('head', {title: 'file'}); %>
 	<style>
-		body{
+		#div{
 			margin: 40px 10px;
 		}
 	</style>
 </head>
 <body>
+	<%- include('header') %>
 	<div id='div'>
    	<p>password:<input type="text"></p>
     <p><input type="file" multiple="multiple"></p>
