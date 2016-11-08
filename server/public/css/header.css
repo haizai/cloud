@@ -34,6 +34,9 @@ a {
   padding: 0 20px;
   font-size: 18px;
 }
+.header-active {
+  background: #00a1d6;
+}
 
 .header-img {
   padding: 0 5px;
