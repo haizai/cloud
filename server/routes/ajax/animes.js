@@ -3,7 +3,7 @@ var fs = require('fs')
 var path = require('path')
 var util = require('util');
 var co = require('co')
-
+var isDev = require(path.resolve(__dirname, '..', '..', '..', 'my/isDev.js'))
 
 var express = require('express');
 var router = express.Router();
@@ -50,12 +50,13 @@ var Anime = mongoose.model('Anime', animeSchma);
 
 router.get('/animes', (req, res) => {
 
+  if (isDev) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
 
-  // res.header('Access-Control-Allow-Origin', '*');
-  // res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-  // res.header('Access-Control-Allow-Methods', 'POST, GET');
-
-	console.log(req.query)
+	console.log('?GET animes',req.query)
 
 
   let keyword = req.query.keyword ? decodeURIComponent(req.query.keyword).replace(/[\*\.\?\+\$\^\[\]\(\)\{\}\|\\\/]/g,'') : ''
@@ -122,8 +123,32 @@ router.get('/animes', (req, res) => {
   }).then(doc=> {
     res.send(doc)
   }, err => {
-    console.error(err)
+    console.error('Error ?GET animes \n',err)
   })
 
 })
+
+router.get('/anime', (req, res) => {
+
+  if (isDev) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
+
+  console.log('?GET anime',req.query)
+
+    if (req.query.id) {
+      Anime.findOne({
+        id: req.query.id
+      },{
+        _id: 0, __v: 0,"reviews._id": 0
+      }).exec((err, doc) => {
+        if (err) console.error('Error ?GET anime \n',err)
+        res.send(doc)
+      })
+    }
+})
+
+
 module.exports = router;
