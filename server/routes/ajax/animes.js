@@ -3,7 +3,6 @@ var fs = require('fs')
 var path = require('path')
 var util = require('util');
 var co = require('co')
-var isDev = require(path.resolve(__dirname, '..', '..', '..', 'my/isDev.js'))
 
 var express = require('express');
 var router = express.Router();
@@ -50,7 +49,7 @@ var Anime = mongoose.model('Anime', animeSchma);
 
 router.get('/animes', (req, res) => {
 
-  if (isDev) {
+  if (process.env.NODE_ENV === 'dev') {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     res.header('Access-Control-Allow-Methods', 'POST, GET');
@@ -130,7 +129,7 @@ router.get('/animes', (req, res) => {
 
 router.get('/anime', (req, res) => {
 
-  if (isDev) {
+  if (process.env.NODE_ENV === 'dev') {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     res.header('Access-Control-Allow-Methods', 'POST, GET');
