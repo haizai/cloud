@@ -143,10 +143,23 @@ router.get('/anime', (req, res) => {
       },{
         _id: 0, __v: 0,"reviews._id": 0
       }).exec((err, doc) => {
-        if (err) console.error('Error ?GET anime \n',err)
+        if (err) console.error('Error ?GET anime id \n',err)
         res.send(doc)
+        return
       })
     }
+    if (req.query.random) {
+      co(function* (){
+        let count = yield Anime.count().exec()
+        var rand = Math.floor(Math.random() * count)
+        return yield Anime.findOne({},{_id: 0,id: 1}).skip(rand).exec();
+      }).then( doc => {
+        res.send(doc)
+      }, err => {
+        console.error('Error ?GET anime random \n',err)
+      })
+    }
+
 })
 
 
