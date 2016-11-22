@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
+var animes = require('./animes')
+
+
 router.get('/', function(req, res, next) {
   var deviceAgent = req.headers['user-agent'].toLowerCase();
   var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
@@ -12,4 +14,7 @@ router.get('/', function(req, res, next) {
   }
 });
 
-module.exports = router;
+
+router.use(animes)
+
+module.exports = router; 

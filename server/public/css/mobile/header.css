@@ -1,3 +1,8 @@
+
+html {
+  font-size: 16px;
+}
+
 body {
   font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
   margin: 0;
@@ -24,7 +29,6 @@ a {
   color: #fff;
   float: right;
   padding: 0 20px;
-  font-size: 14px;
 }
 .header-active {
   background: #00a1d6;
