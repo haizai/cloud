@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../head', {title: 'Haizai Naive'}); %>
+  </head>
+  <body>
+    <%- include('../header') %>
+    <h2>账号：<span style="color:#29AAD4"><%= user.account %></span></h2>
+    <h2>昵称：<span style="color:#29AAD4"><%= user.name %></span></h2>
+    <p>个性签名：
+    <input class="sign-input" type="text" placeholder="编辑您的个性签名" value=<%= user.sign || ''%>>
+    </p>
+    <div>
+      <%= user %>
+    </div>
+    <script src='../../js/jquery-3.1.1.min.js'></script>
+    <script>
+      $('.sign-input').on('focus', function() {
+        var oldVal = this.value
+        $(this).one('blur', function () {
+          if (oldVal !== this.value) {
+            $.ajax({
+              type:'POST',
+              url:'/user/user/setSign',
+              data: {
+                sign: this.value
+              },
+              success: function(data) {
+                console.log(data)
+              }
+            })
+          }
+        })
+      })
+    </script> 
+  </body>
+</html>

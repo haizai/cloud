@@ -6,12 +6,14 @@ var animes = require('./animes')
 var index = require('./index')
 var ajax = require('./ajax/index')
 var mobile = require('./mobile/index')
-
+var user = require('./user/index')
 
 router.use(file)
 router.use(animes)
 router.use(index)
 router.use('/ajax',ajax)
 router.use('/mobile',mobile)
+router.use('/user',user)
+
 
 module.exports = router;

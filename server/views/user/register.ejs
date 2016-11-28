@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('../head', {title: 'Haizai Naive'}); %>
+  </head>
+  <body>
+    <%- include('../header') %>
+    <div id="form"> 
+      <div>
+        <span>account</span>
+        <input type="text" id="account">
+      </div>
+      <div>
+        <span>password</span>
+        <input type="password" id="password">
+      </div>
+      <div>
+        <span>name</span>
+        <input type="text" id="name">
+      </div>
+      <div>
+        <button type="submit" id="submit">submit</button>
+      </div>
+    </div>
+    <p id="state-text"></p>
+    <script src='../../js/jquery-3.1.1.min.js'></script>
+    <script>
+      $('#submit').on('click', function () {
+        $.ajax({
+          type:'POST',
+          url:'/user/register',
+          data:{
+            account:$('#account').val(),
+            password:$('#password').val(),
+            name:$('#name').val(),
+          },
+          success: function(data){
+            console.log(data)
+            if (data.status) {
+              $('#form').hide()
+              $('#state-text').text('注册成功')
+              setTimeout(function() {
+                window.location.pathname = '/'
+              }, 3000)
+            }
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

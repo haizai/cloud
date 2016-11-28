@@ -9,43 +9,9 @@ var router = express.Router();
 
 mongoose.Promise = global.Promise;
 
-var db = mongoose.connect('mongodb://localhost/haizai')
+var db = require(path.resolve(__dirname, '..', '..', 'mongoose/db.js'))
 
-var animeSchma = new mongoose.Schema({
- id: Number, 
- title: String,
- allTitle: String,
- year: Number,
- info: {
-  '导演': String,
-  "编剧": String,
-  "主演": String,
-  "类型": String,
-  "首播": String,
-  '季数': String,
-  "集数": String,
-  "单集片长": String,
-  "又名": String
- },
- rating: {
-  value: Number,
-  count: Number,
-  start5: Number,
-  start4: Number,
-  start3: Number,
-  start2: Number,
-  start1: Number  
- },
- summary: String,
- comments: [String],
- reviews: [{
-  title: String,
-  html: [String]
- }]
-});
-
-
-var Anime = mongoose.model('Anime', animeSchma);
+var Anime = require(path.resolve(__dirname, '..', '..', 'mongoose/Anime'))
 
 router.get('/animes', (req, res) => {
 

@@ -3,7 +3,6 @@ var router = express.Router();
 
 var animes = require('./animes')
 
-
 router.get('/', function(req, res, next) {
   var deviceAgent = req.headers['user-agent'].toLowerCase();
   var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
