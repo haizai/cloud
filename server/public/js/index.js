@@ -5,10 +5,10 @@ window.onload = function () {
   img.style.top = (height/2-30) + 'px'
   img.style.left = (width/2-221) + 'px'
   img.style.display = 'block'
+  var transform
   document.onmousemove = function (e) {
-    var deg = (Math.abs(e.clientX/width-0.5)+Math.abs(e.clientY/height-0.5))*70
-    rotate3d = 'rotate3d(' + (e.clientY/height-0.5) + ',' + (-e.clientX/width+0.5) +', 0, ' + deg+ 'deg)'
-    img.style.transform = rotate3d
+    transform = 'rotateX(' + (e.clientY/height-0.5)*180 +'deg) ' + 'rotateY(' + (-e.clientX/width+0.5)*180 +'deg)' +' translateZ('+height/3+'px)'
+    img.style.transform = transform
   }
   document.onmouseleave = function (e) {
     img.style.transform = null

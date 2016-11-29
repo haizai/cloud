@@ -12,5 +12,6 @@ html, body {
   top: 0px;
   left: 0px;
   display: none;
+  perspective: 500px;
 }
 
