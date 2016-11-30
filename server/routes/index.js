@@ -4,7 +4,6 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  console.log('cookies',req.cookies)
   var deviceAgent = req.headers['user-agent'].toLowerCase();
   var agentID = deviceAgent.match(/(iphone|ipod|ipad|android)/);
   if(agentID) {

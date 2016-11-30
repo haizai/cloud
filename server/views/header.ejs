@@ -1,5 +1,17 @@
 <% var title = title || null %>
 
+<div id="low-ie" style="display:none;">
+  <div class="low-ie-wrap">
+    <div class="low-ie-title">你的浏览器版本太低，可能存在安全性问题，请尽快升级浏览器！</div>
+    <div class="low-ie-small">如果使用360浏览器，请尝试切换「急速模式」并刷新</div>
+    <div><a class="low-ie-a" target="_black" href="https://support.microsoft.com/zh-cn/help/17621/internet-explorer-downloads">IE 11 浏览器</a></div>
+    <div><a class="low-ie-a" target="_black" href="http://www.firefox.com.cn/">Firefox 火狐浏览器</a></div>
+    <div><a class="low-ie-a" target="_black" href="https://www.google.com/chrome/">Chrome 谷歌浏览器（需要VPN）</a></div>
+  </div>
+</div>
+<script>
+  if((/(Mozilla\/4\.0)/.test(navigator.userAgent))) {document.getElementById('low-ie').style.display = 'block'}
+</script>
 <div class="header">
   <div class="header-warp">
     <a class="header-title<%if(title == 'index'){%><%=' header-active'%><%}%>" href="/"><img class="header-img" src="../../img/common/haizainaive_20.png" alt="haizainaive"></a>
