@@ -86,7 +86,7 @@ jQuery(function($){
       var $this = $(this)
       $this.on('mousemove', function(e2) { 
         // console.log(e2.clientY-startY)
-        if (e2.clientY-startY < -20) {
+        if (e2.clientY-startY < -15) {
           if (sel < len-1) {
             sel++
             moveTo(sel)
@@ -94,7 +94,7 @@ jQuery(function($){
             $this.off('mouseup')
           }
         }
-        if (e2.clientY-startY > 20) {
+        if (e2.clientY-startY > 15) {
           if (sel > 0) {
             sel--
             moveTo(sel)
