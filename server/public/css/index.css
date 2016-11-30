@@ -11,6 +11,9 @@ body {
   overflow: hidden;
   position: relative;
 }
+.part-img-big{
+  display: none;
+}
 .slide{
   position: fixed;
   left: 30px;

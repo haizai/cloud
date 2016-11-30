@@ -110,5 +110,10 @@ jQuery(function($){
     }
   })
 
+  $('.part-img-big').on('load', function(){
+    $(this).siblings('.part-img-small').css({display:'none'})
+    $(this).css({display:'block'})
+  })
+
 
 })
