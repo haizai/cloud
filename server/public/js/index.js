@@ -34,7 +34,8 @@ jQuery(function($){
   }
   $('.slide-item').each(function(index){
     $(this).on('click', function() {
-      moveTo(index)
+      sel = index
+      moveTo(sel)
     })
   })
 
