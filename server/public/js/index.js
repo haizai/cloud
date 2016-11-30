@@ -38,15 +38,15 @@ jQuery(function($){
     })
   })
 
-  moveTo(0)
+  moveTo(0, true)
 
-  function moveTo(index) {
+  function moveTo(index, isInit) {
     // console.log('moveTo',bH,index)
     onMove = true
     $('.part').find('.part-hasAnime').each(function(){
       this.style = null
     })
-    $('html,body').animate({scrollTop : bH*index},500,function(){
+    $('html,body').animate({scrollTop : bH*index},isInit?10:500,function(){
         onMove = false,
         $('.part').eq(index).find('.part-text').animate({opacity: 1,marginRight: '30px'},500,function(){
       })
