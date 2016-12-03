@@ -71,11 +71,12 @@ body {
   opacity: 0;
 }
 .part-anime-img {
-  margin-left: 385px;
+  margin-left: 380px;
   margin-bottom: 30px;
+  transition: margin-left 0.3s;
 }
 .part-anime-img:hover {
-  opacity: 0.9;
+  margin-left: 390px;
 }
 .part-anime-keyword, .part-anime-search {
   font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
