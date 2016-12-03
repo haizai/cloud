@@ -106,7 +106,9 @@ jQuery(function($){
       $('.part').eq(index).find('.part-tips').animate({opacity: 1,marginRight: '30px'},500)
 
       if (index == 1) {
-        $('.part-anime-warp').animate({opacity: 1}, 500)
+        $('.part-anime-warp').animate({opacity: 1}, 500, function(){
+          $('.part-anime-keyword').focus()
+        })
         $('.part-anime-search').animate({opacity: 1}, 500) // ie
       }
     })
