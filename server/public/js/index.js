@@ -14,9 +14,9 @@ jQuery(function($){
   //出现侧栏
   for (var i = 0; i < len; i++) {
     if (i==0) {
-      $('<div class="slide-item slide-item-in"></div>').appendTo($('.slide'))
+      $('<div class="slide-item slide-item-in"></div>').appendTo($('.slide-items'))
     } else {
-      $('<div class="slide-item"></div>').appendTo($('.slide'))
+      $('<div class="slide-item"></div>').appendTo($('.slide-items'))
     }
     
   }
@@ -77,20 +77,9 @@ jQuery(function($){
 
 
 
-  // 侧栏点击
-  $('.slide-item').each(function(index){
-    $(this).on('click', function() {
-      sel = index
-      moveTo(sel)
-    })
-  })
+
 
   moveTo(0, true)
-
-
-
-
-
 
   // 核心移动方法
   function moveTo(index, isInit) {
@@ -119,60 +108,74 @@ jQuery(function($){
         $(this).removeClass('slide-item-in')
       }
     })
-
   }
+
+  // 侧栏点击
+  $('.slide-item').each(function(index){
+    $(this).on('click', function() { 
+        sel = index
+        moveTo(sel)
+    })
+  })
+
+
 
   // 滚轮滚动
   $(document).on('mousewheel',function (e) {
     if (!onMove) {
-      if(sel == 0) {
-        if(e.deltaY == -1) {
-          sel++
-          moveTo(sel)
-        }
-      }else if (sel == len-1) {
-        if(e.deltaY == 1) {
-          sel--
-          moveTo(sel)
-        }
+      if(sel == 0 && e.deltaY == -1) {
+        moveTo(++sel)
+      } else if (sel == len-1 && e.deltaY == 1) {
+        moveTo(--sel)
       }else if (sel > 0 && sel < len-1) {
         sel-=e.deltaY
-          moveTo(sel)
+        moveTo(sel)
       }
     }
   })
 
   // 按下移动
-  $('.part').on('mousedown', function(e1) {
-    if (!onMove) {
-      var startY = e1.clientY
-      var $this = $(this)
-      $this.on('mousemove', function(e2) { 
-        // console.log(e2.clientY-startY)
-        if (e2.clientY-startY < -20) {
-          if (sel < len-1) {
-            sel++
-            moveTo(sel)
-            $this.off('mousemove')
-            $this.off('mouseup')
-          }
-        }
-        if (e2.clientY-startY > 20) {
-          if (sel > 0) {
-            sel--
-            moveTo(sel)
-            $this.off('mousemove')
-            $this.off('mouseup')
-          }
-        }
-      })
-      $this.on('mouseup', function(){
-        $this.off('mousemove')
-        $this.off('mouseup')
-      })
+  // $('.part').on('mousedown', function(e1) {
+  //   if (!onMove) {
+  //     var startY = e1.clientY
+  //     var $this = $(this)
+  //     $this.on('mousemove', function(e2) { 
+  //       // console.log(e2.clientY-startY)
+  //       if (e2.clientY-startY < -20) {
+  //         if (sel < len-1) {
+  //           moveTo(++sel)
+  //           $this.off('mousemove')
+  //           $this.off('mouseup')
+  //         }
+  //       }
+  //       if (e2.clientY-startY > 20) {
+  //         if (sel > 0) {
+  //           moveTo(--sel)
+  //           $this.off('mousemove')
+  //           $this.off('mouseup')
+  //         }
+  //       }
+  //     })
+  //     $this.on('mouseup', function(){
+  //       $this.off('mousemove')
+  //       $this.off('mouseup')
+  //     })
+  //   }
+  // })
+
+
+  //滑块上下
+  $('.slide-top').on('click', function() {
+    if (sel > 0 && !onMove) {
+      moveTo(--sel)
     }
   })
 
+  $('.slide-bottom').on('click', function() {
+    if (sel < len-1 && !onMove) {
+      moveTo(++sel)
+    }
+  })
 
 
   //anime 搜索
