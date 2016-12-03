@@ -1,9 +1,9 @@
 jQuery(function($){
 
   // 禁止拖动
-  document.body.onmousedown = function() {
-    return false
-  }
+  // document.body.onmousedown = function() {
+  //   return false
+  // }
 
 
   var bH = $('body').height()
@@ -87,6 +87,11 @@ jQuery(function($){
 
   moveTo(0, true)
 
+
+
+
+
+
   // 核心移动方法
   function moveTo(index, isInit) {
     // console.log('moveTo',bH,index)
@@ -95,9 +100,12 @@ jQuery(function($){
       this.style = null
     })
     $('html,body').animate({scrollTop : bH*index},isInit?10:500,function(){
-        onMove = false,
-        $('.part').eq(index).find('.part-tips').animate({opacity: 1,marginRight: '50px'},500,function(){
-      })
+       onMove = false,
+      $('.part').eq(index).find('.part-tips').animate({opacity: 1,marginRight: '30px'},500)
+
+      if (index == 1) {
+        $('.part-anime-warp').animate({opacity: 1}, 500)
+      }
     })
     $('.slide-item').each(function(i){
       if (i===index) {
@@ -136,7 +144,7 @@ jQuery(function($){
       var $this = $(this)
       $this.on('mousemove', function(e2) { 
         // console.log(e2.clientY-startY)
-        if (e2.clientY-startY < -10) {
+        if (e2.clientY-startY < -20) {
           if (sel < len-1) {
             sel++
             moveTo(sel)
@@ -144,7 +152,7 @@ jQuery(function($){
             $this.off('mouseup')
           }
         }
-        if (e2.clientY-startY > 10) {
+        if (e2.clientY-startY > 20) {
           if (sel > 0) {
             sel--
             moveTo(sel)
@@ -160,5 +168,16 @@ jQuery(function($){
     }
   })
 
+
+
+  //anime 搜索
+  $('.part-anime-search').on('click', function() {
+    location = location.href + 'animes#/?keyword=' + $('.part-anime-keyword').val().trim() +'&page=1&range=default&sort=count'
+  })
+  $('.part-anime-keyword').on('keydown', function(e){
+    if(e.keyCode==13) {
+      location = location.href + 'animes#/?keyword=' + $('.part-anime-keyword').val().trim() +'&page=1&range=default&sort=count'
+    }
+  })
 
 })
