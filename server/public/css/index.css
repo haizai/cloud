@@ -11,6 +11,10 @@ a {
   color: #fff;
 }
 
+img {
+  border: none;
+}
+
 .header {
   position: fixed;
   top: 0;

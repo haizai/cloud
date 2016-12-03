@@ -96,15 +96,18 @@ jQuery(function($){
   function moveTo(index, isInit) {
     // console.log('moveTo',bH,index)
     onMove = true
-    $('.part').find('.part-hasAnime').each(function(){
-      this.style = null
-    })
+    $('.part-tips').css({opacity: 0,marginRight: '0px'})
+
+    $('.part-anime-warp').css({opacity: 0})
+    $('.part-anime-search').css({opacity: 0}) // ie
+
     $('html,body').animate({scrollTop : bH*index},isInit?10:500,function(){
        onMove = false,
       $('.part').eq(index).find('.part-tips').animate({opacity: 1,marginRight: '30px'},500)
 
       if (index == 1) {
         $('.part-anime-warp').animate({opacity: 1}, 500)
+        $('.part-anime-search').animate({opacity: 1}, 500) // ie
       }
     })
     $('.slide-item').each(function(i){
