@@ -7,6 +7,9 @@ body {
   height: 100%;
   font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
 } 
+a {
+  color: #fff;
+}
 
 .header {
   position: fixed;
@@ -111,4 +114,7 @@ body {
 }
 .part-anime-search:hover {
   background: #29aad4;
+}
+.part-tips-anime:hover {
+  color: #ffafc9;
 }
