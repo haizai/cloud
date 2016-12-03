@@ -188,4 +188,10 @@ jQuery(function($){
     }
   })
 
+  $('.part-anime-img').hover(function(){
+    $(this).animate({marginLeft: '390px'}, 300)
+  }, function(){
+    $(this).animate({marginLeft: '380px'}, 300)
+  })
+
 })
