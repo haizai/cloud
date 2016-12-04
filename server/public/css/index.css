@@ -89,11 +89,13 @@ img {
 .part-anime-img {
   margin-left: 380px;
   margin-bottom: 30px;
-  /* transition: margin-left 0.3s; */
 }
-/* .part-anime-img:hover {
+.part-anime-img-noie9 {
+  transition: margin-left 0.3s;
+}
+.part-anime-img-noie9:hover {
   margin-left: 390px;
-} */
+}
 .part-anime-keyword, .part-anime-search {
   font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
   outline: none;

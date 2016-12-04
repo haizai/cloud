@@ -188,10 +188,14 @@ jQuery(function($){
     }
   })
 
-  $('.part-anime-img').hover(function(){
-    $(this).animate({marginLeft: '390px'}, 300)
-  }, function(){
-    $(this).animate({marginLeft: '380px'}, 300)
-  })
+  // ie9 transition
+  if (/MSIE 9\.0;/.test(navigator.userAgent)) {
+    $('.part-anime-img').removeClass('part-anime-img-noie9')
+    $('.part-anime-img').hover(function(){
+      $(this).animate({marginLeft: '390px'}, 300)
+    }, function(){
+      $(this).animate({marginLeft: '380px'}, 300)
+    })
+  }
 
 })
