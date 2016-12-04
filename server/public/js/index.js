@@ -198,4 +198,154 @@ jQuery(function($){
     })
   }
 
+
+  var animeSel = 1
+  var animeCount = $('.carousel-item').length
+
+  $('.part-anime-left').on('click', function(){
+    animeSel++
+    carousel()
+  })
+
+  $('.part-anime-right').on('click', function () {
+    animeSel--
+    carousel()
+  })
+
+
+  $('.carousel-item').each(function(index){
+    switch (index) {
+      case 0:
+        $(this).css({
+          width:'200px',
+          height: '300px',
+          top:'75px',
+          left: '0px',
+          zIndex: 11
+        })
+        $(this).children('div').css({opacity: 0.5})
+        break;
+      case 1:
+        $(this).css({
+          width: '300px',
+          height:'450px',
+          left: '150px',
+          top: '0px',
+          zIndex: 12
+        })
+        $(this).children('div').css({opacity: 0})
+        break;
+      case 2:
+        $(this).css({
+          width:'200px',
+          height: '300px',
+          top:'75px',
+          left: '400px',
+          zIndex: 11
+        })
+        $(this).children('div').css({opacity: 0.5})
+        break;
+      case animeCount-1:
+      case animeCount-2:
+        $(this).css({
+          width:'100px',
+          height: '150px',
+          top:'150px',
+          opacity: 0,
+          zIndex: 10
+        })
+        $(this).children('div').css({opacity: 0})
+        break
+      default : 
+        $(this).css({
+          width: '100px',
+          height: '150px',
+          top:'150px',
+          left: '500px',
+          opacity: 0,
+          zIndex: 10
+        })
+        $(this).children('div').css({opacity: 0})
+        break;
+    }
+  })
+
+  function carousel() {
+    if (animeSel >= animeCount) {
+      animeSel -= animeCount
+    }
+    if (animeSel < 0) {
+      animeSel += animeCount
+    }
+    console.log('animeSel',animeSel)
+    $('.carousel-item').each(function(index){
+      var con = index-animeSel
+      if (con == -3 || con == animeCount-3 || con == -animeCount-3) {
+        $(this).css({
+          width:'100px',
+          height: '150px',
+          top:'150px',
+          left:'0px',
+          opacity: 0,
+          zIndex: 10
+        })
+        $(this).children('div').css({opacity: 0})
+      } else if (con == -2 || con == animeCount-2 || con == -animeCount-2) {
+        $(this).css({zIndex: 10}).animate({
+          width:'100px',
+          height: '150px',
+          top:'150px',
+          opacity: 0
+        })
+        $(this).children('div').animate({opacity: 0})
+      } else if (con == -1 || con == animeCount-1 || con == -animeCount-3) {
+        $(this).css({zIndex: 11}).animate({
+          width:'200px',
+          height: '300px',
+          top:'75px',
+          left: '0px',
+          opacity: 1
+        })
+        $(this).children('div').animate({opacity: 0.5})
+      } else if (con == 0 || con == animeCount || con == -animeCount) {
+        $(this).css({zIndex: 12}).animate({
+          width: '300px',
+          height:'450px',
+          left: '150px',
+          top: '0px'
+        })
+        $(this).children('div').animate({opacity: 0})
+      } else if (con == 1 || con == animeCount+1 || con == -animeCount+1) {
+        $(this).css({zIndex: 11}).animate({
+          width:'200px',
+          height: '300px',
+          top:'75px',
+          left: '400px',
+          opacity: 1
+        })
+        $(this).children('div').animate({opacity: 0.5})
+      } else if (con == 2 || con == animeCount+2 || con == -animeCount+2) {
+        $(this).css({zIndex: 10}).animate({
+          width: '100px',
+          height: '150px',
+          top:'150px',
+          left: '500px',
+          opacity: 0
+        })
+        $(this).children('div').animate({opacity: 0})
+      } else if (con == 3 || con == animeCount+3 || con == -animeCount+3) {
+        $(this).css({
+          width: '100px',
+          height: '150px',
+          top:'150px',
+          left: '500px',
+          opacity: 0,
+          zIndex: 10
+        })
+        $(this).children('div').css({opacity: 0})
+      }
+      
+    })
+  }
+
 })

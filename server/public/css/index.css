@@ -78,17 +78,17 @@ img {
   font-size: 26px;
   opacity: 0;
   text-shadow: 2px 2px 4px #000;
-  z-index: 2;
+  z-index: 100;
 }
 
 .part-anime-warp {
   width: 980px;
-  margin: 100px auto 0;
+  margin: 70px auto 0;
   opacity: 0;
 }
 .part-anime-img {
   margin-left: 380px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .part-anime-img-noie9 {
   transition: margin-left 0.3s;
@@ -103,7 +103,7 @@ img {
 }
 .part-anime-keyword {
   border: 1px solid #aaa;
-  margin-left: 260px;
+  margin-left: 250px;
   width: 400px;
   height: 38px;
   padding: 0 10px;
@@ -129,6 +129,57 @@ img {
 }
 .part-anime-search:hover {
   background: #29aad4;
+}
+.part-anime-carousel {
+  margin-top: 20px;
+  position: relative;
+  display: inline-block;
+  width: 600px;
+  height: 450px;
+  margin-left: 190px;
+}
+.carousel-item {
+  width: 300px;
+  position: absolute;
+  height: 450px;
+}
+.carousel-item img {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 100%;
+}
+.carousel-item-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background: #000;
+  opacity: 0;
+}
+
+i {
+  display: inline-block;
+}
+
+.part-anime-left, .part-anime-right {
+  width: 50px;
+  height: 50px;
+  top: 200px;
+  position: absolute;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.part-anime-left:hover, .part-anime-right:hover {
+  opacity: 1;
+}
+.part-anime-left {
+  background-image: url('/img/index/back.png');
+  left: -60px;
+}
+.part-anime-right {
+  background-image: url('/img/index/more.png');
+  right: -60px;
 }
 .part-tips-anime:hover {
   color: #ffafc9;
