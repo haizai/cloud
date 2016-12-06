@@ -183,7 +183,7 @@ i {
   background: url('/img/index/more.png') no-repeat;
   right: -40px;
 }
-.part-tips-anime:hover, .part-anime-title a:hover {
+.part-tips-anime:hover, .part-anime-title:hover {
   color: #ffafc9;
 }
 .part-anime-slides {
@@ -219,6 +219,6 @@ i {
   font-size: 16px;
   text-align: center;
   text-shadow: 2px 2px 1px #000;
-  background: rgba(0,0,0,0.4);
+  background: rgba(255,255,255,0.1);
   display: none;
 }
