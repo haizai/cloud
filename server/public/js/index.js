@@ -328,16 +328,16 @@ jQuery(function($){
   })
 
   /** 
+   * @direction  {[bool]} 方向 true为右，false为左
    * @times  {[int]} 循环次数
-   * @method  {[bool]} 方向 true为右，false为左
    * @time  {[int]} 每次时间 循环时计算得，无需给出
    * @return {[undefined]}
    */
-  function carousel(method, times, time) {
+  function carousel(direction, times, time) {
     var times = times || 1
     var time = time || (animeTime+100*times - 100)/times
 
-    if (method == true) {
+    if (direction == true) {
       animeSel++
     } else {
       animeSel--
