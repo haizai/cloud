@@ -183,7 +183,7 @@ i {
   background: url('/img/index/more.png') no-repeat;
   right: -40px;
 }
-.part-tips-anime:hover {
+.part-tips-anime:hover, .part-anime-title a:hover {
   color: #ffafc9;
 }
 .part-anime-slides {
@@ -207,4 +207,18 @@ i {
 }
 .part-anime-slide-in, .part-anime-slide-in:hover {
   background: #fff;
+}
+.part-anime-title {
+  position: absolute;
+  width: 300px;
+  bottom: 18px;
+  color: #fff;
+  z-index: 21;
+  height: 24px;
+  line-height: 24px;
+  font-size: 16px;
+  text-align: center;
+  text-shadow: 2px 2px 1px #000;
+  background: rgba(0,0,0,0.4);
+  display: none;
 }
