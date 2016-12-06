@@ -81,12 +81,46 @@ jQuery(function($){
   var carouselTimer = null
   var lastCarouselTime = Date.now()
 
+
+  /**
+   * 汉字打字机效果
+   * @param  {[obj]} $DOM  要插入的dom节点
+   * @param  {[str]} text  要插入的汉字
+   * @return {[underfined]}
+   */
+  function typewriter($DOM,text) {
+    $DOM.css({display:'block'})
+    var len = text.length
+    var finArr = text.split('')
+    var arr = []
+    for (var i = 0; i < len; i++) {
+      arr.push('')
+    }
+    run(false, 0)
+    function run(is_,index) {
+      setTimeout(function(){
+      if (!is_) {
+        arr[index] = '__'
+        $DOM.text(arr.join(''))
+        run(true, index)
+      } else {
+        arr[index] = finArr[index]
+        $DOM.text(arr.join(''))
+        if (index < len - 1) {
+          run(false, ++index)
+        }
+      }
+      },80)
+    }
+  }
+
+
   moveTo(0)
 
   // 核心移动方法
   function moveTo(index) {
     onMove = true
-    $('.part-tips').css({opacity: 0,marginRight: '0px'})
+    $('.part-tips').css({display:'none'}).text(' ')
 
     $('.part-anime-warp').css({opacity: 0})
     $('.part-anime-search').css({opacity: 0}) // ie
@@ -95,19 +129,40 @@ jQuery(function($){
       
       onMove = false
       carouselTimer = null
-      $('.part').eq(index).find('.part-tips').animate({opacity: 1,marginRight: '30px'},500)
       
-      if (index == 1) {
-        $('.part-anime-warp').animate({opacity: 1}, 500)
-        $('.part-anime-search').animate({opacity: 1}, 500) // ie
-        // carousel自动移动
-        lastCarouselTime = Date.now()
-        carouselTimer = setInterval(function(){
-          if (!onCarousel && Date.now() - lastCarouselTime > 4000) {
-            carousel(true)
-          }
-        }, 1000) 
+      switch (index) {
+        case 0:
+          typewriter($('.part-tips').eq(0),"苟利国家生死以，岂因祸福避趋之。——林则徐")
+          break;
+        case 1:
+          typewriter($('.part-tips').eq(1),"我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」")
+          $('.part-anime-warp').animate({opacity: 1}, 500)
+          $('.part-anime-search').animate({opacity: 1}, 500) // ie
+          // carousel自动移动
+          lastCarouselTime = Date.now()
+          carouselTimer = setInterval(function(){
+            if (!onCarousel && Date.now() - lastCarouselTime > 4000) {
+              carousel(true)
+            }
+          }, 1000) 
+          break;
+        case 2:
+          typewriter($('.part-tips').eq(2),"我自横刀向天笑，去留肝胆两昆仑。——谭嗣同")
+          break
+        case 3:
+          typewriter($('.part-tips').eq(3),"引刀成一快，不负少年头。——汪精卫")
+          break
+        case 4:
+          typewriter($('.part-tips').eq(4),"仰天大笑出门去，我辈岂是蓬蒿人。——李白")
+          break
+        default:
+          // statements_def
+          break;
       }
+
+
+
+
 
     })
     $('.slide-item').each(function(i){

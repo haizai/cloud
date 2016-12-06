@@ -72,13 +72,14 @@ img {
 }
 .part-tips {
   color: #fff;
+  opacity: 0.8;
   position: absolute;
-  right: 40px;
+  left: 40px;
   bottom: 40px;
-  font-size: 26px;
-  opacity: 0;
+  font-size: 24px;
   text-shadow: 2px 2px 4px #000;
   z-index: 100;
+  white-space:pre;
 }
 
 .part-anime-warp {
@@ -177,11 +178,11 @@ i {
 }
 .part-anime-left {
   background: url('/img/index/back.png') no-repeat;
-  left: -34px;
+  left: -38px;
 }
 .part-anime-right {
   background: url('/img/index/more.png') no-repeat;
-  right: -34px;
+  right: -38px;
 }
 .part-anime-left-b, .part-anime-right-b {
   width: 150px;
