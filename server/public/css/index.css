@@ -165,8 +165,8 @@ i {
 }
 
 .part-anime-left, .part-anime-right {
-  width: 29px;
-  height: 29px;
+  width: 32px;
+  height: 32px;
   top: -5px;
   position: absolute;
   opacity: 0.8;
@@ -177,13 +177,36 @@ i {
 }
 .part-anime-left {
   background: url('/img/index/back.png') no-repeat;
-  left: -40px;
+  left: -34px;
 }
 .part-anime-right {
   background: url('/img/index/more.png') no-repeat;
-  right: -40px;
+  right: -34px;
 }
-.part-tips-anime:hover, .part-anime-title:hover {
+.part-anime-left-b, .part-anime-right-b {
+  width: 150px;
+  height: 300px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 25;
+  top: 75px;
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-position: 30px 110px;
+}
+.part-anime-left-b:hover, .part-anime-right-b:hover {
+  opacity: 1;
+}
+
+.part-anime-left-b {
+  background-image: url('/img/index/back_b.png');
+  left: 0;
+}
+.part-anime-right-b {
+  background-image: url('/img/index/more_b.png');
+  right: 0;
+}
+.part-tips-anime:hover {
   color: #ffafc9;
 }
 .part-anime-slides {
@@ -198,21 +221,21 @@ i {
   width: 16px;
   height: 8px;
   margin: 5px;
-  border: 1px solid #fff;
+  border: 2px solid #ccc;
   border-radius: 4px;
   cursor:pointer;
 }
 .part-anime-slide:hover {
-  background: rgba(255,255,255,0.5);
+  background: rgba(204,204,204,0.5);
 }
 .part-anime-slide-in, .part-anime-slide-in:hover {
-  background: #fff;
+  background: #ccc;
 }
 .part-anime-title {
   position: absolute;
   width: 300px;
   bottom: 18px;
-  color: #fff;
+  color: #FFD7E4;
   z-index: 21;
   height: 24px;
   line-height: 24px;

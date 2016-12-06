@@ -78,12 +78,13 @@ jQuery(function($){
 
 
 
+  var carouselTimer = null
+  var lastCarouselTime = Date.now()
 
   moveTo(0)
 
   // 核心移动方法
   function moveTo(index) {
-    console.log('moveTo',bH,index)
     onMove = true
     $('.part-tips').css({opacity: 0,marginRight: '0px'})
 
@@ -91,13 +92,23 @@ jQuery(function($){
     $('.part-anime-search').css({opacity: 0}) // ie
 
     $('html,body').animate({scrollTop : bH*index},500,function(){
-       onMove = false,
+      
+      onMove = false
+      carouselTimer = null
       $('.part').eq(index).find('.part-tips').animate({opacity: 1,marginRight: '30px'},500)
-
+      
       if (index == 1) {
         $('.part-anime-warp').animate({opacity: 1}, 500)
         $('.part-anime-search').animate({opacity: 1}, 500) // ie
+        // carousel自动移动
+        lastCarouselTime = Date.now()
+        carouselTimer = setInterval(function(){
+          if (!onCarousel && Date.now() - lastCarouselTime > 4000) {
+            carousel(true)
+          }
+        }, 1000) 
       }
+
     })
     $('.slide-item').each(function(i){
       if (i===index) {
@@ -218,6 +229,8 @@ jQuery(function($){
   var animeTime = 500
   var onCarousel = false
 
+
+  //生成carousel每一个item
   for (var i = 0; i < animeCount; i++) {
     if (i == 1) {
       $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img src="/img/animes/id/' + Animes[i].id + '.jpg"><a href="/animes#/' + Animes[i].id + '" class="part-anime-title"  style="display: inline-block;">' + Animes[i].title + '</a>')
@@ -226,6 +239,7 @@ jQuery(function($){
     }
   }
 
+  //生成carousel的slide
   for (var i = 0; i < animeCount; i++) {
     if (i == 1) {
       $('<div class="part-anime-slide part-anime-slide-in"></div>').appendTo($('.part-anime-slides'))
@@ -234,6 +248,7 @@ jQuery(function($){
     }
   }
 
+  //slide绑定点击事件
   $('.part-anime-slide').each(function (index) {
     $(this).on('click', function (e) {
       if (!$(this).hasClass('part-anime-slide-in') && !onCarousel) {
@@ -247,24 +262,20 @@ jQuery(function($){
   })
 
 
-
-
-  $('.part-anime-left').on('click', function(){
+  //lefta和right按钮绑定点击事件
+  $('.part-anime-left,.part-anime-left-b').on('click', function(){
     if (!onCarousel) {
       carousel(false)
     }
   })
-
-  $('.part-anime-right').on('click', function () {
+  $('.part-anime-right,.part-anime-right-b').on('click', function () {
     if (!onCarousel) {
       carousel(true)
     }
   })
 
 
-
-
-
+  //carousel 初始状态
   $('.carousel-item').each(function(index){
     switch (index) {
       case 0:
@@ -327,6 +338,8 @@ jQuery(function($){
     }
   })
 
+
+
   /** 
    * @direction  {[bool]} 方向 true为右，false为左
    * @times  {[int]} 循环次数
@@ -342,7 +355,6 @@ jQuery(function($){
     } else {
       animeSel--
     }
-    console.log('animeSel++',animeSel)
       onCarousel = true
       if (animeSel >= animeCount) {
         animeSel -= animeCount
@@ -356,90 +368,91 @@ jQuery(function($){
 
     $('.part-anime-title').css({display:'none'})
 
-      setTimeout(function() {
-        if (times > 1) {
-          carousel(method, --times, time)
-        } else {
-          onCarousel = false
-          $('.carousel-item').eq(animeSel).find('.part-anime-title').css({display:'inline-block'})
-        }
-      }, time)
-      $('.carousel-item').each(function(index){
-        var con = index-animeSel
-        if (con == -3 || con == animeCount-3 || con == -animeCount-3) {
-          $(this).css({
-            width:'100px',
-            height: '150px',
-            top:'150px',
-            left:'0px',
-            opacity: 0,
-            zIndex: 10
-          })
-          $(this).children('.carousel-item-div').css({opacity: 0})
-        } else if (con == -2 || con == animeCount-2 || con == -animeCount-2) {
-          $(this).css({zIndex: 10}).animate({
-            width:'100px',
-            height: '150px',
-            top:'150px',
-            opacity: 0
-          },time)
-          $(this).children('.carousel-item-div').animate({opacity: 0,},time)
-        } else if (con == -1 || con == animeCount-1 || con == -animeCount-3) {
-          $(this).children('.part-anime-title').stop(true,true)
-          $(this).css({zIndex: 11}).animate({
-            width:'200px',
-            height: '300px',
-            top:'75px',
-            left: '0px',
-            opacity: 1
-          },time).off('mouseenter mouseleave')
-          $(this).children('.carousel-item-div').animate({opacity: 0.5},time)
-        } else if (con == 0 || con == animeCount || con == -animeCount) {
-          var $title = $(this).children('.part-anime-title')
-          $(this).css({zIndex: 12}).animate({
-            width: '300px',
-            height:'450px',
-            left: '150px',
-            top: '0px'
-          },time).hover(function(){
-            $title.animate({height: '414px', lineHeight: '780px',fontSize:'24px'},200)
-          },function(){
-            $title.animate({height: '24px',lineHeight: '24px',fontSize:'16px'},200)
-          })
-          $(this).children('.carousel-item-div').animate({opacity: 0},time)
-        } else if (con == 1 || con == animeCount+1 || con == -animeCount+1) {
-          $(this).children('.part-anime-title').stop(true,true)
-          $(this).css({zIndex: 11}).animate({
-            width:'200px',
-            height: '300px',
-            top:'75px',
-            left: '400px',
-            opacity: 1
-          },time).off('mouseenter mouseleave')
-          $(this).children('.carousel-item-div').animate({opacity: 0.5},time)
-        } else if (con == 2 || con == animeCount+2 || con == -animeCount+2) {
-          $(this).css({zIndex: 10}).animate({
-            width: '100px',
-            height: '150px',
-            top:'150px',
-            left: '500px',
-            opacity: 0
-          },time)
-          $(this).children('.carousel-item-div').animate({opacity: 0},time)
-        } else if (con == 3 || con == animeCount+3 || con == -animeCount+3) {
-          $(this).css({
-            width: '100px',
-            height: '150px',
-            top:'150px',
-            left: '500px',
-            opacity: 0,
-            zIndex: 10
-          })
-          $(this).children('.carousel-item-div').css({opacity: 0})
-        }
-      })
-    
+    setTimeout(function() {
+      lastCarouselTime = Date.now()
+      if (times > 1) {
+        carousel(direction, --times, time)
+      } else {
+        onCarousel = false
+        $('.carousel-item').eq(animeSel).find('.part-anime-title').css({display:'inline-block'})
+      }
+    }, time)
 
+    $('.carousel-item').each(function(index){
+      var con = index-animeSel
+      if (con == -3 || con == animeCount-3 || con == -animeCount-3) {
+        $(this).css({
+          width:'100px',
+          height: '150px',
+          top:'150px',
+          left:'0px',
+          opacity: 0,
+          zIndex: 10
+        })
+        $(this).children('.carousel-item-div').css({opacity: 0})
+      } else if (con == -2 || con == animeCount-2 || con == -animeCount-2) {
+        $(this).css({zIndex: 10}).animate({
+          width:'100px',
+          height: '150px',
+          top:'150px',
+          opacity: 0
+        },time)
+        $(this).children('.carousel-item-div').animate({opacity: 0,},time)
+      } else if (con == -1 || con == animeCount-1 || con == -animeCount-3) {
+        $(this).children('.part-anime-title').stop(true,true)
+        $(this).css({zIndex: 11}).animate({
+          width:'200px',
+          height: '300px',
+          top:'75px',
+          left: '0px',
+          opacity: 1
+        },time).off('mouseenter mouseleave')
+        $(this).children('.carousel-item-div').animate({opacity: 0.5},time)
+      } else if (con == 0 || con == animeCount || con == -animeCount) {
+        var $title = $(this).children('.part-anime-title')
+        $(this).css({zIndex: 12}).animate({
+          width: '300px',
+          height:'450px',
+          left: '150px',
+          top: '0px'
+        },time).hover(function(){
+          $title.animate({height: '414px', lineHeight: '780px',fontSize:'24px'},200)
+        },function(){
+          $title.animate({height: '24px',lineHeight: '24px',fontSize:'16px'},200)
+        })
+        $(this).children('.carousel-item-div').animate({opacity: 0},time)
+      } else if (con == 1 || con == animeCount+1 || con == -animeCount+1) {
+        $(this).children('.part-anime-title').stop(true,true)
+        $(this).css({zIndex: 11}).animate({
+          width:'200px',
+          height: '300px',
+          top:'75px',
+          left: '400px',
+          opacity: 1
+        },time).off('mouseenter mouseleave')
+        $(this).children('.carousel-item-div').animate({opacity: 0.5},time)
+      } else if (con == 2 || con == animeCount+2 || con == -animeCount+2) {
+        $(this).css({zIndex: 10}).animate({
+          width: '100px',
+          height: '150px',
+          top:'150px',
+          left: '500px',
+          opacity: 0
+        },time)
+        $(this).children('.carousel-item-div').animate({opacity: 0},time)
+      } else if (con == 3 || con == animeCount+3 || con == -animeCount+3) {
+        $(this).css({
+          width: '100px',
+          height: '150px',
+          top:'150px',
+          left: '500px',
+          opacity: 0,
+          zIndex: 10
+        })
+        $(this).children('.carousel-item-div').css({opacity: 0})
+      }
+    })
+    
   }
 
 })
