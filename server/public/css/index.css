@@ -15,6 +15,10 @@ img {
   border: none;
 }
 
+p {
+  margin: 0;
+}
+
 .header {
   position: fixed;
   top: 0;
@@ -70,12 +74,18 @@ img {
   background-repeat:no-repeat;
   background-position:center;
 }
+.part-warp {
+  height: 100%;
+  width: 980px;
+  position: relative;
+  margin: 0 auto;
+}
 .part-tips {
   color: #fff;
   opacity: 0.8;
   position: absolute;
-  left: 40px;
-  bottom: 40px;
+  left: 0;
+  bottom: 20px;
   font-size: 24px;
   text-shadow: 2px 2px 4px #000;
   z-index: 100;
@@ -83,11 +93,11 @@ img {
 }
 
 .part-anime-warp {
-  width: 980px;
-  margin: 70px auto 0;
+  position: absolute;
   opacity: 0;
 }
 .part-anime-img {
+  margin-top: 60px;
   margin-left: 380px;
   margin-bottom: 20px;
 }

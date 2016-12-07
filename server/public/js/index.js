@@ -336,65 +336,82 @@ jQuery(function($){
     }
   })
 
+  // 各种位置状态
+  var CarouselStatus = {
+    left2: {
+      width:'100px',
+      height: '150px',
+      top:'150px',
+      left:'0px',
+      opacity: 0,
+    },
+    left1: {
+      width:'200px',
+      height: '300px',
+      top:'75px',
+      left: '0px',
+      opacity: 1
+    },
+    middle: {
+      width: '300px',
+      height:'450px',
+      left: '150px',
+      top: '0px',
+      opacity: 1
+    },
+    right1: {
+      width:'200px',
+      height: '300px',
+      top:'75px',
+      left: '400px',
+      opacity: 1
+    },
+    right2: {
+      width: '100px',
+      height: '150px',
+      top:'150px',
+      left: '500px',
+      opacity: 0
+    },
+    titleLeave: {
+      height: '24px',
+      lineHeight: '24px',
+      fontSize: '16px'
+    },
+    titleEnter: {
+      height: '414px', 
+      lineHeight: '780px',
+      fontSize: '24px'
+    } 
+  }
 
   //carousel 初始状态
   $('.carousel-item').each(function(index){
     switch (index) {
       case 0:
-        $(this).css({
-          width:'200px',
-          height: '300px',
-          top:'75px',
-          left: '0px',
-          zIndex: 11
-        })
+        $(this).css(CarouselStatus.left1).css({zIndex: 11})
         $(this).children('.carousel-item-div').css({opacity: 0.5})
         break;
       case 1:
         var $title = $(this).children('.part-anime-title')
-        $(this).css({
-          width: '300px',
-          height:'450px',
-          left: '150px',
-          top: '0px',
-          zIndex: 12
-        }).hover(function(){
-          $title.animate({height: '414px', lineHeight: '780px',fontSize:'24px'},200)
+        $(this).css(CarouselStatus.middle).css({zIndex: 12}).hover(function(){
+          $title.animate(CarouselStatus.titleEnter,200)
         },function(){
-          $title.animate({height: '24px',lineHeight: '24px',fontSize:'16px'},200)
+          $title.animate(CarouselStatus.titleLeave,200)
         })
         $(this).children('.carousel-item-div').css({opacity: 0})
         break;
       case 2:
-        $(this).css({
-          width:'200px',
-          height: '300px',
-          top:'75px',
-          left: '400px',
-          zIndex: 11
-        })
+        $(this).css(CarouselStatus.right1).css({zIndex: 11})
         $(this).children('.carousel-item-div').css({opacity: 0.5})
         break;
       case animeCount-1:
       case animeCount-2:
-        $(this).css({
-          width:'100px',
-          height: '150px',
-          top:'150px',
-          opacity: 0,
-          zIndex: 10
-        })
+        $(this).css(CarouselStatus.left2).css({zIndex: 10})
         $(this).children('.carousel-item-div').css({opacity: 0})
         break
       default : 
-        $(this).css({
-          width: '100px',
-          height: '150px',
-          top:'150px',
-          left: '500px',
-          opacity: 0,
-          zIndex: 10
-        })
+        $(this).css(CarouselStatus.right2).css({zIndex: 10})
         $(this).children('.carousel-item-div').css({opacity: 0})
         break;
     }
@@ -412,18 +429,13 @@ jQuery(function($){
     var times = times || 1
     var time = time || (animeTime+100*times - 100)/times
 
-    if (direction == true) {
-      animeSel++
-    } else {
-      animeSel--
+    onCarousel = true
+    direction == true ? animeSel++ : animeSel--
+    if (animeSel >= animeCount) {
+      animeSel -= animeCount
+    } else if (animeSel < 0) {
+      animeSel += animeCount
     }
-      onCarousel = true
-      if (animeSel >= animeCount) {
-        animeSel -= animeCount
-      }
-      if (animeSel < 0) {
-        animeSel += animeCount
-      }
       
     $('.part-anime-slide-in').removeClass('part-anime-slide-in')
     $('.part-anime-slide').eq(animeSel).addClass('part-anime-slide-in')
@@ -442,76 +454,41 @@ jQuery(function($){
 
     $('.carousel-item').each(function(index){
       var con = index-animeSel
+      var $this = $(this)
       if (con == -3 || con == animeCount-3 || con == -animeCount-3) {
-        $(this).css({
-          width:'100px',
-          height: '150px',
-          top:'150px',
-          left:'0px',
-          opacity: 0,
-          zIndex: 10
-        })
-        $(this).children('.carousel-item-div').css({opacity: 0})
-      } else if (con == -2 || con == animeCount-2 || con == -animeCount-2) {
-        $(this).css({zIndex: 10}).animate({
-          width:'100px',
-          height: '150px',
-          top:'150px',
-          opacity: 0
-        },time)
-        $(this).children('.carousel-item-div').animate({opacity: 0,},time)
-      } else if (con == -1 || con == animeCount-1 || con == -animeCount-3) {
-        $(this).children('.part-anime-title').stop(true,true)
-        $(this).css({zIndex: 11}).animate({
-          width:'200px',
-          height: '300px',
-          top:'75px',
-          left: '0px',
-          opacity: 1
-        },time).off('mouseenter mouseleave')
-        $(this).children('.carousel-item-div').animate({opacity: 0.5},time)
-      } else if (con == 0 || con == animeCount || con == -animeCount) {
-        var $title = $(this).children('.part-anime-title')
-        $(this).css({zIndex: 12}).animate({
-          width: '300px',
-          height:'450px',
-          left: '150px',
-          top: '0px'
-        },time).hover(function(){
-          $title.animate({height: '414px', lineHeight: '780px',fontSize:'24px'},200)
+        $this.css(CarouselStatus.left2)
+        $this.children('.carousel-item-div').css({opacity: 0})
+      } 
+      else if (con == -2 || con == animeCount-2 || con == -animeCount-2) {
+        $this.css({zIndex: 10}).animate(CarouselStatus.left2,time)
+        $this.children('.carousel-item-div').animate({opacity: 0,},time)
+      } 
+      else if (con == -1 || con == animeCount-1 || con == -animeCount-3) {
+        $this.children('.part-anime-title').stop(true,true)
+        $this.css({zIndex: 11}).animate(CarouselStatus.left1,time).off('mouseenter mouseleave')
+        $this.children('.carousel-item-div').animate({opacity: 0.5},time)
+      } 
+      else if (con == 0 || con == animeCount || con == -animeCount) {
+        var $title = $this.children('.part-anime-title')
+        $this.css({zIndex: 12}).animate(CarouselStatus.middle, time).hover(function() {
+          $title.animate(CarouselStatus.titleEnter,200)
         },function(){
-          $title.animate({height: '24px',lineHeight: '24px',fontSize:'16px'},200)
+          $title.animate(CarouselStatus.titleLeave,200)
         })
-        $(this).children('.carousel-item-div').animate({opacity: 0},time)
-      } else if (con == 1 || con == animeCount+1 || con == -animeCount+1) {
-        $(this).children('.part-anime-title').stop(true,true)
-        $(this).css({zIndex: 11}).animate({
-          width:'200px',
-          height: '300px',
-          top:'75px',
-          left: '400px',
-          opacity: 1
-        },time).off('mouseenter mouseleave')
-        $(this).children('.carousel-item-div').animate({opacity: 0.5},time)
-      } else if (con == 2 || con == animeCount+2 || con == -animeCount+2) {
-        $(this).css({zIndex: 10}).animate({
-          width: '100px',
-          height: '150px',
-          top:'150px',
-          left: '500px',
-          opacity: 0
-        },time)
-        $(this).children('.carousel-item-div').animate({opacity: 0},time)
-      } else if (con == 3 || con == animeCount+3 || con == -animeCount+3) {
-        $(this).css({
-          width: '100px',
-          height: '150px',
-          top:'150px',
-          left: '500px',
-          opacity: 0,
-          zIndex: 10
-        })
-        $(this).children('.carousel-item-div').css({opacity: 0})
+        $this.children('.carousel-item-div').animate({opacity: 0},time)
+      } 
+      else if (con == 1 || con == animeCount+1 || con == -animeCount+1) {
+        $this.children('.part-anime-title').stop(true,true)
+        $this.css({zIndex: 11}).animate(CarouselStatus.right1,time).off('mouseenter mouseleave')
+        $this.children('.carousel-item-div').animate({opacity: 0.5},time)
+      } 
+      else if (con == 2 || con == animeCount+2 || con == -animeCount+2) {
+        $this.css({zIndex: 10}).animate(CarouselStatus.right2,time)
+        $this.children('.carousel-item-div').animate({opacity: 0},time)
+      } 
+      else if (con == 3 || con == animeCount+3 || con == -animeCount+3) {
+        $this.css(CarouselStatus.right2)
+        $this.children('.carousel-item-div').css({opacity: 0})
       }
     })
     
