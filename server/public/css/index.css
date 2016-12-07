@@ -15,7 +15,7 @@ img {
   border: none;
 }
 
-p {
+p, h2 {
   margin: 0;
 }
 
@@ -90,6 +90,7 @@ p {
   text-shadow: 2px 2px 4px #000;
   z-index: 100;
   white-space:pre;
+  background: rgba(0,0,0,0.2);
 }
 
 .part-anime-warp {
@@ -217,7 +218,7 @@ i {
   background-image: url('/img/index/more_b.png');
   right: 0;
 }
-.part-tips-anime:hover {
+.part-tips-anime p:hover {
   color: #ffafc9;
 }
 .part-anime-slides {
@@ -255,4 +256,31 @@ i {
   text-shadow: 2px 2px 1px #000;
   background: rgba(255,255,255,0.1);
   display: none;
+}
+
+
+.part-aboutme-warp {
+  position: absolute;
+  width: 980px;
+  margin: 150px auto 0;
+  line-height: 2;
+  text-shadow: 2px 2px 4px #000;
+  background: rgba(0,0,0,0.3);
+}
+
+.part-aboutme-title {
+  text-align: center;
+  font-size: 46px;
+  color: #fff;
+}
+.part-aboutme-warp p {
+  text-align: center;
+  color: #fff;
+  font-size: 30px;
+}
+.part-aboutme-warp a {
+  color: #ffafc9;
+}
+.part-aboutme-warp a:hover {
+  text-decoration: underline;
 }

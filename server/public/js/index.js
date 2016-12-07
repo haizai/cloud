@@ -131,6 +131,7 @@ jQuery(function($){
 
     $('.part-anime-warp').css({opacity: 0})
     $('.part-anime-search').css({opacity: 0}) // ie
+    $('.part-aboutme-warp').css({opacity: 0}, 500)
 
     $('html,body').animate({scrollTop : bH*index},500,function(){
       
@@ -161,6 +162,7 @@ jQuery(function($){
           break
         case 4:
           typewriter($('.part-tips').eq(4),"仰天大笑出门去，我辈岂是蓬蒿人。——李白")
+          $('.part-aboutme-warp').animate({opacity: 1}, 500)
           break
         default:
           // statements_def
