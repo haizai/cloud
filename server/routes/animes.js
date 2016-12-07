@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var util = require("util")
 
 /* GET home page. */
 router.get('/animes', function(req, res, next) {
@@ -8,7 +9,8 @@ router.get('/animes', function(req, res, next) {
   if(agentID) {
     res.redirect('/mobile/animes')
   } else {
-   res.render('default', { title: 'animes' });
+    res.render('default', { title: 'animes' });
+    console.log(util.inspect({ip: req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress || "unknown", url: "/animes",time: new Date()},{colors: true}));
   }
 });
 

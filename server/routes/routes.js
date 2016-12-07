@@ -13,5 +13,4 @@ router.use(index)
 router.use('/ajax',ajax)
 router.use('/mobile',mobile)
 
-
 module.exports = router;
