@@ -80,7 +80,7 @@ jQuery(function($){
 
   var carouselTimer = null
   var lastCarouselTime = Date.now()
-
+  var isStopTypewriter = false
 
   /**
    * 汉字打字机效果
@@ -89,6 +89,7 @@ jQuery(function($){
    * @return {[underfined]}
    */
   function typewriter($DOM,text) {
+    isStopTypewriter = false
     $DOM.css({display:'block'})
     var len = text.length
     var finArr = text.split('')
@@ -98,21 +99,26 @@ jQuery(function($){
     }
     run(false, 0)
     function run(is_,index) {
-      setTimeout(function(){
-      if (!is_) {
-        arr[index] = '__'
-        $DOM.text(arr.join(''))
-        run(true, index)
-      } else {
-        arr[index] = finArr[index]
-        $DOM.text(arr.join(''))
-        if (index < len - 1) {
-          run(false, ++index)
-        }
+      if (!isStopTypewriter) {
+        setTimeout(function(){
+          if (!is_) {
+            arr[index] = '__'
+            $DOM.text(arr.join(''))
+            run(true, index)
+          } else {
+            arr[index] = finArr[index]
+            $DOM.text(arr.join(''))
+            if (index < len - 1) {
+              run(false, ++index)
+            }
+          }
+        },70)
       }
-      },80)
     }
   }
+
+
+
 
 
   moveTo(0)
@@ -120,6 +126,7 @@ jQuery(function($){
   // 核心移动方法
   function moveTo(index) {
     onMove = true
+    isStopTypewriter = true
     $('.part-tips').css({display:'none'}).text(' ')
 
     $('.part-anime-warp').css({opacity: 0})
