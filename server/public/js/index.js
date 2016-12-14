@@ -90,8 +90,27 @@ jQuery(function($){
       bH = $('body').height()
       setItemHeight()
       $('body').scrollTop(bH*sel)
+      setPartPosition()
     }
   });
+
+
+  //屏幕高度的兼容
+  setPartPosition()
+  function setPartPosition() {
+    if (bH < 670) {
+      $('.part-anime-img').hide()
+      $('.part-anime-warp').css({marginTop: '50px'})
+      $('.part-tips-a').eq(0).hide()
+    } else if(bH < 770 && bH >= 670) {
+      $('.part-anime-img').hide()
+      $('.part-anime-warp').css({marginTop: (bH-666)/2 + 50 + 'px'})
+    } else {
+      $('.part-anime-img').show()
+      $('.part-anime-warp').css({marginTop: (bH-750)/4 + 50 + 'px'})
+    }
+  }
+
 
 
 
@@ -299,6 +318,7 @@ jQuery(function($){
   }, function(){
     $('.slide-bottom-text').hide()
   })
+
 
 
 
