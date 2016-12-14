@@ -10,16 +10,31 @@ jQuery(function($){
   var sel = 0
   var len = $('.part').length
   var onMove = false
-
+  
   //出现侧栏
   for (var i = 0; i < len; i++) {
-    if (i==0) {
-      $('<div class="slide-item slide-item-in"></div>').appendTo($('.slide-items'))
-    } else {
-      $('<div class="slide-item"></div>').appendTo($('.slide-items'))
+
+    $('<div class="slide-item"><span class="slide-item-text"></span><div class="slide-item-round"></div></div>').appendTo($('.slide-items'))
+
+    switch (i) {
+      case 0:
+        $('.slide-item').eq(0).addClass('slide-item-in')
+        $('.slide-item-text').eq(0).text('主页').css({opacity:1})
+        break;
+      case 1:
+        $('.slide-item-text').eq(1).text('动漫')
+        break
+      case 4:
+        $('.slide-item-text').eq(4).text('关于我')
+        break
+      default:
+        $('.slide-item-text').eq(i).text('待定')
+        break
     }
-    
   }
+
+
+
 
 
   // 读取背景  
@@ -90,31 +105,33 @@ jQuery(function($){
    */
   function typewriter($DOM,text) {
     isStopTypewriter = false
-    $DOM.css({display:'block'})
-    var len = text.length
-    var finArr = text.split('')
-    var arr = []
-    for (var i = 0; i < len; i++) {
-      arr.push('')
-    }
-    run(false, 0)
-    function run(is_,index) {
-      if (!isStopTypewriter) {
-        setTimeout(function(){
-          if (!is_) {
-            arr[index] = '__'
-            $DOM.text(arr.join(''))
-            run(true, index)
-          } else {
-            arr[index] = finArr[index]
-            $DOM.text(arr.join(''))
-            if (index < len - 1) {
-              run(false, ++index)
-            }
-          }
-        },70)
+    setTimeout(function(){
+      $DOM.css({display:'block'})
+      var len = text.length
+      var finArr = text.split('')
+      var arr = []
+      for (var i = 0; i < len; i++) {
+        arr.push('')
       }
-    }
+      run(false, 0)
+      function run(is_,index) {
+        if (!isStopTypewriter) {
+          setTimeout(function(){
+            if (!is_) {
+              arr[index] = '__'
+              $DOM.text(arr.join(''))
+              run(true, index)
+            } else {
+              arr[index] = finArr[index]
+              $DOM.text(arr.join(''))
+              if (index < len - 1) {
+                run(false, ++index)
+              }
+            }
+          },70)
+        }
+      }
+    }, 100)
   }
 
 
@@ -133,11 +150,15 @@ jQuery(function($){
     $('.part-anime-search').css({opacity: 0}) // ie
     $('.part-aboutme-warp').css({opacity: 0}, 500)
 
+    $('.slide-item-text').hide()
+    $('.slide-item-text').eq(index).show()
+
     $('html,body').animate({scrollTop : bH*index},500,function(){
       
       onMove = false
       carouselTimer = null
       
+
       switch (index) {
         case 0:
           typewriter($('.part-tips').eq(0),"苟利国家生死以，岂因祸福避趋之。——林则徐")
@@ -171,8 +192,6 @@ jQuery(function($){
 
 
 
-
-
     })
     $('.slide-item').each(function(i){
       if (i===index) {
@@ -183,13 +202,29 @@ jQuery(function($){
     })
   }
 
+
+
   // 侧栏点击
-  $('.slide-item').each(function(index){
+  $('.slide-item-round').each(function(index){
     $(this).on('click', function() { 
         sel = index
         moveTo(sel)
     })
   })
+
+  // 侧栏hover
+  $('.slide-item-round').each(function(index){
+    $(this).hover(function(){
+      if(sel !== index) {
+        $(this).prev().show()
+      }
+    }, function() {
+      if(sel !== index) {
+        $(this).prev().hide()
+      }
+    })
+  })
+
 
 
 
@@ -429,7 +464,7 @@ jQuery(function($){
    */
   function carousel(direction, times, time) {
     var times = times || 1
-    var time = time || (animeTime+100*times - 100)/times
+    var time = time || (animeTime+50*times - 50)/times
 
     onCarousel = true
     direction == true ? animeSel++ : animeSel--

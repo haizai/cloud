@@ -43,7 +43,12 @@ p, h2 {
   z-index: 2;
   padding: 60px 0;
 }
+
 .slide-item {
+  position: relative;
+}
+
+.slide-item-round {
   height: 14px;
   width: 14px;
   border: 2px solid #ccc;
@@ -51,12 +56,25 @@ p, h2 {
   margin: 10px 20px 10px 5px;
   cursor: pointer;
 }
-.slide-item:hover {
+.slide-item-round:hover {
   background-color:#aaa;
 }
-.slide-item-in {
-  background-color:#aaa;
+.slide-item-in .slide-item-round {
+  background-color:#ccc;
 }
+
+.slide-item-text {
+  position: absolute;
+  display: inline-block;
+  color: #ccc;
+  text-align: right;
+  font-size: 14px;
+  top: -2px;
+  right: 4em;
+  width: 4em;
+  display: none;
+}
+
 .slide-top, .slide-bottom {
   margin-left: 2px;
   cursor: pointer;
@@ -90,7 +108,6 @@ p, h2 {
   text-shadow: 2px 2px 4px #000;
   z-index: 100;
   white-space:pre;
-  background: rgba(0,0,0,0.2);
 }
 
 .part-anime-warp {
