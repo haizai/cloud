@@ -180,14 +180,14 @@ jQuery(function($){
           }, 1000) 
           break;
         case 2:
-          typewriter($('.part-tips').eq(2),"我自横刀向天笑，去留肝胆两昆仑。——谭嗣同")
+          typewriter($('.part-tips').eq(2),"生如夏花之绚烂，死如秋叶之静美。——泰戈尔")
           $('.part-demos-warp').animate({opacity: 1}, 500)
           break
         case 3:
-          typewriter($('.part-tips').eq(3),"引刀成一快，不负少年头。——汪精卫")
+          typewriter($('.part-tips').eq(3),"我思故我在。——笛卡尔")
           break
         case 4:
-          typewriter($('.part-tips').eq(4),"仰天大笑出门去，我辈岂是蓬蒿人。——李白")
+          typewriter($('.part-tips').eq(4),"誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」")
           $('.part-aboutme-warp').animate({opacity: 1}, 500)
           break
         default:
