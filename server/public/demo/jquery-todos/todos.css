@@ -1,0 +1,150 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'microsoft yahei';
+  color: #333;
+}
+.container {
+  width: 500px;
+  margin: 20px auto;
+}
+.title {
+  font-size: 40px;
+  line-height: 2;
+  text-align: center;
+}
+.author {
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  margin-top: -60px;
+}
+a {
+  color: #c05b4d;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.round {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-right: 8px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}
+.round:hover {
+  background: #eee;
+}
+
+.round-selected {
+  background: #ccc;
+}
+.round:hover {
+  background: #ccc;
+}
+
+input {
+  font-family: inherit;
+  font-size: 25px;
+  line-height: 40px;
+  width: 450px;
+  height: 40px;
+}
+i {
+  font-style: normal;
+  cursor: pointer;
+  color: #ccc;
+}
+i:hover {
+  color: #333;
+}
+
+.head .round {
+  margin-bottom: -8px;
+}
+.head-input {
+  padding-left: 3px;
+  border: 2px solid #ccc;
+}
+.head-input:focus {
+  outline: none;
+}
+
+.body-item {
+  height: 40px;
+  margin: 10px 0;
+}
+.body-item:hover {
+  background: #f5f5f5;
+}
+.body .round {
+  margin-top: 2px;
+}
+.body-label {
+  font-size: 25px;
+  line-height: 40px;
+  position: absolute;
+  display: inline-block;
+  overflow: hidden;
+  max-width: 410px;
+  margin-left: 7px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.body-label:hover {
+  color: #ccc;
+}
+
+.body-label-selected {
+  text-decoration: line-through;
+  color: #ccc;
+}
+.body-input {
+  position: absolute;
+  display: none;
+  margin-left: 4px;
+  padding-left: 3px;
+  border: none;
+}
+.body-input:focus {
+  outline: 2px solid #ccc;
+  outline-offset: -2px;
+}
+
+.body-input-show {
+  display: inline-block;
+}
+.body-del {
+  font-size: 25px;
+  line-height: 36px;
+  float: right;
+}
+
+.foot {
+  line-height: 30px;
+}
+.foot-del {
+  font-size: 25px;
+  margin-left: 7px;
+}
+.foot-info {
+  vertical-align: 8%;
+  color: #ccc;
+}
+.foot-count {
+  color: #333;
+}
+.foot-visibility {
+  float: right;
+  margin-top: 4px;
+  cursor: pointer;
+  color: #ccc;
+}
+.foot-visibility > span:hover,
+.foot-visibility-in {
+  color: #333;
+}

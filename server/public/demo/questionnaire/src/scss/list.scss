@@ -1,0 +1,20 @@
+.list-table {
+  width: 100%;
+  border-spacing: 0;
+  padding-bottom: 40px;
+  thead {
+    line-height: 60px;
+  }
+  tbody td {
+    line-height: 40px;
+    padding: 2px 2px;
+    text-align: center;
+    border-top: 1px solid $default-border-color;
+  }
+  tbody tr:last-child td {
+    border-bottom: 1px solid $default-border-color;
+  }
+  .list-import {
+    color: $import-btn-color;
+  }
+}

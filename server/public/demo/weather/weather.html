@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>天气预报</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div class="container" @click="resetCityInput($event)" v-show="isShow" transition="container">
+
+    <div class="top" :style="{'background':topBackground}">
+      <div class="head">
+        <p class="city-name" v-text="data.basic.city"></p>
+        <div class="city-search">
+          <input 
+          type="text" 
+          class="city-input" 
+          v-model="cityInput" 
+          @focus="clearCityInput()" 
+          @keydown.enter.prevent="getCityInput(cityInput)">
+          <div 
+          class="city-search-box" 
+          v-show="allCity | searchCity cityInput data.basic.city ">
+            <div 
+            class="city-search-item" 
+            v-for="city in allCity | searchCity cityInput data.basic.city" 
+            track-by="$index" 
+            v-text="city" 
+            @click="changeCity(city)"></div>
+          </div>        
+        </div>
+
+        <p class="now-cond">
+          <span style="vertical-align: 30%" v-text="data.now.cond.txt"></span>
+          <i style="position:absolute" :style="{'background-image':'url(png/'+data.now.cond.code+'.png)'}"></i>
+        </p>
+        <p class="now-tmp">
+          <span v-text="data.now.tmp"></span><!--  惊了! 辣鸡ie专用注释
+       --><span class="now-tmp-after" v-text="'°'"></span>
+        </p>
+      </div>
+
+      <div class="hourly">
+        <div class="hourly-item" v-for="item in data.hourly_forecast">
+          <p v-text="item.date | dateHour"></p>
+          <p>
+            <span style="vertical-align: 20%" class="hourly-pop" v-text="item.pop +'%'"></span>
+            <i style="position:absolute" :style="item.pop|popToicon"></i>
+          </p>
+          <p class="hourly-tmp" v-text="item.tmp+'°'"></p>
+        </div>
+      </div>    
+    </div>
+    
+    <div class="daily">
+      <div class="daily-item" v-for="(index,day) in data.daily_forecast">
+        <p class="daily-date" v-text="index|indexToWeekDay"></p>
+        <p>
+          <i :style="{'background-image':'url(png/'+day.cond.code_d+'.png)'}" :title="day.cond.txt_d"></i>
+          <i :style="{'background-image':'url(png/'+day.cond.code_n+'.png)'}" :title="day.cond.txt_n"></i>
+        <p>
+        <p v-text="day.tmp.min+'°/'+day.tmp.max+'°'"></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <script src="allCityData.js"></script>
+  <script src="../../js/common/jquery-3.1.1.min.js"></script>
+  <script src="vue.min.js"></script>
+  <script src="build.js"></script>
+</body>
+</html>

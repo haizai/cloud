@@ -1,0 +1,46 @@
+.ans {
+
+  .ans-title {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .ans-que-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  small {
+    font-size: 12px;
+    font-weight: normal;
+    color: $info-color;
+  }
+  .ans-que-val {
+    cursor: pointer;
+    &:hover {
+      background: $hover-background-color;
+    }
+  }
+  .ans-que-rc {
+    margin-left: 10px;
+  }
+  .ans-que-textarea {
+    margin-left: 20px;
+  }
+  .ans-button {
+    div {
+      display: inline-block;
+      width: 50%;
+      button {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+  textarea {
+    font-family: inherit;
+    font-size: 16px;
+    width: 60%;
+    max-width: 95%;
+    height: 70px;
+    border: 1px solid $default-border-color;
+  }
+}

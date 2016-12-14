@@ -1,0 +1,19 @@
+.detail {
+
+  .detail-title {
+    margin-bottom: 40px;
+    text-align: center;
+    small {
+      font-size: 14px;
+      font-weight: normal;
+      position: absolute;
+      margin-top: 10px;
+      margin-left: 10px;
+      color: $small-color;
+    }
+  }
+  .detail-back {
+    display: block;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>jQuery todos</title>
+  <link rel="stylesheet" href="todos.css">
+</head>
+<body>
+  <div class="container">
+    <div class="title">
+      <p>JQuery Todos</p>
+      <p class="author">
+        <a href="https://github.com/haizai" target="_black">Building by Haizai</a>
+      </p>
+    </div>
+    <div class="head">
+      <i class="round"></i>
+      <input type="text" placeholder="请输入新todos，按Enter确认" class="head-input" autofocus> 
+    </div>
+    <div class="body"></div>
+    <div class="foot">
+      <i class="foot-del">&times;</i>
+      <span class="foot-info">
+        <span class="foot-count"></span>
+        项被选中
+      </span>
+      <span class="foot-visibility">
+        <span class="foot-visibility-in">全部</span>
+        <span>被选中的</span>
+        <span>未被选中的</span>
+      </span>
+    </div>
+  </div>
+  <script src="../../js/common/jquery-3.1.1.min.js"></script>
+  <script src="todos.js"></script>
+</body>
+</html>

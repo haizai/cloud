@@ -1,0 +1,104 @@
+.new {
+
+  .new-toggle {
+    position: relative;
+    span {
+      cursor: pointer;
+      &:hover {
+        background: $hover-background-color;
+      }
+    }
+    small {
+      font-size: 12px;
+      font-weight: normal;
+      color: $info-color;
+    }
+    input {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      display: none;
+      width: 100%;
+      padding: 0;
+      text-align: inherit;
+      color: inherit;
+      border: 0;
+      outline: 1px solid $default-border-color;
+      outline-offset: 2px;
+    }
+  }
+  .new-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+  .new-que-title {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .new-que-rc {
+    margin-left: 20px;
+  }
+  .new-que-btn {
+    display: block;
+    width: 100%;
+    height: 100px;
+  }
+  .new-que {
+    margin: 20px 0;
+  }
+  .new-que-btn {
+    display: block;
+    width: 100%;
+    height: 80px;
+  }
+  .new-que-type > div {
+    font-size: 16px;
+    line-height: 80px;
+    display: inline-block;
+    width: 33.3%;
+    cursor: pointer;
+    text-align: center;
+    color: $info-color;
+    border: 1px solid $default-border-color;
+    &:hover {
+      background: $hover-background-color;
+    }
+  }
+  .new-que-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .new-que-add {
+    cursor: pointer;
+    text-align: center;
+    color: $small-color;
+    &:hover {
+      background: $hover-background-color;
+    }
+  }
+  .new-date {
+    margin: 20px 210px;
+    
+    input {
+      width: 36px;
+      text-align: center;
+      margin-left: 10px;
+      margin-right: 5px;
+    }
+  }
+  .new-button {
+    div {
+      display: inline-block;
+      width: 50%;
+      button {
+        display: block;
+        margin: 0 auto;
+      }
+    }
+  }
+}

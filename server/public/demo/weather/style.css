@@ -1,0 +1,146 @@
+.container-transition{
+  transition: all .3s
+}
+
+.container-leave,.container-enter{
+  transform: translate(-100%, 0);
+  opacity: 0;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+#app{
+  font-family: 'microsoft yahei';
+}
+
+i{
+  display: inline-block;
+  background-size: 25px 25px;
+  width: 25px; 
+  height: 25px;     
+}
+
+.top{
+  width: 100%;
+  padding: 70px 0 40px;
+}
+
+.head{
+  margin: 0 auto;
+  color: #fff;
+  width: 700px;
+  text-align: center;
+  }
+  .head .city-name{
+    font-size:30px;
+    line-height: 1.4;
+  }
+  .head .now-cond{
+    line-height: 25px;
+  }
+  .head .now-tmp{
+    font-size: 140px;
+    line-height: 0.9;
+    font-family: simhei;
+  }
+  .head .now-tmp-after{
+    position: absolute;
+    font-size: 60px;
+  }
+
+.city-search{
+  width: 150px;
+  margin: 0 auto;
+  }
+  .city-input{
+    background-color: inherit;
+    border: none;
+    color: #ddd;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+  }
+  .city-search-box{
+    position: absolute;
+    width: 150px;
+    background: #fff;
+    color: #666;
+    z-index: 1;
+    max-height: 220px;
+    overflow:auto; 
+    border-radius: 3px;
+    box-shadow: 0 0 3px 0 #999; 
+  }
+  .city-search-item{
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .city-search-item:hover{
+    background: #ddd
+  }
+
+.hourly{
+  width: 700px;
+  margin: 70px auto 0;
+  color: #fff;
+  display: flex;
+  line-height: 1.5;
+  }
+  .hourly-item{
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+  }
+  .hourly-tmp{
+    font-size:22px;
+    line-height: 1;
+  }
+
+
+.daily{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 800px;
+  margin: 40px auto 0;
+  line-height: 1.5;
+  }
+  .daily-item{
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+    min-width: 105px;
+    margin-top: 20px;
+  }
+  .daily-date{
+    line-height: 2;
+  }
+
+
+@media screen and (max-width: 800px) {
+  .head,.daily,.hourly{
+    width: 100%;
+    font-size: 12px;
+  }
+  .daily{
+    flex-wrap: wrap
+  }
+  .city-search-item,.now-cond{
+    font-size: 16px;
+  }
+  .hourly i {
+    display: none
+  }
+  .hourly .hourly-tmp {
+    font-size: 18px;
+  }
+  i{
+    display: inline-block;
+    background-size: 20px 20px;
+    width: 20px; 
+    height: 20px;     
+  }
+}

@@ -1,0 +1,1 @@
+export default 'react-redux-todos-Haizai^0.1';
