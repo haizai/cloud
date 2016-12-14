@@ -278,13 +278,22 @@ jQuery(function($){
       moveTo(--sel)
     }
   })
+  $('.slide-top').hover(function(){
+    $('.slide-top-text').show()
+  }, function(){
+    $('.slide-top-text').hide()
+  })
 
   $('.slide-bottom').on('click', function() {
     if (sel < len-1 && !onMove) {
       moveTo(++sel)
     }
   })
-
+  $('.slide-bottom').hover(function(){
+    $('.slide-bottom-text').show()
+  }, function(){
+    $('.slide-bottom-text').hide()
+  })
 
 
 
@@ -457,7 +466,7 @@ jQuery(function($){
 
 
   /** 
-   * @direction  {[bool]} 方向 true为右，false为左
+   * @direction  {[bool]} 方向 true为右，false为左 
    * @times  {[int]} 循环次数
    * @time  {[int]} 每次时间 循环时计算得，无需给出
    * @return {[undefined]}

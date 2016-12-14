@@ -57,7 +57,7 @@ p, h2 {
   cursor: pointer;
 }
 .slide-item-round:hover {
-  background-color:#aaa;
+  background-color:rgba(170,170,170,0.7)
 }
 .slide-item-in .slide-item-round {
   background-color:#ccc;
@@ -83,6 +83,16 @@ p, h2 {
 .slide-top:hover, .slide-bottom:hover {
   opacity: 1
 }
+
+.slide-top-text, .slide-bottom-text {
+  position: absolute;
+  width: 4em;
+  color: #ccc;
+  left: -5em;
+  display: none;
+  font-size: 14px;
+}
+
 
 
 .part{
