@@ -24,11 +24,14 @@ jQuery(function($){
       case 1:
         $('.slide-item-text').eq(1).text('动漫')
         break
+      case 2:
+        $('.slide-item-text').eq(2).text('小项目')
+        break
       case 4:
         $('.slide-item-text').eq(4).text('关于我')
         break
       default:
-        $('.slide-item-text').eq(i).text('待定')
+        $('.slide-item-text').eq(i).text('敬请期待')
         break
     }
   }
@@ -148,7 +151,8 @@ jQuery(function($){
 
     $('.part-anime-warp').css({opacity: 0})
     $('.part-anime-search').css({opacity: 0}) // ie
-    $('.part-aboutme-warp').css({opacity: 0}, 500)
+    $('.part-demos-warp').css({opacity: 0})
+    $('.part-aboutme-warp').css({opacity: 0})
 
     $('.slide-item-text').hide()
     $('.slide-item-text').eq(index).show()
@@ -177,6 +181,7 @@ jQuery(function($){
           break;
         case 2:
           typewriter($('.part-tips').eq(2),"我自横刀向天笑，去留肝胆两昆仑。——谭嗣同")
+          $('.part-demos-warp').animate({opacity: 1}, 500)
           break
         case 3:
           typewriter($('.part-tips').eq(3),"引刀成一快，不负少年头。——汪精卫")

@@ -286,10 +286,31 @@ i {
 }
 
 
-.part-aboutme-warp {
+.part-demos-warp {
   position: absolute;
   width: 980px;
   margin: 150px auto 0;
+  line-height: 2;
+  text-shadow: 2px 2px 4px #000;
+  text-align: center;
+  background: rgba(0,0,0,0.3)
+}
+.part-demos-title {
+  font-size: 46px;
+  color: #fff;
+}
+
+.part-demos-warp a {
+  font-size: 20px;
+}
+.part-demos-warp a:hover {
+  text-decoration: underline;
+}
+
+.part-aboutme-warp {
+  position: absolute;
+  width: 980px;
+  margin: 100px auto 0;
   line-height: 2;
   text-shadow: 2px 2px 4px #000;
   background: rgba(0,0,0,0.3);
