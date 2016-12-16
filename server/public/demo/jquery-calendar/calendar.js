@@ -6,6 +6,7 @@ function Calendar(input) {
   this.content = null
   this.init()
 }
+
 Calendar.prototype = {
   init: function() {
     this.container = $('<div></div>').attr('id', 'calendar')

@@ -1,3 +1,6 @@
+
+var _isAllowedMousewheel = true
+
 jQuery(function($){
 
   // 禁止拖动
@@ -255,7 +258,7 @@ jQuery(function($){
 
   // 滚轮滚动
   $(document).on('mousewheel',function (e) {
-    if (!onMove) {
+    if (!onMove && _isAllowedMousewheel) {
       if(sel == 0 && e.deltaY == -1) {
         moveTo(++sel)
       } else if (sel == len-1 && e.deltaY == 1) {

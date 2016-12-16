@@ -1,66 +1,67 @@
-body{
-	font: 20px/2 simhei;
+body {
+  font: 20px/2 simhei;
 }
-#input{
-	width: 310px;
-	height: 40px;
-	margin: 20px auto 10px;
-	border: 1px solid #ccc;
-	text-align: center;
-	cursor: pointer;
+#input {
+  width: 310px;
+  height: 40px;
+  margin: 20px auto 10px;
+  cursor: pointer;
+  text-align: center;
+  border: 1px solid #ccc;
 }
-#calendar{
-	margin: auto;
-	padding: 5px 15px;
-	width: 280px;
-	border: 1px solid #ccc;
+#calendar {
+  width: 280px;
+  margin: auto;
+  padding: 5px 15px;
+  border: 1px solid #ccc;
 }
-.displayNone{
-	display: none;
+.displayNone {
+  display: none;
 }
-.head{
-	position: relative;
-	background: #d14141;
-	color: #fff;
-	text-align: center;
-	font-size: 22px;
-	line-height: 30px;
+.head {
+  font-size: 22px;
+  line-height: 30px;
+  position: relative;
+  text-align: center;
+  color: #fff;
+  background: #d14141;
 }
-.leftCreat{
-	position: absolute;
-	top: 8px;
-	left: 8px;
-	border-top: 8px solid transparent;
-	border-bottom: 8px solid transparent;
-	border-right: 12px solid #fff;
-	cursor: pointer
+.leftCreat {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  cursor: pointer;
+  border-top: 8px solid transparent;
+  border-right: 12px solid #fff;
+  border-bottom: 8px solid transparent;
 }
-.rightCreat{
-	position: absolute;
-	top: 8px;
-	right:8px;
-	border-top: 8px solid transparent;
-	border-bottom: 8px solid transparent;
-	border-left: 12px solid #fff;
-	cursor: pointer
+.rightCreat {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid #fff;
 }
-.middle>span,.content>span{
-	display: inline-block;
-	width: 40px;
-	text-align: center;
+.middle > span,
+.content > span {
+  display: inline-block;
+  width: 40px;
+  text-align: center;
 }
-.content>span:hover{
-	background: #eee;
-	cursor: pointer
+.content > span:hover {
+  cursor: pointer;
+  background: #eee;
 }
-.content>span.last,.content>span.next{
-	color: #ccc;
+.content > span.last,
+.content > span.next {
+  color: #ccc;
 }
-.content>span.side{
-	color: #d14141;
+.content > span.side {
+  color: #d14141;
 }
-.content>span.active{
-	background: #d14141;
-	color: #fff;
+.content > span.active {
+  color: #fff;
+  background: #d14141;
 }
-
