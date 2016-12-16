@@ -105,6 +105,7 @@ jQuery(function($){
     } else if(bH < 770 && bH >= 670) {
       $('.part-anime-img').hide()
       $('.part-anime-warp').css({marginTop: (bH-666)/2 + 50 + 'px'})
+      $('.part-tips-a').eq(0).show()
     } else {
       $('.part-anime-img').show()
       $('.part-anime-warp').css({marginTop: (bH-750)/4 + 50 + 'px'})

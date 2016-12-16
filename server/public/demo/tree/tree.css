@@ -1,12 +1,10 @@
 *{
 	font-family: simhei;
 }
-
 #top{
 	width: 400px;
 	margin:10px auto;
 }
-
 #root{
 	width: 400px;
 	margin: 0 auto;
@@ -17,29 +15,24 @@
 .son{
 	margin: 10px 0 10px 20px;
 }
-
 .son label{
 	color: #53595E;
 	margin-right: .5em;
 	margin-left: 1em;
 }
-
-.son label:hover{color: #4DC0BA;cursor: pointer;}
-
-
-.search{text-decoration: underline}
-
-
+.son label:hover{
+	color: #4DC0BA;cursor: pointer;
+}
+.search{
+	text-decoration: underline;
+}
 .son p{
 	margin: 0;
 	position: relative;
 }
-
 .son p:hover>.img-add,.son p:hover>.img-delete{
 	display: inline-block;
 }
-
-
 i{
 	display:inline-block;
 	width: 12px;
@@ -67,24 +60,22 @@ i:hover{
 	position: absolute;
 	top: 4.5px;
 }
-
 .img-close{
 	background-image: url('images/right.png');
 }
-
 .none{
 	display: none;
 }
-
 .underline{
 	text-decoration: underline
 }
-
 .animeAdd{
 	animation: animeAdd .5s forwards;
 }
-
 @keyframes animeAdd{
-	0%{opacity: 0;margin:0 0 0 20px;}
-	100%{}
+	0% {
+		opacity: 0;
+		margin:0 0 0 20px;
+	}
+	100% {}
 }

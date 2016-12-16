@@ -1,5 +1,3 @@
-
-
 function Tree(node){
 	this.selfNode=node//Tree返回dom节点
 	this.selfNode.Tree=this //dom节点返回Tree
@@ -78,8 +76,6 @@ Tree.prototype={
 	}
 }
 
-
-
 var searchTreeArr=[]
 document.getElementById('searchBtn').onclick=function(){
 	var labels=document.getElementsByTagName("LABEL")
@@ -108,10 +104,7 @@ document.getElementById('searchBtn').onclick=function(){
 	if(!searchTree){alert("未找到所求值")}
 }
 
-
 var rootNode=new Tree(document.getElementById("root"))
-
-
 
 rootNode.selfNode.onclick=function(event){
 	if(event.target.parentNode.tagName==="P"){
@@ -129,7 +122,6 @@ rootNode.selfNode.onclick=function(event){
 	}
 }
 
-
 rootNode.addChild("web","after","phone");
 rootNode.childs[0].addChild("html","css","js").toggleChilds()
 rootNode.childs[0].childs[1].addChild("sass").toggleChilds()
@@ -137,9 +129,3 @@ rootNode.childs[0].childs[2].addChild("node","ajax","jquery").toggleChilds()
 rootNode.childs[1].addChild("C","php","java").toggleChilds()
 rootNode.childs[1].childs[0].addChild("C++","C#").toggleChilds()
 rootNode.childs[2].addChild("iOS","Android").toggleChilds()
-
-
-
-
-
-
