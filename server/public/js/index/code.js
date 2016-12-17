@@ -2,8 +2,8 @@
 jQuery(function ($) {
 
   
-
-  var jqueryCalendar = {
+  var Codes = [{
+    name: 'jquery-calendar',
     title: 'jquery日历',
     detail: '/demo/jquery-calendar/calendar.html',
     github: 'https://github.com/haizai/cloud/tree/master/server/public/demo/jquery-calendar',
@@ -20,8 +20,25 @@ jQuery(function ($) {
       type: 'css',
       text: "body {\n  font: 20px/2 simhei;\n}\n#input {\n  width: 310px;\n  height: 40px;\n  margin: 20px auto 10px;\n  cursor: pointer;\n  text-align: center;\n  border: 1px solid #ccc;\n}\n#calendar {\n  width: 280px;\n  margin: auto;\n  padding: 5px 15px;\n  border: 1px solid #ccc;\n}\n.displayNone {\n  display: none;\n}\n.head {\n  font-size: 22px;\n  line-height: 30px;\n  position: relative;\n  text-align: center;\n  color: #fff;\n  background: #d14141;\n}\n.leftCreat {\n  position: absolute;\n  top: 8px;\n  left: 8px;\n  cursor: pointer;\n  border-top: 8px solid transparent;\n  border-right: 12px solid #fff;\n  border-bottom: 8px solid transparent;\n}\n.rightCreat {\n  position: absolute;\n  top: 8px;\n  right: 8px;\n  cursor: pointer;\n  border-top: 8px solid transparent;\n  border-bottom: 8px solid transparent;\n  border-left: 12px solid #fff;\n}\n.middle > span,\n.content > span {\n  display: inline-block;\n  width: 40px;\n  text-align: center;\n}\n.content > span:hover {\n  cursor: pointer;\n  background: #eee;\n}\n.content > span.last,\n.content > span.next {\n  color: #ccc;\n}\n.content > span.side {\n  color: #d14141;\n}\n.content > span.active {\n  color: #fff;\n  background: #d14141;\n}"
     }]
-  }
-
+  },{
+    name: 'jquery-todos',
+    title: 'jQuery Todos',
+    detail: 'demo/jquery-todos/todos.html',
+    github: 'https://github.com/haizai/cloud/tree/master/server/public/demo/jquery-todos',
+    codes: [{
+      name: 'todos.js',
+      type: 'javascript',
+      text: "jQuery(function($) {\n  var NAME = 'jQuery-todos-haizai'\n  var App = {\n    init: function () {\n      this.todos = JSON.parse(window.localStorage.getItem(NAME)) || [{text: \"默认todo1\", selected: false}, {text: \"默认todo2\", selected: true}]\n      this.visibility = '全部'\n      this.bindEvents()\n      this.render()\n    },\n    bindEvents: function() {\n      $('.head')\n        .on('keydown', '.head-input', this.addTodo.bind(this))\n        .on('click', '.round', this.toggleAll.bind(this))\n      $('.body')\n        .on('mouseenter', '.body-item', this.todoDelShow.bind(this))\n        .on('mouseleave', '.body-item', this.todoDelHide.bind(this))\n        .on('click', '.body-del', this.delTodo.bind(this))\n        .on('click', '.round', this.toggle.bind(this))\n        .on('click', '.body-label', this.tryEdit.bind(this))\n        .on('blur keydown', '.body-input', this.submitEdit.bind(this))\n      $('.foot')\n        .on('click', '.foot-del', this.delSelectedTodos.bind(this))\n        .on('click', '.foot-visibility span', this.changeVisibility.bind(this))\n    },\n    render: function() {\n      window.localStorage.setItem(NAME,JSON.stringify(this.todos))\n      var self = this\n      $('.body').empty()\n      this.todos.filter(function (todo) {\n        switch (self.visibility) {\n          case '全部': return true\n          case '被选中的': return todo.selected\n          case '未被选中的': return !todo.selected\n        }\n      }).forEach(function(todo) {\n        if (todo.selected) {\n          $('.body').append('<div class=\"body-item\"><i class=\"round round-selected\"></i><div class=\"body-label body-label-selected\">'\n            + todo.text +\n            '</div><input type=\"text\" class=\"body-input\"><i class=\"body-del\" style=\"display: none\">&times;</i></div>')          \n        } else {\n          $('.body').append('<div class=\"body-item\"><i class=\"round\"></i><div class=\"body-label\">'\n            + todo.text +\n            '</div><input type=\"text\" class=\"body-input\"><i class=\"body-del\" style=\"display: none\">&times;</i></div>')\n        }\n      })\n      this.todos.length == 0 ? $('.foot').hide() : $('.foot').show()\n      $('.foot-count').text(function() {\n        return self.todos.filter(function (todo) { \n          return todo.selected \n        }).length\n      })\n    },\n    getIndex: function(el) {\n      var all = document.getElementsByClassName('body-item')\n      for (var i = 0, len = all.length; i < len; i++) {\n        if (el === all[i]) return i\n      }\n    },\n    addTodo: function(e) {\n      if (e.keyCode === 13 && e.target.value.trim() !== '') {\n        this.todos.push({text: e.target.value, selected: false})\n        this.render()\n        e.target.value = ''\n      }\n    },\n    delTodo: function(e) {\n      var index = this.getIndex(e.target.parentNode)\n      this.todos.splice(index, 1)\n      this.render()\n    },\n    toggle: function(e) {\n      var index = this.getIndex(e.target.parentNode)\n      this.todos[index].selected = !this.todos[index].selected\n      this.render()\n    },\n    toggleAll: function() {\n      this.todos.some( function(todo) { return !todo.selected } )\n        ? this.todos.forEach( function(todo) { todo.selected = true } )\n        : this.todos.forEach( function(todo) { todo.selected = false } )\n      this.render()\n    },\n    delSelectedTodos: function() {\n      this.todos = this.todos.filter( function(todo){ return !todo.selected })\n      this.render()\n    },\n    todoDelShow: function(e) {\n      $(e.target).hasClass('body-item')\n      ? $(e.target).find('.body-del').show()\n      : $(e.target).parent().find('.body-del').show()\n    },\n    todoDelHide: function(e) {\n      $(e.target).hasClass('body-item')\n      ? $(e.target).find('.body-del').hide()\n      : $(e.target).parent().find('.body-del').hide() \n    },\n    tryEdit: function (e) {\n      $(e.target).next().val($(e.target).text()).show().select().focus()\n    },\n    submitEdit: function (e) {\n      if (e.type == 'keydown') {\n        if (e.keyCode === 13) e.target.blur()\n        return\n      }\n      var index = this.getIndex(e.target.parentNode)\n      if (e.target.value.trim()) {\n        this.todos[index].text = e.target.value\n        $(e.target).hide()\n      } else {\n        this.todos.splice(index, 1)\n      }\n      this.render()\n    },\n    changeVisibility: function (e) {\n      this.visibility = $(e.target).text()\n      $(e.target).siblings().removeClass('foot-visibility-in')\n      $(e.target).addClass('foot-visibility-in')\n      this.render()\n    }\n  }\n  App.init()\n})"
+    },{
+      name: 'todos.html',
+      type: 'html',
+      text: "<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta charset=\"utf-8\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n  <title>jquery Todos</title>\n  <link rel=\"stylesheet\" href=\"todos.css\">\n</head>\n<body>\n  <div class=\"container\">\n    <div class=\"title\">\n      <p>jquery Todos</p>\n      <p class=\"author\">\n        <a href=\"https://github.com/haizai\" target=\"_black\">by Haizai</a>\n      </p>\n    </div>\n    <div class=\"head\">\n      <i class=\"round\"></i>\n      <input type=\"text\" placeholder=\"请输入新todos，按Enter确认\" class=\"head-input\" autofocus> \n    </div>\n    <div class=\"body\"></div>\n    <div class=\"foot\">\n      <i class=\"foot-del\">&times;</i>\n      <span class=\"foot-info\">\n        <span class=\"foot-count\"></span>\n        项被选中\n      </span>\n      <span class=\"foot-visibility\">\n        <span class=\"foot-visibility-in\">全部</span>\n        <span>被选中的</span>\n        <span>未被选中的</span>\n      </span>\n    </div>\n  </div>\n  <script src=\"../../js/common/jquery-3.1.1.min.js\"></script>\n  <script src=\"todos.js\"></script>\n</body>\n</html>"
+    },{
+      name: 'todos.css',
+      type: 'css',
+      text: "* {\n  box-sizing: border-box;\n}\nbody {\n  font-family: 'microsoft yahei';\n  color: #333;\n}\n.container {\n  width: 500px;\n  margin: 20px auto;\n}\n.title {\n  font-size: 40px;\n  line-height: 2;\n  text-align: center;\n}\n.author {\n  font-size: 14px;\n  line-height: 40px;\n  text-align: center;\n  margin-top: -60px;\n}\na {\n  color: #c05b4d;\n  text-decoration: none;\n}\na:hover {\n  text-decoration: underline;\n}\n.round {\n  display: inline-block;\n  width: 36px;\n  height: 36px;\n  margin-right: 8px;\n  border: 1px solid #ccc;\n  border-radius: 50%;\n}\n.round:hover {\n  background: #eee;\n}\n\n.round-selected {\n  background: #ccc;\n}\n.round:hover {\n  background: #ccc;\n}\n\ninput {\n  font-family: inherit;\n  font-size: 25px;\n  line-height: 40px;\n  width: 450px;\n  height: 40px;\n}\ni {\n  font-style: normal;\n  cursor: pointer;\n  color: #ccc;\n}\ni:hover {\n  color: #333;\n}\n\n.head .round {\n  margin-bottom: -8px;\n}\n.head-input {\n  padding-left: 3px;\n  border: 2px solid #ccc;\n}\n.head-input:focus {\n  outline: none;\n}\n\n.body-item {\n  height: 40px;\n  margin: 10px 0;\n}\n.body-item:hover {\n  background: #f5f5f5;\n}\n.body .round {\n  margin-top: 2px;\n}\n.body-label {\n  font-size: 25px;\n  line-height: 40px;\n  position: absolute;\n  display: inline-block;\n  overflow: hidden;\n  max-width: 410px;\n  margin-left: 7px;\n  cursor: pointer;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n}\n.body-label:hover {\n  color: #ccc;\n}\n\n.body-label-selected {\n  text-decoration: line-through;\n  color: #ccc;\n}\n.body-input {\n  position: absolute;\n  display: none;\n  margin-left: 4px;\n  padding-left: 3px;\n  border: none;\n}\n.body-input:focus {\n  outline: 2px solid #ccc;\n  outline-offset: -2px;\n}\n\n.body-input-show {\n  display: inline-block;\n}\n.body-del {\n  font-size: 25px;\n  line-height: 36px;\n  float: right;\n}\n\n.foot {\n  line-height: 30px;\n}\n.foot-del {\n  font-size: 25px;\n  margin-left: 7px;\n}\n.foot-info {\n  vertical-align: 8%;\n  color: #ccc;\n}\n.foot-count {\n  color: #333;\n}\n.foot-visibility {\n  float: right;\n  margin-top: 4px;\n  cursor: pointer;\n  color: #ccc;\n}\n.foot-visibility > span:hover,\n.foot-visibility-in {\n  color: #333;\n}\n"
+    }]
+  }]
 
 
   var bH = $('body').height() 
@@ -30,7 +47,7 @@ jQuery(function ($) {
 
 
 
-  $('.part-demos-warp [code="jqueryCalendar"]').on('click', function() {
+  $('.part-demos-warp [code]').on('click', function() {
     _isAllowedMousewheel = false
     var $code = $('.code-all')
     $code.show()
@@ -39,19 +56,29 @@ jQuery(function ($) {
       $code.hide()
     })
 
+    var codeName = $(this).attr('code')
 
-    $('.code-title').text(jqueryCalendar.title)
-    $('.code-detail').parent().attr('href',jqueryCalendar.detail)
-    $('.code-github').parent().attr('href',jqueryCalendar.github)
+    $('.code-slide').html('')
+    $('.code-body').html('')
 
-    jqueryCalendar.codes.forEach( function(code, index) {
-      $('.code-slide').append('<li>' + code.name +'</li>')
-      $('.code-body').append('<li><pre class="language-' +code.type+'" style="height: ' + (bH - 320) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
-      if (index == 0) {
-        $('.code-slide').find('li').addClass('code-slide-in')
-        $('.code-body').find('li').show()
+    Codes.forEach(function(obj){
+      if (obj.name === codeName) {
+        $('.code-title').text(obj.title)
+        $('.code-detail').parent().attr('href',obj.detail)
+        $('.code-github').parent().attr('href',obj.github)
+
+        obj.codes.forEach( function(code, index) {
+          $('.code-slide').append('<li>' + code.name +'</li>')
+          $('.code-body').append('<li><pre class="language-' +code.type+'" style="height: ' + (bH - 320) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
+          if (index == 0) {
+            $('.code-slide').find('li').addClass('code-slide-in')
+            $('.code-body').find('li').show()
+          }
+        });
       }
-    });
+    })
+
+
 
 
     // //不同code转换
