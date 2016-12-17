@@ -1,4 +1,3 @@
-
 export const addTodo = makeAction ('ADD_TODO')
 export const delTodo = makeAction ('DEL_TODO')
 export const toggle = makeAction ('TOGGLE')

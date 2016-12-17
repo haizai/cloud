@@ -56,6 +56,3 @@ const store = new Vuex.Store({
 store.watch( (state) => window.localStorage.setItem( NAME, JSON.stringify(state) ) )
 
 export default store
-
-
-

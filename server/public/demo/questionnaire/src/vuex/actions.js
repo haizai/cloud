@@ -1,4 +1,3 @@
-
 export const submitAns   = makeAction ('SUBMIT_ANS')
 export const createNaire = makeAction ('CREATE_NAIRE')
 
