@@ -450,3 +450,6 @@ i {
   display: none;
   font-size: 12px;
 }
+.code-body li pre {
+  overflow: auto;
+}
