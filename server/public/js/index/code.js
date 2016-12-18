@@ -5,7 +5,7 @@ jQuery(function ($) {
   var Codes = [
     {
       name: 'jquery-calendar',
-      title: 'jquery日历',
+      title: '日历（jquery）',
       detail: '/demo/jquery-calendar/calendar.html',
       github: 'https://github.com/haizai/cloud/tree/master/server/public/demo/jquery-calendar',
       codes: [{
@@ -79,7 +79,7 @@ jQuery(function ($) {
     },
     {
       name:'redux-todos',
-      title:'Redux Todos',
+      title:'Redux Todos（react）',
       detail:'demo/redux-todos/index.html',
       github: 'https://github.com/haizai/cloud/tree/master/server/public/demo/redux-todos',
       hasMore: true,
@@ -111,7 +111,7 @@ jQuery(function ($) {
     },
     {
       name:'weather',
-      title:'天气预报',
+      title:'天气预报(jquery + vue)',
       detail: 'demo/weather/weather.html',
       github: 'https://github.com/haizai/cloud/tree/master/server/public/demo/weather',
       codes: [{
@@ -130,7 +130,7 @@ jQuery(function ($) {
     },
     {
       name:'vuex-todos',
-      title:'Vuex Todos',
+      title:'Vuex Todos（vue）',
       detail: 'demo/vuex-todos/index.html',
       github: 'https://github.com/haizai/cloud/tree/master/server/public/demo/vuex-todos',
       hasMore: true,
@@ -166,7 +166,7 @@ jQuery(function ($) {
     },
     {
       name:'questionnaire',
-      title:'问卷调查',
+      title:'问卷调查(vue + vuex + vue-router)',
       detail:'demo/questionnaire/index.html',
       github:'https://github.com/haizai/cloud/tree/master/server/public/demo/questionnaire',
       hasMore:true,
@@ -204,7 +204,6 @@ jQuery(function ($) {
 
 
   var bH = $('body').height() 
-  // $('.code-warp').css({height:bH - 110 + 'px'})
 
 
 
@@ -231,7 +230,7 @@ jQuery(function ($) {
 
         obj.codes.forEach( function(code, index) {
           $('.code-slide').append('<li>' + code.name +'</li>')
-          $('.code-body').append('<li><pre class="language-' +code.type+'" style="height: ' + (bH - 220) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
+          $('.code-body').append('<li><pre class="language-' +code.type+'" style="height: ' + (bH - 270) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
           if (index == 0) {
             $('.code-slide').find('li').addClass('code-slide-in')
             $('.code-body').find('li').show()

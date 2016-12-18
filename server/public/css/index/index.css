@@ -15,7 +15,7 @@ img {
   border: none;
 }
 
-p, h2 {
+p, h2, h3 {
   margin: 0;
 }
 
@@ -318,19 +318,35 @@ i {
   line-height: 2;
   text-shadow: 2px 2px 4px #000;
   text-align: center;
-  background: rgba(0,0,0,0.3)
+  background: rgba(0,0,0,0.1);
+  color: #fff;
 }
 .part-demos-title {
   font-size: 46px;
-  color: #fff;
 }
-
-.part-demos-warp a {
+.part-demos-title2{
+  font-size: 36px;
+}
+.part-demos-left {
+  display: inline-block;
+  width: 490px;
+  float: left;
+}
+.part-demos-right {
+  display: inline-block;
+  width: 490px;
+  float: right;
+}
+.part-demos-warp p {
+  margin: 10px 0;
   font-size: 20px;
 }
 .part-demos-warp a:hover {
   text-decoration: underline;
 }
+
+
+
 
 .part-aboutme-warp {
   position: absolute;
@@ -338,7 +354,7 @@ i {
   margin: 100px auto 0;
   line-height: 2;
   text-shadow: 2px 2px 4px #000;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.1);
 }
 
 .part-aboutme-title {
@@ -375,7 +391,7 @@ i {
   width: 980px;
   left: 50%;
   margin-left: -490px;
-  margin-top: 50px;
+  margin-top: 100px;
   background: #fff;
   padding: 20px;
   border-radius: 6px;
@@ -450,7 +466,7 @@ i {
   display: inline-block;
   padding: 10px 15px;
   cursor: pointer;
-  border-radius: 10px 10px 0 0
+  border-radius: 5px 5px 0 0
 }
 .code-slide li:hover,.code-slide-in {
   background: #f5f2f0;
