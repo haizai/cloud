@@ -204,7 +204,7 @@ jQuery(function ($) {
 
 
   var bH = $('body').height() 
-  $('.code-warp').css({height:bH - 220 + 'px'})
+  // $('.code-warp').css({height:bH - 110 + 'px'})
 
 
 
@@ -231,10 +231,14 @@ jQuery(function ($) {
 
         obj.codes.forEach( function(code, index) {
           $('.code-slide').append('<li>' + code.name +'</li>')
-          $('.code-body').append('<li><pre class="language-' +code.type+'" style="height: ' + (bH - 320) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
+          $('.code-body').append('<li><pre class="language-' +code.type+'" style="height: ' + (bH - 220) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
           if (index == 0) {
             $('.code-slide').find('li').addClass('code-slide-in')
             $('.code-body').find('li').show()
+            $('.code-slide-span').css({
+              width:$('.code-slide').find('li').outerWidth(),
+              left: '20px'
+            })
           }
         });
 
@@ -247,13 +251,24 @@ jQuery(function ($) {
 
 
 
+
+
     // //不同code转换
     $('.code-slide li').not('.code-more').each(function(index) {
+      console.log($(this).outerWidth())
       $(this).on('click', function(){
         $('.code-slide li').removeClass('code-slide-in')
         $(this).addClass('code-slide-in')
         $('.code-body li').hide()
         $('.code-body li').eq(index).show()
+        var leftWidth = 20
+        $('.code-slide li').eq(index).prevAll().each(function(){
+          leftWidth += $(this).outerWidth()
+        })
+        $('.code-slide-span').animate({
+          width: $('.code-slide li').eq(index).outerWidth(),
+          left: leftWidth
+        },200)
       })
     })
 
