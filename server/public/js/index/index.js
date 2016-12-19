@@ -30,11 +30,13 @@ jQuery(function($){
       case 2:
         $('.slide-item-text').eq(2).text('小项目')
         break
+      case 3:
+        $('.slide-item-text').eq(3).text('数据分析')
+        break
       case 4:
         $('.slide-item-text').eq(4).text('关于我')
         break
       default:
-        $('.slide-item-text').eq(i).text('敬请期待')
         break
     }
   }
