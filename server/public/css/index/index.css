@@ -351,6 +351,7 @@ i {
 .part-chart-warp {
   position: absolute;
   margin-top: 50px;
+  width: 100%;
 }
 
 #part-chart-main {
@@ -358,7 +359,63 @@ i {
   height: 550px;
   position: absolute;
 }
-
+.part-chart-title {
+  position: absolute;
+  z-index: 10;
+  right: 30px;
+  width: 250px;
+  text-align: center;
+  font-size: 20px;
+  top: 90px;
+}
+.part-chart-rank {
+  position: absolute;
+  z-index: 10;
+  right: 30px;
+  top: 130px;
+  border-top: 1px solid rgba(41,170,212,0.3)
+}
+.part-chart-rank li {
+  width: 250px;
+  height: 30px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(41,170,212,0.3);
+}
+.part-chart-rank li:hover {
+  background: #333;
+  color: #fff;
+}
+.chart-rank-left {
+  width: 30px;
+  height: 100px;
+  float: left;
+}
+.chart-rank-level {
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  background: #f25d8e;
+  color: #fff;
+  display: inline-block;
+  text-align: center;
+  border-radius: 6px;
+  margin-top: 3px;
+}
+.chart-rank-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  border-width: 0;
+  font-size: 13px;
+}
+.chart-rank-table tr {
+  height: 30px;
+}
+.chart-rank-table td {
+  width: 110px;
+}
+.chart-rank-table tr:first-child td:first-child {
+  font-weight: bold;
+}
 
 
 

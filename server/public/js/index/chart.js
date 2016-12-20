@@ -4,9 +4,13 @@
     color:['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3', ' #C71585','#4169E1', '#556B2F'],
     backgroundColor: 'rgba(255,255,255,0.9)',
     title: {
-      text: '起点全部VIP小说类型分析',
+      text: '起点VIP小说分析',
       textAlign: 'center',
       left: '50%',
+      top:10,
+      textStyle: {
+        fontSize: 28
+      }
     },
     tooltip: {
       formatter: "{b}:{c}部({d}%)"
@@ -24,7 +28,7 @@
       name:'main',
       type:'pie',
       radius: [150, 200],
-      center: ['50%',300],
+      center: [400,300],
       itemStyle: {
         normal: {
           shadowBlur: 150,
@@ -32,16 +36,8 @@
         }
       },
       label: {
-        normal: {
-          textStyle: {
-            fontSize: 18
-          }
-        },
-        emphasis: {
-          textStyle: {
-            fontSize: 18,
-            fontWeight: 'bold'
-          }
+        textStyle: {
+          fontSize: 18
         }
       },
       selectedMode: 'single',
@@ -64,19 +60,11 @@
     },{
       type:'pie',
       radius: [10, 60],
-      center: ['50%',300],
+      center: [400,300],
       roseType: 'angle',
       label: {
-        normal: {
-          textStyle: {
-            fontSize: 14
-          }
-        },
-        emphasis: {
-          textStyle: {
-            fontSize: 14,
-            fontWeight: 'bold'
-          }
+        textStyle: {
+          fontSize: 14
         }
       },
       data: [
@@ -152,7 +140,7 @@
               {name: '末世危机',value: 411},
               {name: '未来世界',value: 257},
               {name: '进化变异',value: 189},
-              {name: '超级科技',value: 107},
+              {name: '星际文明',value: 107},
               {name: '超级科技',value: 87},
               {name: '宇宙练功',value: 74},
             ]
@@ -257,4 +245,101 @@
       chart.setOption(option)
     }
   });
+
+  var Books = {
+    '玄幻':[
+      {
+        "allClickCount" : 14990.7,
+        "allCommendCount" : 662.91,
+        "secondType" : "异世大陆",
+        "title" : "斗破苍穹",
+        "wordCount" : 532.45,
+        "writer" : "天蚕土豆"
+      },
+      {
+        "allClickCount" : 6676.76,
+        "allCommendCount" : 246.09,
+        "secondType" : "东方玄幻",
+        "title" : "武动乾坤",
+        "wordCount" : 393.98,
+        "writer" : "天蚕土豆"
+      },
+      {
+        "allClickCount" : 6313.9,
+        "allCommendCount" : 570.62,
+        "secondType" : "异世大陆",
+        "title" : "斗罗大陆",
+        "wordCount" : 302.11,
+        "writer" : "唐家三少"
+      },
+      {
+        "allClickCount" : 5281.05,
+        "allCommendCount" : 570.89,
+        "secondType" : "异世大陆",
+        "title" : "神墓",
+        "wordCount" : 311.72,
+        "writer" : "辰东"
+      },
+      {
+        "allClickCount" : 3826.49,
+        "allCommendCount" : 527.49,
+        "secondType" : "异世大陆",
+        "title" : "恶魔法则",
+        "wordCount" : 393.41,
+        "writer" : "跳舞"
+      },
+      {
+        "allClickCount" : 3557.97,
+        "allCommendCount" : 499.41,
+        "secondType" : "异世大陆",
+        "title" : "邪神传说",
+        "wordCount" : 277.97,
+        "writer" : "云天空"
+      },
+      {
+        "allClickCount" : 3517.75,
+        "allCommendCount" : 281.53,
+        "secondType" : "异世大陆",
+        "title" : "猎国",
+        "wordCount" : 356.58,
+        "writer" : "跳舞"
+      },
+      {
+        "allClickCount" : 3487.04,
+        "allCommendCount" : 255.98,
+        "secondType" : "异世大陆",
+        "title" : "傲世九重天",
+        "wordCount" : 842.84,
+        "writer" : "风凌天下"
+      }
+    ]
+  }
+
+for (var i = 1; i < 9; i++) {
+  $('.part-chart-rank').append('<li><div class="chart-rank-left"><span class="chart-rank-level">'+i+'</span></div><table class="chart-rank-table"><tbody><tr><td></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></li>')
+}
+$('.part-chart-rank li').eq(0).css({height:'90px'})
+
+$('.part-chart-rank li').each(function(){
+  var $li = $(this)
+  $li.hover(function(){
+    $li.css({height: '90px'}).siblings().css({height: '30px'})
+  },function(){
+    $li.css({height: '30px'})
+    $('.part-chart-rank li').eq(0).css({height: '90px'})
+  })
+})
+
+
+
+Books['玄幻'].forEach( function(book, index) {
+  var $tds = $('.part-chart-rank li').eq(index).find('td')
+  $tds.eq(0).text(book.title)
+  $tds.eq(1).text(Math.round(book.allClickCount) + ' 万总点击')
+  $tds.eq(2).text('作者 ' + book.writer)
+  $tds.eq(3).text('玄幻 ' + book.secondType)
+  $tds.eq(4).text(Math.round(book.wordCount) + ' 万总字数')
+  $tds.eq(5).text(Math.round(book.allCommendCount) + ' 万总推荐')
+});
+
 })()
