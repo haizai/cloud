@@ -115,6 +115,7 @@ jQuery(function($){
       $('.part-anime-img').show()
       $('.part-anime-warp').css({marginTop: (bH-750)/4 + 50 + 'px'})
     }
+    $('.part-chart-warp').css({marginTop: (bH-650)/4 + 50 + 'px'})
   }
 
 
@@ -177,6 +178,7 @@ jQuery(function($){
     $('.part-anime-warp').css({opacity: 0})
     $('.part-anime-search').css({opacity: 0}) // ie
     $('.part-demos-warp').css({opacity: 0})
+    $('.part-chart-warp').css({opacity: 0})
     $('.part-aboutme-warp').css({opacity: 0})
 
     $('.slide-item-text').hide()
@@ -210,6 +212,7 @@ jQuery(function($){
           break
         case 3:
           typewriter($('.part-tips').eq(3),"我思故我在。——笛卡尔")
+          $('.part-chart-warp').animate({opacity: 1}, 500)
           break
         case 4:
           typewriter($('.part-tips').eq(4),"誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」")

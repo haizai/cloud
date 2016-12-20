@@ -24,6 +24,7 @@
       name:'main',
       type:'pie',
       radius: [150, 200],
+      center: ['50%',300],
       itemStyle: {
         normal: {
           shadowBlur: 150,
@@ -63,6 +64,7 @@
     },{
       type:'pie',
       radius: [10, 60],
+      center: ['50%',300],
       roseType: 'angle',
       label: {
         normal: {
