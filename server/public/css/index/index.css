@@ -107,6 +107,7 @@ ul {
   position: relative;
   background-repeat:no-repeat;
   background-position:center;
+  display: block;
 }
 .part-warp {
   height: 100%;
