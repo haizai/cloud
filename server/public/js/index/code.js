@@ -254,7 +254,6 @@ jQuery(function ($) {
 
     // //不同code转换
     $('.code-slide li').not('.code-more').each(function(index) {
-      console.log($(this).outerWidth())
       $(this).on('click', function(){
         $('.code-slide li').removeClass('code-slide-in')
         $(this).addClass('code-slide-in')
