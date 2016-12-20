@@ -345,10 +345,17 @@ i {
   text-decoration: underline;
 }
 
+
+
+.part-chart-warp {
+  position: absolute;
+  margin-top: 50px;
+}
+
 #part-chart-main {
   width: 980px;
   height: 600px;
-  margin-top: 50px;
+  position: absolute;
 }
 
 
