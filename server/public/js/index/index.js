@@ -43,7 +43,18 @@ jQuery(function($){
 
 
 
-
+  var Animes = [
+    {id: 1998799, title: '灌篮高手'},
+    {id: 1463371, title: '名侦探柯南'},
+    {id: 1457573, title: '新世纪福音战士'},
+    {id: 5397537, title: '未闻花名'},
+    {id: 2043155, title: '反叛的鲁路修'},
+    {id: 3681349, title: '轻音少女 k-on!'},
+    {id: 5349275, title: '魔法少女小圆'},
+    {id: 4925398, title: '命运石之门'},
+    {id: 24857860, title: '命运之夜 无限剑制'},
+    {id: 10001418, title: '氷菓'},
+  ]
 
   // 读取背景  
   var Img = {
@@ -64,6 +75,19 @@ jQuery(function($){
   }
   loadImg(0, false)
   function loadImg(index, isBig) {
+
+    if (index == 2 && !isBig) {
+      $('.carousel-item').find('img').each(function(index){
+        $(this).attr('src','/img/animes/id/'+ Animes[index].id + '.jpg')
+      })
+    }
+    if (index == 3 && !isBig) {
+      $('#script-box').append('<script src="js/index/prism.js"></script><script src="js/index/code.js"></script>')
+    }
+    if (index == 4 && !isBig) {
+      $('#script-box').append('<script src="js/index/echarts.common.min.js"></script><script src="js/index/chart.js"></script>')
+    }
+    
     var newImg = new Image()
     newImg.src = isBig ? Img.bigSrcs[index] :Img.smallSrcs[index]
     newImg.onload = function() {
@@ -354,18 +378,6 @@ jQuery(function($){
     })
   }
 
-  var Animes = [
-    {id: 1998799, title: '灌篮高手'},
-    {id: 1463371, title: '名侦探柯南'},
-    {id: 1457573, title: '新世纪福音战士'},
-    {id: 5397537, title: '未闻花名'},
-    {id: 2043155, title: '反叛的鲁路修'},
-    {id: 3681349, title: '轻音少女 k-on!'},
-    {id: 5349275, title: '魔法少女小圆'},
-    {id: 4925398, title: '命运石之门'},
-    {id: 24857860, title: '命运之夜 无限剑制'},
-    {id: 10001418, title: '氷菓'},
-  ]
 
 
   var animeSel = 1
@@ -377,9 +389,9 @@ jQuery(function($){
   //生成carousel每一个item
   for (var i = 0; i < animeCount; i++) {
     if (i == 1) {
-      $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img src="/img/animes/id/' + Animes[i].id + '.jpg"><a href="/animes#/' + Animes[i].id + '" class="part-anime-title"  style="display: inline-block;">' + Animes[i].title + '</a>')
+      $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + Animes[i].id + '" class="part-anime-title"  style="display: inline-block;">' + Animes[i].title + '</a>')
     } else {
-      $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img src="/img/animes/id/' + Animes[i].id + '.jpg"><a href="/animes#/' + Animes[i].id + '" class="part-anime-title">' + Animes[i].title + '</a>')
+      $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + Animes[i].id + '" class="part-anime-title">' + Animes[i].title + '</a>')
     }
   }
 
