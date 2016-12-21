@@ -4,13 +4,17 @@
     color:['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3', ' #C71585','#4169E1', '#556B2F'],
     backgroundColor: 'rgba(255,255,255,0.9)',
     title: {
-      text: '起点VIP小说分析',
+      text: '起点VIP小说数据分析',
       textAlign: 'center',
       left: '50%',
       top:10,
       textStyle: {
         fontSize: 28
-      }
+      },
+      subtext: '全部17500部VIP小说',
+      subtextStyle: {
+        color: '#666'
+      },
     },
     tooltip: {
       formatter: "{b}:{c}部({d}%)"
