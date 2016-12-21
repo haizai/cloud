@@ -48,18 +48,18 @@ jQuery(function($){
   // 读取背景  
   var Img = {
     smallSrcs: [
-      "../img/index/p1_s.jpg",
-      "../img/index/p2_s.jpg",
-      "../img/index/p0_s.jpg",
-      "../img/index/p3_s.jpg",
-      "../img/index/p4_s.jpg"
+      "../img/index/58955949_s.jpg",
+      "../img/index/58888280_s.jpg",
+      "../img/index/59547966_s.jpg",
+      "../img/index/53117853_s.jpg",
+      "../img/index/57171771_s.jpg"
     ],
     bigSrcs: [
-      "../img/index/p1.jpg",
-      "../img/index/p2.png",
-      "../img/index/p0.png",
-      "../img/index/p3.jpg",
-      "../img/index/p4.jpg"
+      "../img/index/58955949_big.jpg",
+      "../img/index/58888280_big.png",
+      "../img/index/59547966_big.jpg",
+      "../img/index/53117853_big.jpg",
+      "../img/index/57171771_big.jpg"
     ]
   }
   loadImg(0, false)
