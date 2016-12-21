@@ -240,8 +240,10 @@ jQuery(function($){
   // 侧栏点击
   $('.slide-item-round').each(function(index){
     $(this).on('click', function() { 
+      if(sel != index) {   
         sel = index
         moveTo(sel)
+      }
     })
   })
 
