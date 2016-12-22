@@ -140,6 +140,9 @@ jQuery(function($){
       $('.part-anime-warp').css({marginTop: (bH-750)/4 + 50 + 'px'})
     }
     $('.part-chart-warp').css({marginTop: (bH-650)/4 + 50 + 'px'})
+    $('.part-demos-warp').css({marginTop: (bH-474)/4 + 50 + 'px'})
+    $('.part-aboutme-warp').css({marginTop: (bH-372)/4 + 50 + 'px'})
+    $('pre[class*="language-"]').css({height:(bH - 270) +'px'})
   }
 
 

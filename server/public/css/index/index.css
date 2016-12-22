@@ -319,7 +319,7 @@ i {
   line-height: 2;
   text-shadow: 2px 2px 4px #000;
   text-align: center;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.1);
   color: #fff;
 }
 .part-demos-title {
@@ -420,7 +420,7 @@ i {
   margin: 100px auto 0;
   line-height: 2;
   text-shadow: 2px 2px 4px #000;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.1);
 }
 
 .part-aboutme-title {
