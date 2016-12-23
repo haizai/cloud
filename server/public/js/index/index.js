@@ -155,39 +155,37 @@ jQuery(function($){
 
   /**
    * 汉字打字机效果
-   * @param  {[obj]} $DOM  要插入的dom节点
-   * @param  {[str]} text  要插入的汉字
-   * @return {[underfined]}
+   * @param  {obj} $DOM  要插入的dom节点
+   * @param  {str} text  要插入的汉字
+   * @return {underfined}
    */
   function typewriter($DOM,text) {
     isStopTypewriter = false
-    setTimeout(function(){
-      $DOM.css({display:'block'})
-      var len = text.length
-      var finArr = text.split('')
-      var arr = []
-      for (var i = 0; i < len; i++) {
-        arr.push('')
-      }
-      run(false, 0)
-      function run(is_,index) {
-        if (!isStopTypewriter) {
-          setTimeout(function(){
-            if (!is_) {
-              arr[index] = '__'
-              $DOM.text(arr.join(''))
-              run(true, index)
-            } else {
-              arr[index] = finArr[index]
-              $DOM.text(arr.join(''))
-              if (index < len - 1) {
-                run(false, ++index)
-              }
+    $DOM.css({display:'block'})
+    var len = text.length
+    var finArr = text.split('')
+    var arr = []
+    for (var i = 0; i < len; i++) {
+      arr.push('')
+    }
+    run(false, 0)
+    function run(is_,index) {
+      if (!isStopTypewriter) {
+        setTimeout(function(){
+          if (!is_) {
+            arr[index] = '__'
+            $DOM.text(arr.join(''))
+            run(true, index)
+          } else {
+            arr[index] = finArr[index]
+            $DOM.text(arr.join(''))
+            if (index < len - 1) {
+              run(false, ++index)
             }
-          },70)
-        }
+          }
+        },70)
       }
-    }, 100)
+    }
   }
 
 
@@ -205,11 +203,19 @@ jQuery(function($){
     $('.part-anime-warp').css({opacity: 0})
     $('.part-anime-search').css({opacity: 0}) // ie
     $('.part-demos-warp').css({opacity: 0})
-    $('.part-chart-warp').css({opacity: 0})
-    $('.part-aboutme-warp').css({opacity: 0})
 
+    $('.part-demos-title').removeClass('a-down')
+    $('.part-demos-left').children().removeClass('a-left')
+    $('.part-demos-right').children().removeClass('a-right')
+
+
+
+    $('.part-chart-warp').css({opacity: 0})
+    $('.part-aboutme-warp').removeClass('bounceIn')
+    
     $('.slide-item-text').hide()
     $('.slide-item-text').eq(index).show()
+
 
     $('html,body').animate({scrollTop : bH*index},500,function(){
       
@@ -236,6 +242,9 @@ jQuery(function($){
         case 2:
           typewriter($('.part-tips').eq(2),"生如夏花之绚烂，死如秋叶之静美。——泰戈尔")
           $('.part-demos-warp').animate({opacity: 1}, 500)
+          $('.part-demos-title').addClass('a-down')
+          $('.part-demos-left').children().addClass('a-left')
+          $('.part-demos-right').children().addClass('a-right')
           break
         case 3:
           typewriter($('.part-tips').eq(3),"我思故我在。——笛卡尔")
@@ -243,7 +252,7 @@ jQuery(function($){
           break
         case 4:
           typewriter($('.part-tips').eq(4),"誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」")
-          $('.part-aboutme-warp').animate({opacity: 1}, 500)
+          $('.part-aboutme-warp').addClass('bounceIn')
           break
         default:
           // statements_def
@@ -517,10 +526,10 @@ jQuery(function($){
 
 
   /** 
-   * @direction  {[bool]} 方向 true为右，false为左 
-   * @times  {[int]} 循环次数
-   * @time  {[int]} 每次时间 循环时计算得，无需给出
-   * @return {[undefined]}
+   * @direction  {bool} 方向 true为右，false为左 
+   * @times  {int} 循环次数
+   * @time  {int} 每次时间 循环时计算得，无需给出
+   * @return {undefined}
    */
   function carousel(direction, times, time) {
     var times = times || 1
