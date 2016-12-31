@@ -319,7 +319,6 @@ i {
   line-height: 2;
   text-shadow: 2px 2px 4px #000;
   text-align: center;
-  background: rgba(0,0,0,0.1);
   color: #fff;
 }
 .part-demos-title {
@@ -547,47 +546,6 @@ i {
   position: absolute;
 }
 
-@keyframes a-down {
-  from {
-    opacity: 0;
-    transform:translateY(-200px)
-  } 
-  to {
-    opacity: 1;
-    transform:translateY(0)
-  }
-}
-.a-down {
-  animation: a-down .5s;
-}
-@keyframes a-left {
-  from {
-    opacity: 0;
-    transform:translateX(-300px)
-  } 
-  to {
-    opacity: 1;
-    transform:translateX(0)
-  }
-}
-.a-left {
-  animation: a-left .5s .5s;
-  animation-fill-mode: backwards;
-}
-@keyframes a-right {
-  from {
-    opacity: 0;
-    transform:translateX(300px)
-  } 
-  to {
-    opacity: 1;
-    transform:translateX(0)
-  }
-}
-.a-right {
-  animation: a-right .5s 1s;
-  animation-fill-mode: backwards;
-}
 @keyframes bounceIn {
   from, 12%, 25%, 37%, 50%, 62%, 75%, 87%, to {
     -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);

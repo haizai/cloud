@@ -1,12 +1,6 @@
 "use strict"
 
-
 jQuery(function($){
-
-  // 禁止拖动
-  // document.body.onmousedown = function() {
-  //   return false
-  // }
 
   function Chart(o){
     this.chart = echarts.init(document.getElementById(o.id))
@@ -244,25 +238,25 @@ jQuery(function($){
     this.Codes = o.Codes
     this._isAllowedMousewheel = true
 
-    this.Chart = new Chart(o.chart)
+    this.chart = new Chart(o.chart)
 
     this.isStopTypewriter = false    
     this.init()
   }
 
-
   Haizai.prototype = {
     init: function(){
       this.setItemHeight()
-      this.setPartPosition()
       this.slideInit()
       this.carouselInit()
       this.bindEvents()
+      this.resetAll()
       this.moveTo(0)
       this.codeInit()
-      this.Chart.init()
+      this.chart.init()
       this.loadImg(0, false)
     },
+    //设置高度适应
     setItemHeight: function() {
       var self = this
       $('.part').each(function(){
@@ -270,8 +264,6 @@ jQuery(function($){
           height:self.bH+'px'
         })
       })
-    },
-    setPartPosition: function() {
       var bH = this.bH
       if (bH < 670) {
         $('.part-anime-img').hide()
@@ -366,7 +358,6 @@ jQuery(function($){
             break;
         }
       })
-
     },
     loadImg: function(index, isBig) {
       var self = this
@@ -399,7 +390,6 @@ jQuery(function($){
           self.bH = $('body').height()
           self.setItemHeight()
           $('body').scrollTop(self.bH*self.sel)
-          self.setPartPosition()
         }
       });
 
@@ -407,12 +397,11 @@ jQuery(function($){
 
         if (!self.onMove && self._isAllowedMousewheel) {
           if(self.sel == 0 && e.deltaY == -1) {
-            self.moveTo(++self.sel)
+            self.moveTo(self.sel+1)
           } else if (self.sel == self.len-1 && e.deltaY == 1) {
-            self.moveTo(--self.sel)
+            self.moveTo(self.sel-1)
           }else if (self.sel > 0 && self.sel < self.len-1) {
-            self.sel-=e.deltaY
-            self.moveTo(self.sel)
+            self.moveTo(self.sel-e.deltaY)
           }
         }
       })
@@ -421,8 +410,7 @@ jQuery(function($){
       $('.slide-item-round').each(function(index){
         $(this).on('click', function() { 
           if(self.sel != index) {   
-            self.sel = index
-            self.moveTo(self.sel)
+            self.moveTo(index)
           }
         })
       })
@@ -443,7 +431,7 @@ jQuery(function($){
       //滑块上下
       $('.slide-top').on('click', function() {
         if (self.sel > 0 && !self.onMove) {
-          self.moveTo(--self.sel)
+          self.moveTo(self.sel-1)
         }
       })
       $('.slide-top').hover(function(){
@@ -454,7 +442,7 @@ jQuery(function($){
 
       $('.slide-bottom').on('click', function() {
         if (self.sel < self.len-1 && !self.onMove) {
-          self.moveTo(++self.sel)
+          self.moveTo(self.sel+1)
         }
       })
       $('.slide-bottom').hover(function(){
@@ -621,100 +609,111 @@ jQuery(function($){
         }
       })
     },
+    // 移动重置
+    resetOfIndex: function(index){
+      switch (index) {
+        case 1:
+          this.carouselTimer = null
+          $('.part-anime-warp').css({opacity: 0})
+          $('.part-anime-search').css({opacity: 0}) // ie
+          break;
+        case 2:
+          $('.part-demos-warp').css({opacity: 0})
+          $('.part-demos-title').stop(true).css({marginTop: '-50px',opacity:0})
+          $('.part-demos-left').children().stop(true).css({marginLeft:'-200px',opacity:0})
+          $('.part-demos-right').children().stop(true).css({marginRight:'-200px',opacity:0})
+          break;
+        case 3:
+          $('.part-chart-warp').css({opacity: 0})
+          break; 
+        case 4:
+          $('.part-aboutme-warp').removeClass('bounceIn')
+          break;           
+        default:
+          break;
+      }
+    },
+    // 全部重置
+    resetAll: function(){
+      for (var i = 0; i < this.len; i++) {
+        this.resetOfIndex(i)
+      }
+    },
+    // 移动到part后的animate
+    moveAnimateOfIndex: function(index){
+      var self = this
+      var typewriter = this.typewriter.bind(this)
+      switch (index) {
+        case 0:
+          typewriter($('.part-tips').eq(0),"苟利国家生死以，岂因祸福避趋之。——林则徐")
+          break;
+        case 1:
+          typewriter($('.part-tips').eq(1),"我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」")
+          $('.part-anime-warp').animate({opacity: 1}, 500, function(){
+            if (!self.onCarousel) {
+              self.carousel(true)
+            }
+          })
+          $('.part-anime-search').animate({opacity: 1}, 500) // ie
+          // carousel自动移动
+          self.lastCarouselTime = Date.now()
+          self.carouselTimer = setInterval(function(){
+            if (!self.onCarousel && Date.now() - self.lastCarouselTime > 3000) {
+              self.carousel(true)
+            }
+          }, 1000) 
+          break;
+        case 2:
+          typewriter($('.part-tips').eq(2),"生如夏花之绚烂，死如秋叶之静美。——泰戈尔")
+          $('.part-demos-warp').animate({opacity: 1}, 500)
+          $('.part-demos-left, .part-demos-right').children().add('.part-demos-title').each(function(i){
+            if (i == 0){
+              $(this).animate({
+                marginTop:'0px',
+                opacity:1
+              },300)
+            } else if(i<6 && i>0) {
+              $(this).delay(i*100).animate({
+                marginLeft:'0px',
+                opacity:1
+              },300)
+            } else {
+              $(this).delay(i*100).animate({
+                marginRight:'0px',
+                opacity:1
+              },300)
+            }
+          })
+          break
+        case 3:
+          typewriter($('.part-tips').eq(3),"我思故我在。——笛卡尔")
+          $('.part-chart-warp').animate({opacity: 1}, 500)
+          break
+        case 4:
+          typewriter($('.part-tips').eq(4),"誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」")
+          $('.part-aboutme-warp').addClass('bounceIn')
+          break
+        default:
+          break;
+      }
+    },
     // 核心移动方法
     moveTo: function(index) {
       var self = this
+      this.resetOfIndex(this.sel)
+      self.sel = index
       self.onMove = true
-      self.isStopTypewriter = true
-
-      var typewriter = self.typewriter.bind(self)
 
       $('.part-tips').hide().text(' ')
+      self.isStopTypewriter = true
 
-      $('.part-anime-warp').css({opacity: 0})
-      $('.part-anime-search').css({opacity: 0}) // ie
-      $('.part-demos-warp').css({opacity: 0})
-
-      $('.part-demos-title').removeClass('a-down')
-      $('.part-demos-left').children().css({marginLeft:'-200px',opacity:0}).stop(true)
-      $('.part-demos-right').children().css({marginRight:'-200px',opacity:0}).stop(true)
-
-
-
-      $('.part-chart-warp').css({opacity: 0})
-      $('.part-aboutme-warp').removeClass('bounceIn')
-      
       $('.slide-item-text').hide()
       $('.slide-item-text').eq(index).show()
+      $('.slide-item').eq(index).addClass('slide-item-in').siblings().removeClass('slide-item-in')
 
-
-      $('html,body').animate({scrollTop : self.bH*index},500,function(){
-        
+      $('html,body').animate({scrollTop : self.bH*index},500,function(){    
         self.onMove = false
-        self.carouselTimer = null
-        
-
-        switch (index) {
-          case 0:
-            typewriter($('.part-tips').eq(0),"苟利国家生死以，岂因祸福避趋之。——林则徐")
-            break;
-          case 1:
-            typewriter($('.part-tips').eq(1),"我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」")
-            $('.part-anime-warp').animate({opacity: 1}, 500, function(){
-              if (!self.onCarousel) {
-                self.carousel(true)
-              }
-            })
-            $('.part-anime-search').animate({opacity: 1}, 500) // ie
-            // carousel自动移动
-            this.lastCarouselTime = Date.now()
-            self.carouselTimer = setInterval(function(){
-              if (!self.onCarousel && Date.now() - self.lastCarouselTime > 3000) {
-                self.carousel(true)
-              }
-            }, 1000) 
-            break;
-          case 2:
-            typewriter($('.part-tips').eq(2),"生如夏花之绚烂，死如秋叶之静美。——泰戈尔")
-            $('.part-demos-warp').animate({opacity: 1}, 500)
-            $('.part-demos-title').addClass('a-down')
-            $('.part-demos-left, .part-demos-right').children().each(function(i){
-              if (i<5) {
-                $(this).delay(i*100).animate({
-                  marginLeft:'0px',
-                  opacity:1
-                },100)
-              } else {
-                $(this).delay(i*100).animate({
-                  marginRight:'0px',
-                  opacity:1
-                },100)
-              }
-              
-            })
-
-
-            break
-          case 3:
-            typewriter($('.part-tips').eq(3),"我思故我在。——笛卡尔")
-            $('.part-chart-warp').animate({opacity: 1}, 500)
-            break
-          case 4:
-            typewriter($('.part-tips').eq(4),"誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」")
-            $('.part-aboutme-warp').addClass('bounceIn')
-            break
-          default:
-            // statements_def
-            break;
-        }
-
-      })
-      $('.slide-item').each(function(i){
-        if (i===index) {
-          $(this).addClass('slide-item-in')
-        } else {
-          $(this).removeClass('slide-item-in')
-        }
+        self.moveAnimateOfIndex(index)
       })
     },
     codeInit: function(){
@@ -758,7 +757,6 @@ jQuery(function($){
           }
         })
 
-
         // //不同code转换
         $('.code-slide li').not('.code-more').each(function(index) {
           $(this).on('click', function(){
@@ -780,6 +778,7 @@ jQuery(function($){
       })
     },
   }
+  
   var haizai = new Haizai({
     Img: {
       smallSrcs: [
