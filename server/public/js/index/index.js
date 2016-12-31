@@ -285,7 +285,7 @@ jQuery(function($){
     slideInit: function() {
       //出现侧栏
       for (var i = 0; i < this.len; i++) {
-        $('<div class="slide-item"><span class="slide-item-text"></span><div class="slide-item-round"></div></div>').appendTo($('.slide-items'))
+        $('<li class="slide-item"><span class="slide-item-text"></span><div class="slide-item-round"></div></li>').appendTo($('.slide-items'))
         switch (i) {
           case 0:
             $('.slide-item').eq(0).addClass('slide-item-in')
@@ -1067,7 +1067,7 @@ jQuery(function($){
           textStyle: {
             fontSize: 28
           },
-          subtext: '全部17500部VIP小说',
+          subtext: 'node.js爬虫得到全部17500部VIP小说',
           subtextStyle: {
             color: '#666'
           },
