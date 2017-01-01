@@ -611,20 +611,21 @@ jQuery(function($){
     },
     // 移动重置
     resetOfIndex: function(index){
+      console.log('resetOfIndex',index)
       switch (index) {
         case 1:
           this.carouselTimer = null
-          $('.part-anime-warp').css({opacity: 0})
-          $('.part-anime-search').css({opacity: 0}) // ie
+          $('.part-anime-warp').stop(true).css({opacity: 0})
+          $('.part-anime-search').stop(true).css({opacity: 0}) // ie
           break;
         case 2:
-          $('.part-demos-warp').css({opacity: 0})
+          $('.part-demos-warp').stop(true).css({opacity: 0})
           $('.part-demos-title').stop(true).css({marginTop: '-50px',opacity:0})
           $('.part-demos-left').children().stop(true).css({marginLeft:'-200px',opacity:0})
           $('.part-demos-right').children().stop(true).css({marginRight:'-200px',opacity:0})
           break;
         case 3:
-          $('.part-chart-warp').css({opacity: 0})
+          $('.part-chart-warp').stop(true).css({opacity: 0})
           break; 
         case 4:
           $('.part-aboutme-warp').removeClass('bounceIn')
