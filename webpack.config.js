@@ -1,16 +1,27 @@
 var path = require('path')
 var webpack = require('webpack')
-
+var autoprefixer = require('autoprefixer')
 var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 
 module.exports = {
 	devtool:'eval-source-map',
-	entry: ['./server/public/js/index/index.js',hotMiddlewareScript],
+	entry: ['./server/src/index.js',hotMiddlewareScript],
 	output:{
     path: path.resolve(__dirname, './server/public/js/index'),
     publicPath:'/',
     filename: 'index.bundle.js'
 	},
+
+  module:{
+    loaders: [
+      {
+        test: /.css$/,
+        loader: 'style-loader!css-loader!postcss-loader'
+      },
+    ]
+  },
+  
+  postcss:[autoprefixer({browsers:['> 5%']})],
 
 	devServer: {
     historyApiFallback: true,

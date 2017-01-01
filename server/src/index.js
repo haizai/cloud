@@ -1,8 +1,10 @@
 "use strict"
 
+require('../public/css/index/index.css')
+
+
 jQuery(function($){
 
-  console.log('?')
   function Chart(o){
     this.chart = echarts.init(document.getElementById(o.id))
     this.option = o.option

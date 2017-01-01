@@ -11,6 +11,7 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "autoprefixer": "^6.6.0",
     "body-parser": "~1.15.2",
     "co": "^4.6.0",
     "cookie-parser": "~1.4.3",
@@ -23,6 +24,7 @@
     "mongoose": "^4.6.5",
     "morgan": "~1.7.0",
     "node-sass": "^4.1.1",
+    "postcss-loader": "^1.2.1",
     "reload": "^1.1.0",
     "sass-loader": "^4.1.1",
     "serve-favicon": "~2.3.0",
