@@ -2,6 +2,7 @@
 
 jQuery(function($){
 
+  console.log('?')
   function Chart(o){
     this.chart = echarts.init(document.getElementById(o.id))
     this.option = o.option
@@ -221,7 +222,7 @@ jQuery(function($){
 
   function Haizai(o){
     this.bH = $('body').height()
-    this.sel = 0
+    this.sel =  $('body').scrollTop()/this.bH
     this.onMove = false
     this.len = 5
     this.Img = o.Img

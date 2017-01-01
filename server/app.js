@@ -6,6 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var formidable = require('formidable');
 
+var webpack = require('webpack')
+var webpackDevMiddleware = require('webpack-dev-middleware')
+var webpackHotMiddleware = require('webpack-hot-middleware')
+var webpackDevConfig = require('../webpack.config.js')
+
+
+
+
+
 var routes = require('./routes/routes');
 
 var app = express();
@@ -23,6 +32,29 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+
+if (process.env.NODE_ENV == "dev") {
+  var compiler = webpack(webpackDevConfig);
+  app.use(webpackDevMiddleware(compiler, {
+      publicPath: webpackDevConfig.output.publicPath,
+      noInfo: true,
+      stats: {
+          colors: true
+      }
+  }));
+  app.use(webpackHotMiddleware(compiler));
+  // var reload = require('reload');
+  // var http = require('http');
+
+  // var server = http.createServer(app);
+  // reload(server, app);
+
+  // server.listen(80, function(){
+  //   console.log('App (dev) is now running on port 80!');
+  // });
+}
+
+
 
 
 // catch 404 and forward to error handler
