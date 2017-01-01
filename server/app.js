@@ -6,13 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var formidable = require('formidable');
 
-var webpack = require('webpack')
-var webpackDevMiddleware = require('webpack-dev-middleware')
-var webpackHotMiddleware = require('webpack-hot-middleware')
-var webpackDevConfig = require('../webpack.config.js')
-
-
-
 
 
 var routes = require('./routes/routes');
@@ -34,6 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 if (process.env.NODE_ENV == "dev") {
+
+  var webpack = require('webpack')
+  var webpackDevMiddleware = require('webpack-dev-middleware')
+  var webpackHotMiddleware = require('webpack-hot-middleware')
+  var webpackDevConfig = require('../webpack.config.js')
+  
   var compiler = webpack(webpackDevConfig);
   app.use(webpackDevMiddleware(compiler, {
       publicPath: webpackDevConfig.output.publicPath,
