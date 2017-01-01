@@ -611,7 +611,6 @@ jQuery(function($){
     },
     // 移动重置
     resetOfIndex: function(index){
-      console.log('resetOfIndex',index)
       switch (index) {
         case 1:
           this.carouselTimer = null

@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
     res.redirect('/mobile')
   } else {
     console.log(util.inspect({ip: req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress || "unknown", url: "/",time: new Date()},{colors: true}));
-    res.render('index', {title:'index'});
+    res.render('index', {title:'index',NODE_ENV: process.env.NODE_ENV});
   }
 });
 
