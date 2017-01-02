@@ -288,23 +288,23 @@ jQuery(function($){
     slideInit: function() {
       //出现侧栏
       for (var i = 0; i < this.len; i++) {
-        $('<li class="slide-item"><span class="slide-item-text"></span><div class="slide-item-round"></div></li>').appendTo($('.slide-items'))
+        $('<li class="item"><span class="item-text"></span><div class="item-round"></div></li>').appendTo($('#slide .items'))
         switch (i) {
           case 0:
-            $('.slide-item').eq(0).addClass('slide-item-in')
-            $('.slide-item-text').eq(0).text('主页').css({opacity:1})
+            $('.item').eq(0).addClass('item-in')
+            $('.item-text').eq(0).text('主页').css({opacity:1})
             break;
           case 1:
-            $('.slide-item-text').eq(1).text('动漫')
+            $('.item-text').eq(1).text('动漫')
             break
           case 2:
-            $('.slide-item-text').eq(2).text('小项目')
+            $('.item-text').eq(2).text('小项目')
             break
           case 3:
-            $('.slide-item-text').eq(3).text('数据分析')
+            $('.item-text').eq(3).text('数据分析')
             break
           case 4:
-            $('.slide-item-text').eq(4).text('关于我')
+            $('.item-text').eq(4).text('关于我')
             break
           default:
             break
@@ -410,7 +410,7 @@ jQuery(function($){
       })
 
       // 侧栏点击
-      $('.slide-item-round').each(function(index){
+      $('#slide .item-round').each(function(index){
         $(this).on('click', function() { 
           if(self.sel != index) {   
             self.moveTo(index)
@@ -419,7 +419,7 @@ jQuery(function($){
       })
 
       // 侧栏hover
-      $('.slide-item-round').each(function(index){
+      $('#slide .item-round').each(function(index){
         $(this).hover(function(){
           if(self.sel !== index) {
             $(this).prev().show()
@@ -432,26 +432,26 @@ jQuery(function($){
       })
 
       //滑块上下
-      $('.slide-top').on('click', function() {
+      $('#slide .top').on('click', function() {
         if (self.sel > 0 && !self.onMove) {
           self.moveTo(self.sel-1)
         }
       })
-      $('.slide-top').hover(function(){
-        $('.slide-top-text').show()
+      $('#slide .top').hover(function(){
+        $('#slide .top-text').show()
       }, function(){
-        $('.slide-top-text').hide()
+        $('#slide .top-text').hide()
       })
 
-      $('.slide-bottom').on('click', function() {
+      $('#slide .bottom').on('click', function() {
         if (self.sel < self.len-1 && !self.onMove) {
           self.moveTo(self.sel+1)
         }
       })
-      $('.slide-bottom').hover(function(){
-        $('.slide-bottom-text').show()
+      $('#slide .bottom').hover(function(){
+        $('#slide .bottom-text').show()
       }, function(){
-        $('.slide-bottom-text').hide()
+        $('#slide .bottom-text').hide()
       })
 
       //anime 搜索
@@ -710,9 +710,9 @@ jQuery(function($){
       $('.part-tips').hide().text(' ')
       self.isStopTypewriter = true
 
-      $('.slide-item-text').hide()
-      $('.slide-item-text').eq(index).show()
-      $('.slide-item').eq(index).addClass('slide-item-in').siblings().removeClass('slide-item-in')
+      $('#slide .item-text').hide()
+      $('#slide .item-text').eq(index).show()
+      $('#slide .item').eq(index).addClass('item-in').siblings().removeClass('item-in')
 
       $('html,body').animate({scrollTop : self.bH*index},500,function(){    
         self.onMove = false
@@ -723,56 +723,56 @@ jQuery(function($){
       var self = this
       $('.part-demos-warp [code]').on('click', function() {
         self._isAllowedMousewheel = false
-        var $code = $('.code-all')
+        var $code = $('#code')
         $code.show()
-        $code.find('.code-del').on('click', function(){
+        $code.find('.del').on('click', function(){
           self._isAllowedMousewheel = true
           $code.hide()
         })
 
         var codeName = $(this).attr('code')
 
-        $('.code-slide').html('')
-        $('.code-body').html('')
+        $('#code .slide').html('')
+        $('#code .body').html('')
 
         self.Codes.forEach(function(obj){
           if (obj.name === codeName) {
-            $('.code-title').text(obj.title)
-            $('.code-detail').parent().attr('href',obj.detail)
-            $('.code-github').parent().attr('href',obj.github)
+            $('#code .title').text(obj.title)
+            $('#code .detail').parent().attr('href',obj.detail)
+            $('#code .github').parent().attr('href',obj.github)
 
             obj.codes.forEach( function(code, index) {
-              $('.code-slide').append('<li>' + code.name +'</li>')
-              $('.code-body').append('<li><pre class="language-' +code.type+'" style="height: ' + (self.bH - 270) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
+              $('#code .slide').append('<li>' + code.name +'</li>')
+              $('#code .body').append('<li><pre class="language-' +code.type+'" style="height: ' + (self.bH - 270) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
               if (index == 0) {
-                $('.code-slide').find('li').addClass('code-slide-in')
-                $('.code-body').find('li').show()
-                $('.code-slide-span').css({
-                  width:$('.code-slide').find('li').outerWidth(),
+                $('#code .slide').find('li').addClass('slide-in')
+                $('#code .body').find('li').show()
+                $('#code .slide-span').css({
+                  width:$('#code .slide').find('li').outerWidth(),
                   left: '20px'
                 })
               }
             });
 
             if (obj.hasMore) {
-              $('.code-slide').append('<li class="code-more"><a style="color: #333" target="_black" href="'+ obj.github +'">更多...</li>')
+              $('#code .slide').append('<li class="more"><a style="color: #333" target="_black" href="'+ obj.github +'">更多...</li>')
             }
           }
         })
 
         // //不同code转换
-        $('.code-slide li').not('.code-more').each(function(index) {
+        $('#code .slide li').not('.more').each(function(index) {
           $(this).on('click', function(){
-            $('.code-slide li').removeClass('code-slide-in')
-            $(this).addClass('code-slide-in')
-            $('.code-body li').hide()
-            $('.code-body li').eq(index).show()
+            $('#code .slide li').removeClass('slide-in')
+            $(this).addClass('slide-in')
+            $('#code .body li').hide()
+            $('#code .body li').eq(index).show()
             var leftWidth = 20
-            $('.code-slide li').eq(index).prevAll().each(function(){
+            $('#code .slide li').eq(index).prevAll().each(function(){
               leftWidth += $(this).outerWidth()
             })
-            $('.code-slide-span').animate({
-              width: $('.code-slide li').eq(index).outerWidth(),
+            $('#code .slide-span').animate({
+              width: $('#code .slide li').eq(index).outerWidth(),
               left: leftWidth
             },200)
           })
