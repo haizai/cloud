@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 var autoprefixer = require('autoprefixer')
+var CleanWebpackPlugin = require('clean-webpack-plugin')
+
 var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 
 module.exports = {
@@ -35,10 +37,13 @@ module.exports = {
   ]
 }
 
-// 生产环境
+
+// npm run build
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
-  module.exports.plugins = (module.exports.plugins || []).concat([
+  module.exports.entry = './server/src/index.js'
+  module.exports.plugins = [
+    new CleanWebpackPlugin(['public']),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"'
@@ -48,6 +53,6 @@ if (process.env.NODE_ENV === 'production') {
       compress: {
         warnings: false
       }
-    })
-  ])
+    }),
+  ] 
 }
