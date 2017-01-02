@@ -1,0 +1,31 @@
+.part{
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-repeat:no-repeat;
+  background-position:center;
+  display: block;
+}
+.part-warp {
+  height: 100%;
+  width: 980px;
+  position: relative;
+  margin: 0 auto;
+}
+.part-tips {
+  color: #fff;
+  opacity: 0.8;
+  position: absolute;
+  left: 0;
+  bottom: 20px;
+  font-size: 24px;
+  text-shadow: 2px 2px 4px #000;
+  z-index: 100;
+  white-space:pre;
+}
+
+@import './part/index';
+@import './part/anime';
+@import './part/demos';
+@import './part/chart';
+@import './part/aboutme';

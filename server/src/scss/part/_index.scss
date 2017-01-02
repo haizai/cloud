@@ -1,0 +1,16 @@
+@keyframes info {
+  0% {opacity: 1}
+  50% {opacity: 0.5}
+  100% {opacity: 1}
+}
+.part-index-info {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 200px;
+  color: #fff;
+  text-shadow: 2px 2px 4px #000;
+  letter-spacing: .5em;
+  font-size: 24px;
+  animation: info 1s infinite;
+}

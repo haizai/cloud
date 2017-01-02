@@ -1,0 +1,159 @@
+
+.part-anime-warp {
+  position: absolute;
+  opacity: 0;
+}
+.part-anime-img {
+  margin-left: 380px;
+  margin-bottom: 20px;
+}
+.part-anime-img-noie9 {
+  transition: margin-left 0.3s;
+}
+.part-anime-img-noie9:hover {
+  margin-left: 390px;
+}
+.part-anime-keyword, .part-anime-search {
+  font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
+  outline: none;
+  color: #333;
+}
+.part-anime-keyword {
+  border: 1px solid #aaa;
+  margin-left: 250px;
+  width: 400px;
+  height: 38px;
+  padding: 0 10px;
+  box-shadow: none;
+  font-size: 14px;
+  border-radius: 4px;
+  background: #eee;
+}
+.part-anime-keyword:focus {
+  background: #fff;
+}
+.part-anime-search {
+  height: 40px;
+  padding: 0 20px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  position: absolute;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  @include btn-color($blue);
+}
+.part-anime-carousel {
+  margin-top: 20px;
+  position: relative;
+  display: inline-block;
+  width: 600px;
+  height: 480px;
+  margin-left: 190px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+.carousel-item {
+  width: 300px;
+  position: absolute;
+  height: 450px;
+}
+.carousel-item img {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  width: 100%;
+}
+.carousel-item-div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  background: #000;
+  opacity: 0;
+}
+
+
+
+.part-anime-left, .part-anime-right {
+  width: 32px;
+  height: 32px;
+  top: -5px;
+  position: absolute;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.part-anime-left:hover, .part-anime-right:hover {
+  opacity: 1;
+}
+.part-anime-left {
+  background: url('/img/index/back.png') no-repeat;
+  left: -38px;
+}
+.part-anime-right {
+  background: url('/img/index/more.png') no-repeat;
+  right: -38px;
+}
+.part-anime-left-b, .part-anime-right-b {
+  width: 150px;
+  height: 300px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 25;
+  top: 75px;
+  opacity: 0;
+  background-repeat: no-repeat;
+  background-position: 30px 110px;
+}
+.part-anime-left-b:hover, .part-anime-right-b:hover {
+  opacity: 1;
+}
+
+.part-anime-left-b {
+  background-image: url('/img/index/back_b.png');
+  left: 0;
+}
+.part-anime-right-b {
+  background-image: url('/img/index/more_b.png');
+  right: 0;
+}
+.part-tips-a p:hover {
+  color: $pink-light;
+}
+.part-anime-slides {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  white-space: nowrap;
+}
+.part-anime-slide {
+  display: inline-block;
+  width: 16px;
+  height: 8px;
+  margin: 5px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor:pointer;
+}
+.part-anime-slide:hover {
+  background: rgba(204,204,204,0.5);
+}
+.part-anime-slide-in, .part-anime-slide-in:hover {
+  background: #ccc;
+}
+.part-anime-title {
+  position: absolute;
+  width: 300px;
+  bottom: 18px;
+  color: $pink-light;
+  z-index: 21;
+  height: 24px;
+  line-height: 24px;
+  font-size: 16px;
+  text-align: center;
+  text-shadow: 2px 2px 1px #000;
+  background: rgba(255,255,255,0.1);
+  display: none;
+}

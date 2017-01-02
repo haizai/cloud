@@ -1,7 +1,7 @@
 "use strict"
 
-require('../public/css/index/index.css')
 
+require('./scss/main.scss')
 
 jQuery(function($){
 

@@ -1,0 +1,16 @@
+.header {
+  position: fixed;
+  top: 0;
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  background-color: $blue-opacity-more;
+  z-index: 10;
+  box-shadow: 0 0 6px 0 #2D95B7;
+}
+.header-a {
+  background-color: $blue-opacity;
+  &:hover {
+    background-color: $blue;
+  }
+}
