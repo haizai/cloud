@@ -1,4 +1,4 @@
-.part-demos-warp {
+#demos {
   position: absolute;
   width: 980px;
   margin: 150px auto 0;
@@ -6,27 +6,28 @@
   text-shadow: 2px 2px 4px #000;
   text-align: center;
   color: #fff;
-}
-.part-demos-title {
-  font-size: 46px;
-}
-.part-demos-title2{
-  font-size: 36px;
-}
-.part-demos-left {
-  display: inline-block;
-  width: 490px;
-  float: left;
-}
-.part-demos-right {
-  display: inline-block;
-  width: 490px;
-  float: right;
-}
-.part-demos-warp p {
-  margin: 10px 0;
-  font-size: 20px;
-}
-.part-demos-warp a:hover {
-  text-decoration: underline;
+
+  .title {
+    font-size: 46px;
+  }
+  .title2{
+    font-size: 36px;
+  }
+  .left {
+    display: inline-block;
+    width: 490px;
+    float: left;
+  }
+  .right {
+    display: inline-block;
+    width: 490px;
+    float: right;
+  }
+  p {
+    margin: 10px 0;
+    font-size: 20px;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
 }

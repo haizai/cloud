@@ -18,18 +18,18 @@ jQuery(function($){
     },
     bookInit: function(){
       for (var i = 1; i < 9; i++) {
-        $('.part-chart-rank').append('<li><div class="chart-rank-left"><span class="chart-rank-level">'+i+'</span></div><table class="chart-rank-table"><tbody><tr><td style="width:140px;font-weight:bold;"></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></li>')
+        $('#chart .rank').append('<li><div class="rank-left"><span class="rank-level">'+i+'</span></div><table class="rank-table"><tbody><tr><td style="width:140px;font-weight:bold;"></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></li>')
       }
-      $('.chart-rank-level:gt(2)').css({backgroundColor: '#b8c0cc'})
-      $('.part-chart-rank li').eq(0).css({height:'90px'})
+      $('#chart .rank-level:gt(2)').css({backgroundColor: '#b8c0cc'})
+      $('#chart .rank li').eq(0).css({height:'90px'})
 
-      $('.part-chart-rank li').each(function(){
+      $('#chart .rank li').each(function(){
         var $li = $(this)
         $li.hover(function(){
           $li.css({height: '90px'}).siblings().css({height: '30px'})
         },function(){
           $li.css({height: '30px'})
-          $('.part-chart-rank li').eq(0).css({height: '90px'})
+          $('#chart .rank li').eq(0).css({height: '90px'})
         })
       })
       this.changeBookData('玄幻')
@@ -208,9 +208,9 @@ jQuery(function($){
       }
     },
     changeBookData: function(type) {
-      $('.part-chart-title').text(type + '小说top8')
+      $('#chart .title').text(type + '小说top8')
       this.books[type].forEach( function(book, index) {
-        var $tds = $('.part-chart-rank li').eq(index).find('td')
+        var $tds = $('#chart .rank li').eq(index).find('td')
         $tds.eq(0).text(book.title)
         $tds.eq(1).text(Math.round(book.allClickCount) + ' 万总点击')
         $tds.eq(2).text('作者 ' + book.writer)
@@ -269,20 +269,20 @@ jQuery(function($){
       })
       var bH = this.bH
       if (bH < 670) {
-        $('.part-anime-img').hide()
-        $('.part-anime-warp').css({marginTop: '50px'})
+        $('#anime .img').hide()
+        $('#anime').css({marginTop: '50px'})
         $('.part-tips-a').eq(0).hide()
       } else if(bH < 770 && bH >= 670) {
-        $('.part-anime-img').hide()
-        $('.part-anime-warp').css({marginTop: (bH-666)/2 + 50 + 'px'})
+        $('#anime .img').hide()
+        $('#anime').css({marginTop: (bH-666)/2 + 50 + 'px'})
         $('.part-tips-a').eq(0).show()
       } else {
-        $('.part-anime-img').show()
-        $('.part-anime-warp').css({marginTop: (bH-750)/4 + 50 + 'px'})
+        $('#anime .img').show()
+        $('#anime').css({marginTop: (bH-750)/4 + 50 + 'px'})
       }
-      $('.part-chart-warp').css({marginTop: (bH-650)/4 + 50 + 'px'})
-      $('.part-demos-warp').css({marginTop: (bH-474)/4 + 50 + 'px'})
-      $('.part-aboutme-warp').css({marginTop: (bH-372)/4 + 50 + 'px'})
+      $('#chart').css({marginTop: (bH-650)/4 + 50 + 'px'})
+      $('#demos').css({marginTop: (bH-474)/4 + 50 + 'px'})
+      $('#aboutme').css({marginTop: (bH-372)/4 + 50 + 'px'})
       $('pre[class*="language-"]').css({height:(bH - 270) +'px'})
     },
     slideInit: function() {
@@ -316,18 +316,18 @@ jQuery(function($){
       //生成carousel每一个item
       for (var i = 0; i < self.animeCount; i++) {
         if (i == 1) {
-          $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + self.Animes[i].id + '" class="part-anime-title"  style="display: inline-block;">' + self.Animes[i].title + '</a>')
+          $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + self.Animes[i].id + '" class="title"  style="display: inline-block;">' + self.Animes[i].title + '</a>')
         } else {
-          $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + self.Animes[i].id + '" class="part-anime-title">' + self.Animes[i].title + '</a>')
+          $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + self.Animes[i].id + '" class="title">' + self.Animes[i].title + '</a>')
         }
       }
 
       //生成carousel的slide
       for (var i = 0; i < self.animeCount; i++) {
         if (i == 1) {
-          $('<div class="part-anime-slide part-anime-slide-in"></div>').appendTo($('.part-anime-slides'))
+          $('<div class="slide slide-in"></div>').appendTo($('#anime .slides'))
         } else {
-          $('<div class="part-anime-slide"></div>').appendTo($('.part-anime-slides'))
+          $('<div class="slide"></div>').appendTo($('#anime .slides'))
         }
       }
 
@@ -338,7 +338,7 @@ jQuery(function($){
             $(this).children('.carousel-item-div').css({opacity: 0.5})
             break;
           case 1:
-            var $title = $(this).children('.part-anime-title')
+            var $title = $(this).children('#anime .title')
             $(this).css(self.CarouselStatus.middle).css({zIndex: 12}).hover(function(){
               $title.animate(self.CarouselStatus.titleEnter,200)
             },function(){
@@ -455,19 +455,19 @@ jQuery(function($){
       })
 
       //anime 搜索
-      $('.part-anime-search').on('click', function() {
-        location = location.href + 'animes#/?keyword=' + $('.part-anime-keyword').val().trim() +'&page=1&range=default&sort=count'
+      $('#anime .search').on('click', function() {
+        location = location.href + 'animes#/?keyword=' + $('#anime .keyword').val().trim() +'&page=1&range=default&sort=count'
       })
-      $('.part-anime-keyword').on('keydown', function(e){
+      $('#anime .keyword').on('keydown', function(e){
         if(e.keyCode==13) {
-          location = location.href + 'animes#/?keyword=' + $('.part-anime-keyword').val().trim() +'&page=1&range=default&sort=count'
+          location = location.href + 'animes#/?keyword=' + $('#anime .keyword').val().trim() +'&page=1&range=default&sort=count'
         }
       })
 
       // ie9 transition
       if (/MSIE 9\.0;/.test(navigator.userAgent)) {
-        $('.part-anime-img').removeClass('part-anime-img-noie9')
-        $('.part-anime-img').hover(function(){
+        $('#anime .img').removeClass('img-noie9')
+        $('#anime .img').hover(function(){
           $(this).animate({marginLeft: '390px'}, 300)
         }, function(){
           $(this).animate({marginLeft: '380px'}, 300)
@@ -476,9 +476,9 @@ jQuery(function($){
 
 
       //slide绑定点击事件
-      $('.part-anime-slide').each(function (index) {
+      $('#anime .slide').each(function (index) {
         $(this).on('click', function (e) {
-          if (!$(this).hasClass('part-anime-slide-in') && !self.onCarousel) {
+          if (!$(this).hasClass('slide-in') && !self.onCarousel) {
             if (index > self.animeSel) {
               self.carousel(true, index - self.animeSel)
             } else {
@@ -490,12 +490,12 @@ jQuery(function($){
 
 
       //lefta和right按钮绑定点击事件
-      $('.part-anime-left,.part-anime-left-b').on('click', function(){
+      $('#anime .left,#anime .left-b').on('click', function(){
         if (!self.onCarousel) {
           self.carousel(false)
         }
       })
-      $('.part-anime-right,.part-anime-right-b').on('click', function () {
+      $('#anime .right,#anime .right-b').on('click', function () {
         if (!self.onCarousel) {
           self.carousel(true)
         }
@@ -557,10 +557,10 @@ jQuery(function($){
         self.animeSel += animeCount
       }
         
-      $('.part-anime-slide-in').removeClass('part-anime-slide-in')
-      $('.part-anime-slide').eq(self.animeSel).addClass('part-anime-slide-in')
+      $('#anime .slide-in').removeClass('slide-in')
+      $('#anime .slide').eq(self.animeSel).addClass('slide-in')
 
-      $('.part-anime-title').hide()
+      $('#anime .title').hide()
 
       setTimeout(function() {
         self.lastCarouselTime = Date.now()
@@ -568,7 +568,7 @@ jQuery(function($){
           self.carousel(direction, --times, time)
         } else {
           self.onCarousel = false
-          $('.carousel-item').eq(self.animeSel).find('.part-anime-title').show()
+          $('.carousel-item').eq(self.animeSel).find('#anime .title').show()
         }
       }, time)
 
@@ -584,12 +584,12 @@ jQuery(function($){
           $this.children('.carousel-item-div').animate({opacity: 0,},time)
         } 
         else if (con == -1 || con == animeCount-1 || con == -animeCount-3) {
-          $this.children('.part-anime-title').stop(true,true)
+          $this.children('#anime .title').stop(true,true)
           $this.css({zIndex: 11}).animate(self.CarouselStatus.left1,time).off('mouseenter mouseleave')
           $this.children('.carousel-item-div').animate({opacity: 0.5},time)
         } 
         else if (con == 0 || con == animeCount || con == -animeCount) {
-          var $title = $this.children('.part-anime-title')
+          var $title = $this.children('#anime .title')
           $this.css({zIndex: 12}).animate(self.CarouselStatus.middle, time).hover(function() {
             $title.animate(self.CarouselStatus.titleEnter,200)
           },function(){
@@ -598,7 +598,7 @@ jQuery(function($){
           $this.children('.carousel-item-div').animate({opacity: 0},time)
         } 
         else if (con == 1 || con == animeCount+1 || con == -animeCount+1) {
-          $this.children('.part-anime-title').stop(true,true)
+          $this.children('#anime .title').stop(true,true)
           $this.css({zIndex: 11}).animate(self.CarouselStatus.right1,time).off('mouseenter mouseleave')
           $this.children('.carousel-item-div').animate({opacity: 0.5},time)
         } 
@@ -617,20 +617,20 @@ jQuery(function($){
       switch (index) {
         case 1:
           this.carouselTimer = null
-          $('.part-anime-warp').stop(true).css({opacity: 0})
-          $('.part-anime-search').stop(true).css({opacity: 0}) // ie
+          $('#anime').stop(true).css({opacity: 0})
+          $('#anime .search').stop(true).css({opacity: 0}) // ie
           break;
         case 2:
-          $('.part-demos-warp').stop(true).css({opacity: 0})
-          $('.part-demos-title').stop(true).css({marginTop: '-50px',opacity:0})
-          $('.part-demos-left').children().stop(true).css({marginLeft:'-200px',opacity:0})
-          $('.part-demos-right').children().stop(true).css({marginRight:'-200px',opacity:0})
+          $('#demos').stop(true).css({opacity: 0})
+          $('#demos .title').stop(true).css({marginTop: '-50px',opacity:0})
+          $('#demos .left').children().stop(true).css({marginLeft:'-200px',opacity:0})
+          $('#demos .right').children().stop(true).css({marginRight:'-200px',opacity:0})
           break;
         case 3:
-          $('.part-chart-warp').stop(true).css({opacity: 0})
+          $('#chart').stop(true).css({opacity: 0})
           break; 
         case 4:
-          $('.part-aboutme-warp').removeClass('bounceIn')
+          $('#aboutme').removeClass('bounceIn')
           break;           
         default:
           break;
@@ -652,12 +652,12 @@ jQuery(function($){
           break;
         case 1:
           typewriter($('.part-tips').eq(1),"我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」")
-          $('.part-anime-warp').animate({opacity: 1}, 500, function(){
+          $('#anime').animate({opacity: 1}, 500, function(){
             if (!self.onCarousel) {
               self.carousel(true)
             }
           })
-          $('.part-anime-search').animate({opacity: 1}, 500) // ie
+          $('#anime .search').animate({opacity: 1}, 500) // ie
           // carousel自动移动
           self.lastCarouselTime = Date.now()
           self.carouselTimer = setInterval(function(){
@@ -667,9 +667,9 @@ jQuery(function($){
           }, 1000) 
           break;
         case 2:
-          typewriter($('.part-tips').eq(2),"生如夏花之绚烂，死如秋叶之静美。——泰戈尔")
-          $('.part-demos-warp').animate({opacity: 1}, 500)
-          $('.part-demos-left, .part-demos-right').children().add('.part-demos-title').each(function(i){
+          typewriter($('.part-tips').eq(2),"生如夏花之绚烂，死如秋叶之静美。——泰 戈尔")
+          $('#demos').animate({opacity: 1}, 500)
+          $('#demos .left, #demos .right').children().add('#demos .title').each(function(i){
             if (i == 0){
               $(this).animate({
                 marginTop:'0px',
@@ -690,11 +690,11 @@ jQuery(function($){
           break
         case 3:
           typewriter($('.part-tips').eq(3),"我思故我在。——笛卡尔")
-          $('.part-chart-warp').animate({opacity: 1}, 500)
+          $('#chart').animate({opacity: 1}, 500)
           break
         case 4:
           typewriter($('.part-tips').eq(4),"誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」")
-          $('.part-aboutme-warp').addClass('bounceIn')
+          $('#aboutme').addClass('bounceIn')
           break
         default:
           break;
@@ -721,7 +721,7 @@ jQuery(function($){
     },
     codeInit: function(){
       var self = this
-      $('.part-demos-warp [code]').on('click', function() {
+      $('#demos [code]').on('click', function() {
         self._isAllowedMousewheel = false
         var $code = $('#code')
         $code.show()
@@ -1058,7 +1058,7 @@ jQuery(function($){
       }
     ],
     chart: {
-      id: 'part-chart-main',
+      id: 'chart-main',
       option: {
         color:['#c23531','#2f4554', '#61a0a8', '#d48265', '#91c7ae','#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3', ' #C71585','#4169E1', '#556B2F'],
         backgroundColor: 'rgba(255,255,255,0.9)',

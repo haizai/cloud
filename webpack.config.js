@@ -6,13 +6,13 @@ var CleanWebpackPlugin = require('clean-webpack-plugin')
 var hotMiddlewareScript = 'webpack-hot-middleware/client?reload=true';
 
 module.exports = {
-	devtool:'eval-source-map',
-	entry: ['./server/src/index.js',hotMiddlewareScript],
-	output:{
+  devtool:'eval-source-map',
+  entry: ['./server/src/index.js',hotMiddlewareScript],
+  output:{
     path: path.resolve(__dirname, './server/public/js/index'),
     publicPath:'/',
     filename: 'index.bundle.js'
-	},
+  },
 
   module:{
     loaders: [
@@ -29,15 +29,15 @@ module.exports = {
   
   postcss:[autoprefixer({browsers:['> 5%']})],
 
-	devServer: {
+  devServer: {
     historyApiFallback: true,
     noInfo: true
-	},
+  },
 
   plugins: [
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ]
 }
 

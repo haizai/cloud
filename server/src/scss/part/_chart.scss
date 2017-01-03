@@ -1,63 +1,63 @@
-.part-chart-warp {
+#chart {
   position: absolute;
   margin-top: 50px;
   width: 100%;
-}
 
-#part-chart-main {
-  width: 980px;
-  height: 550px;
-  position: absolute;
-}
-.part-chart-title {
-  position: absolute;
-  z-index: 10;
-  right: 30px;
-  width: 290px;
-  text-align: center;
-  font-size: 20px;
-  top: 90px;
-}
-.part-chart-rank {
-  position: absolute;
-  z-index: 10;
-  right: 30px;
-  top: 130px;
-  border-top: 1px solid $blue-opacity-more;
-}
-.part-chart-rank li {
-  width: 290px;
-  height: 30px;
-  overflow: hidden;
-  border-bottom: 1px solid $blue-opacity-more;
-}
-.part-chart-rank li:hover {
-  background: #2c343c;
-  color: #fff;
-}
-.chart-rank-left {
-  width: 36px;
-  height: 100px;
-  float: left;
-}
-.chart-rank-level {
-  width: 24px;
-  height: 24px;
-  line-height: 24px;
-  background: $pink;
-  color: #fff;
-  display: inline-block;
-  text-align: center;
-  border-radius: 6px;
-  margin-top: 3px;
-  margin-left: 3px;
-}
-.chart-rank-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  border-width: 0;
-  font-size: 14px;
-}
-.chart-rank-table tr {
-  height: 30px;
+  #chart-main {
+    width: 980px;
+    height: 550px;
+    position: absolute;
+  }
+  .title {
+    position: absolute;
+    z-index: 10;
+    right: 30px;
+    width: 290px;
+    text-align: center;
+    font-size: 20px;
+    top: 90px;
+  }
+  .rank {
+    position: absolute;
+    z-index: 10;
+    right: 30px;
+    top: 130px;
+    border-top: 1px solid $blue-opacity-more;
+  }
+  .rank li {
+    width: 290px;
+    height: 30px;
+    overflow: hidden;
+    border-bottom: 1px solid $blue-opacity-more;
+  }
+  .rank li:hover {
+    background: #2c343c;
+    color: #fff;
+  }
+  .rank-left {
+    width: 36px;
+    height: 100px;
+    float: left;
+  }
+  .rank-level {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    background: $pink;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    border-radius: 6px;
+    margin-top: 3px;
+    margin-left: 3px;
+  }
+  .rank-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-width: 0;
+    font-size: 14px;
+  }
+  .rank-table tr {
+    height: 30px;
+  }
 }
