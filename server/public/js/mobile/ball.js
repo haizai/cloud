@@ -1,4 +1,4 @@
-(function(window){
+window.onload = function () {
   var ball = document.getElementById('ball')
   var vy = 0.2
   var vx = 0
@@ -46,4 +46,4 @@
     ball.style.top = _top + 'px'
     ball.style.left = _left + 'px'
   }, t)
-}(window))
+}
