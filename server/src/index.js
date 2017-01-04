@@ -229,6 +229,8 @@ jQuery(function($){
     this.len = 5
     this.Img = o.Img
 
+    this.typewriterText = o.typewriterText
+
     this.Animes = o.Animes
     this.animeSel = 1
     this.animeCount = o.Animes.length
@@ -645,13 +647,11 @@ jQuery(function($){
     // 移动到part后的animate
     moveAnimateOfIndex: function(index){
       var self = this
-      var typewriter = this.typewriter.bind(this)
+      self.typewriter($('.part-tips').eq(index),self.typewriterText[index])
       switch (index) {
         case 0:
-          typewriter($('.part-tips').eq(0),"苟利国家生死以，岂因祸福避趋之。——林则徐")
           break;
         case 1:
-          typewriter($('.part-tips').eq(1),"我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」")
           $('#anime').animate({opacity: 1}, 500, function(){
             if (!self.onCarousel) {
               self.carousel(true)
@@ -667,7 +667,6 @@ jQuery(function($){
           }, 1000) 
           break;
         case 2:
-          typewriter($('.part-tips').eq(2),"生如夏花之绚烂，死如秋叶之静美。——泰 戈尔")
           $('#demos').animate({opacity: 1}, 500)
           $('#demos .left, #demos .right').children().add('#demos .title').each(function(i){
             if (i == 0){
@@ -689,11 +688,9 @@ jQuery(function($){
           })
           break
         case 3:
-          typewriter($('.part-tips').eq(3),"我思故我在。——笛卡尔")
           $('#chart').animate({opacity: 1}, 500)
           break
         case 4:
-          typewriter($('.part-tips').eq(4),"誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」")
           $('#aboutme').addClass('bounceIn')
           break
         default:
@@ -783,6 +780,13 @@ jQuery(function($){
   }
   
   var haizai = new Haizai({
+    typewriterText: [
+      "苟利国家生死以，岂因祸福避趋之。——林则徐",
+      "我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」",
+      "使生如夏花之绚烂，死如秋叶之静美。——泰戈尔",
+      "我思故我在。——笛卡尔",
+      "誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」"
+    ],
     Img: {
       smallSrcs: [
         "../img/index/58955949_s.jpg",
