@@ -12,11 +12,12 @@ npm install --production
 ```
 npm run dev
 ```
-本地测试环境，包括webpackDevMiddleware，webpackHotMiddleware两个中间件。
+本地测试环境，热更新。
 ```
 npm run build
 ```
-webpack打包，UglifyJsPlugin压缩
+webpack打包，UglifyJs压缩
+
 ```
 npm run server
 ```
@@ -25,6 +26,7 @@ npm run server
 npm run pm2
 ```
 pm2生产坏境,遇到错误自动重启，允许多线程（虽然我的学生云服务器是单核单线程的...）
+
 ```
 pm2 delate all
 ```

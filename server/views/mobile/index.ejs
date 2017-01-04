@@ -3,15 +3,33 @@
 <head>
   <%- include('head'); %>
   <style>
+    html {
+      height: 100%;
+    }
     body {
-      background: #f5f5f5;
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    #ball{
+      width: 50px;
+      height: 50px; 
+      display: inline-block;
+      border-radius: 50%;
+      background: yellow;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0.8;
+      background: -webkit-radial-gradient( at 40% 40%,#fff 0, #f25d8e 100%);
+      background: radial-gradient( at 40% 40%,#fff 0, #f25d8e 100%);
     }
   </style>
 </head>
 <body>
   <%- include('header') %>
-  <div style="text-align: center; margin-top:100px; font-size:2rem">
-    mobile
-  </div>
+  <div id="ball" style="top: 0;left: 0"></div>
+  <script src="../../js/mobile/ball.js"></script>
 </body>
 </html>
