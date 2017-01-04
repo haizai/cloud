@@ -4,8 +4,6 @@ import './scss/main.scss'
 
 jQuery(function($){
 
-
-
   class Chart {
     constructor(o){
       this.chart = echarts.init(document.getElementById(o.id))
@@ -18,14 +16,14 @@ jQuery(function($){
       this.bookInit()
     }
     bookInit(){
-      for (var i = 1; i < 9; i++) {
+      for (let i = 1; i < 9; i++) {
         $('#chart .rank').append('<li><div class="rank-left"><span class="rank-level">'+i+'</span></div><table class="rank-table"><tbody><tr><td style="width:140px;font-weight:bold;"></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></li>')
       }
       $('#chart .rank-level:gt(2)').css({backgroundColor: '#b8c0cc'})
       $('#chart .rank li').eq(0).css({height:'90px'})
 
       $('#chart .rank li').each(function(){
-        var $li = $(this)
+        let $li = $(this)
         $li.hover(function(){
           $li.css({height: '90px'}).siblings().css({height: '30px'})
         },function(){
@@ -40,15 +38,15 @@ jQuery(function($){
       this.chart.on('pieselectchanged', this.pieselectchanged.bind(this))
     }
     legendselectchanged(params){
-      var option = this.option
+      let option = this.option
       if (!params.selected[params.name]) {
-        var isSelectSelected = option.series[0].data.some(function(item){
+        let isSelectSelected = option.series[0].data.some( item => {
           if (item.name == params.name && item.selected == true) {
             return true
           }
         })
         if (isSelectSelected) {
-          option.series[0].data.map(function(item){
+          option.series[0].data.map( item => {
             item.selected = false
             return item
           })
@@ -58,13 +56,13 @@ jQuery(function($){
       }
     }
     pieselectchanged(params) {
-      var isAllNotSelected = true
-      var chart = this.chart
-      var option = this.option
-      for ( var type in params.selected) {
+      let isAllNotSelected = true
+      let chart = this.chart
+      let option = this.option
+      for ( let type in params.selected) {
         if (params.selected[type]) {
           isAllNotSelected = false
-          option.series[0].data.forEach(function(item){
+          option.series[0].data.forEach( item =>{
             item.name == type ? item.selected = true : item.selected = false
           })
           this.changeBookData(type)
@@ -200,7 +198,7 @@ jQuery(function($){
         }
       }
       if (isAllNotSelected) {
-        option.series[0].data.map(function(item){
+        option.series[0].data.map( item =>{
           item.selected = false
           return item
         })
@@ -210,8 +208,8 @@ jQuery(function($){
     }
     changeBookData(type) {
       $('#chart .title').text(type + '小说top8')
-      this.books[type].forEach( function(book, index) {
-        var $tds = $('#chart .rank li').eq(index).find('td')
+      this.books[type].forEach( (book, index) => {
+        let $tds = $('#chart .rank li').eq(index).find('td')
         $tds.eq(0).text(book.title)
         $tds.eq(1).text(Math.round(book.allClickCount) + ' 万总点击')
         $tds.eq(2).text('作者 ' + book.writer)
@@ -262,13 +260,13 @@ jQuery(function($){
     }
     //设置高度适应
     setItemHeight() {
-      var self = this
+      let self = this
       $('.part').each(function(){
         $(this).css({
           height:self.bH+'px'
         })
       })
-      var bH = this.bH
+      let bH = this.bH
       if (bH < 670) {
         $('#anime .img').hide()
         $('#anime').css({marginTop: '50px'})
@@ -288,7 +286,7 @@ jQuery(function($){
     }
     slideInit() {
       //出现侧栏
-      for (var i = 0; i < this.len; i++) {
+      for (let i = 0; i < this.len; i++) {
         $('<li class="item"><span class="item-text"></span><div class="item-round"></div></li>').appendTo($('#slide .items'))
         $('.item-text').eq(i).text(this.parts[i].title).css({opacity:1})
       }
@@ -296,25 +294,21 @@ jQuery(function($){
       $('.item-text').eq(0).css({opacity:1})
     }
     carouselInit(){
-      var self = this
       //生成carousel每一个item
-      for (var i = 0; i < self.animeCount; i++) {
-        if (i == 1) {
-          $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + self.Animes[i].id + '" class="title"  style="display: inline-block;">' + self.Animes[i].title + '</a>')
-        } else {
-          $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + self.Animes[i].id + '" class="title">' + self.Animes[i].title + '</a>')
-        }
+      for (let i = 0; i < this.animeCount; i++) {
+        i == 1 
+        ? $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + this.Animes[i].id + '" class="title"  style="display: inline-block;">' + this.Animes[i].title + '</a>')
+        : $('.carousel-items').append('<div class="carousel-item"><div class="carousel-item-div"></div><img><a href="/animes#/' + this.Animes[i].id + '" class="title">' + this.Animes[i].title + '</a>')
       }
 
       //生成carousel的slide
-      for (var i = 0; i < self.animeCount; i++) {
-        if (i == 1) {
-          $('<div class="slide slide-in"></div>').appendTo($('#anime .slides'))
-        } else {
-          $('<div class="slide"></div>').appendTo($('#anime .slides'))
-        }
+      for (let i = 0; i < this.animeCount; i++) {
+        i == 1 
+        ? $('<div class="slide slide-in"></div>').appendTo($('#anime .slides'))
+        : $('<div class="slide"></div>').appendTo($('#anime .slides'))
       }
 
+      let self = this
       $('.carousel-item').each(function(index){
         switch (index) {
           case 0:
@@ -322,12 +316,11 @@ jQuery(function($){
             $(this).children('.carousel-item-div').css({opacity: 0.5})
             break;
           case 1:
-            var $title = $(this).children('#anime .title')
-            $(this).css(self.CarouselStatus.middle).css({zIndex: 12}).hover(function(){
-              $title.animate(self.CarouselStatus.titleEnter,200)
-            },function(){
-              $title.animate(self.CarouselStatus.titleLeave,200)
-            })
+            let $title = $(this).children('#anime .title')
+            $(this).css(self.CarouselStatus.middle).css({zIndex: 12}).hover(
+              () => $title.animate(self.CarouselStatus.titleEnter,200),
+              () => $title.animate(self.CarouselStatus.titleLeave,200)
+            )
             $(this).children('.carousel-item-div').css({opacity: 0})
             break;
           case 2:
@@ -347,14 +340,14 @@ jQuery(function($){
       })
     }
     loadImg(index, isBig) {
-      var self = this
+      let self = this
       if (index == 0 && isBig) {
         $('.carousel-item').find('img').each(function(index){
           $(this).attr('src','/img/animes/id/'+ self.Animes[index].id + '.jpg')
         })
       }
       
-      var newImg = new Image()
+      let newImg = new Image()
       newImg.src = isBig ? this.parts[index].bigSrc :this.parts[index].smallSrc
       newImg.onload = function() {
         $('.part').eq(index).css({'backgroundImage': "url('" + newImg.src + "')"})
@@ -368,31 +361,29 @@ jQuery(function($){
       }
     }
     bindEvents(){
-      // 滚轮滚动
-      var self = this
-
       // 窗口大小重置 
-      $(window).resize(function(e){
-        if (self.bH !== $('body').height()) {
-          self.bH = $('body').height()
-          self.setItemHeight()
-          $('body').scrollTop(self.bH*self.sel)
+      $(window).resize(() =>{
+        if (this.bH !== $('body').height()) {
+          this.bH = $('body').height()
+          this.setItemHeight()
+          $('body').scrollTop(this.bH*this.sel)
         }
       });
 
-      $(document).on('mousewheel',function (e) {
-
-        if (!self.onMove && self._isAllowedMousewheel) {
-          if(self.sel == 0 && e.deltaY == -1) {
-            self.moveTo(self.sel+1)
-          } else if (self.sel == self.len-1 && e.deltaY == 1) {
-            self.moveTo(self.sel-1)
-          }else if (self.sel > 0 && self.sel < self.len-1) {
-            self.moveTo(self.sel-e.deltaY)
+      // 滚轮滚动
+      $(document).on('mousewheel', e => {
+        if (!this.onMove && self._isAllowedMousewheel) {
+          if(this.sel == 0 && e.deltaY == -1) {
+            this.moveTo(this.sel+1)
+          } else if (this.sel == this.len-1 && e.deltaY == 1) {
+            this.moveTo(this.sel-1)
+          } else if (this.sel > 0 && this.sel < this.len-1) {
+            this.moveTo(this.sel-e.deltaY)
           }
         }
       })
 
+      let self = this
       // 侧栏点击
       $('#slide .item-round').each(function(index){
         $(this).on('click', function() { 
@@ -404,46 +395,37 @@ jQuery(function($){
 
       // 侧栏hover
       $('#slide .item-round').each(function(index){
-        $(this).hover(function(){
-          if(self.sel !== index) {
-            $(this).prev().show()
-          }
-        }, function() {
-          if(self.sel !== index) {
-            $(this).prev().hide()
-          }
-        })
+        $(this).hover( 
+          () => { if(self.sel !== index) $(this).prev().show() }, 
+          () => { if(self.sel !== index) $(this).prev().hide() }
+        )
       })
 
       //滑块上下
-      $('#slide .top').on('click', function() {
+      $('#slide .top').on('click', () => {
         if (self.sel > 0 && !self.onMove) {
           self.moveTo(self.sel-1)
         }
       })
-      $('#slide .top').hover(function(){
-        $('#slide .top-text').show()
-      }, function(){
-        $('#slide .top-text').hide()
-      })
+      $('#slide .top').hover(
+        () => $('#slide .top-text').show(), 
+        () => $('#slide .top-text').hide()
+      )
 
-      $('#slide .bottom').on('click', function() {
+      $('#slide .bottom').on('click', () => {
         if (self.sel < self.len-1 && !self.onMove) {
           self.moveTo(self.sel+1)
         }
       })
-      $('#slide .bottom').hover(function(){
-        $('#slide .bottom-text').show()
-      }, function(){
-        $('#slide .bottom-text').hide()
-      })
+      $('#slide .bottom').hover(
+        () => $('#slide .bottom-text').show(),
+        () => $('#slide .bottom-text').hide()
+      )
 
       //anime 搜索
-      $('#anime .search').on('click', function() {
-        location = location.href + 'animes#/?keyword=' + $('#anime .keyword').val().trim() +'&page=1&range=default&sort=count'
-      })
-      $('#anime .keyword').on('keydown', function(e){
-        if(e.keyCode==13) {
+      $('#anime .search').on('click', () => location = location.href + 'animes#/?keyword=' + $('#anime .keyword').val().trim() +'&page=1&range=default&sort=count')
+      $('#anime .keyword').on('keydown', e => {
+        if (e.keyCode==13) {
           location = location.href + 'animes#/?keyword=' + $('#anime .keyword').val().trim() +'&page=1&range=default&sort=count'
         }
       })
@@ -451,38 +433,29 @@ jQuery(function($){
       // ie9 transition
       if (/MSIE 9\.0;/.test(navigator.userAgent)) {
         $('#anime .img').removeClass('img-noie9')
-        $('#anime .img').hover(function(){
-          $(this).animate({marginLeft: '390px'}, 300)
-        }, function(){
-          $(this).animate({marginLeft: '380px'}, 300)
-        })
+        $('#anime .img').hover(
+          () => $(this).animate({marginLeft: '390px'}, 300),
+          () => $(this).animate({marginLeft: '380px'}, 300)
+        )
       }
-
 
       //slide绑定点击事件
       $('#anime .slide').each(function (index) {
-        $(this).on('click', function (e) {
+        $(this).on('click', e => {
           if (!$(this).hasClass('slide-in') && !self.onCarousel) {
-            if (index > self.animeSel) {
-              self.carousel(true, index - self.animeSel)
-            } else {
-              self.carousel(false, self.animeSel - index)
-            }
+            index > self.animeSel
+            ? self.carousel(true, index - self.animeSel)
+            : self.carousel(false, self.animeSel - index)
           }
         })
       })
 
-
-      //lefta和right按钮绑定点击事件
-      $('#anime .left,#anime .left-b').on('click', function(){
-        if (!self.onCarousel) {
-          self.carousel(false)
-        }
+      //left和right按钮绑定点击事件
+      $('#anime .left,#anime .left-b').on('click', () => {
+        if (!self.onCarousel) self.carousel(false)
       })
-      $('#anime .right,#anime .right-b').on('click', function () {
-        if (!self.onCarousel) {
-          self.carousel(true)
-        }
+      $('#anime .right,#anime .right-b').on('click', () => {
+        if (!self.onCarousel) self.carousel(true)
       })
     }
     /**
@@ -492,19 +465,14 @@ jQuery(function($){
      * @return {underfined}
      */
     typewriter($DOM,text) {
-      var self = this
-      self.isStopTypewriter = false
+      this.isStopTypewriter = false
       $DOM.show()
-      var len = text.length
-      var finArr = text.split('')
-      var arr = []
-      for (var i = 0; i < len; i++) {
-        arr.push('')
-      }
-      run(false, 0)
-      function run(is_,index) {
-        if (!self.isStopTypewriter) {
-          setTimeout(function(){
+      let len = text.length
+      let finArr = text.split('')
+      let arr = Array(len + 1).join(' ').split('')
+      const run = (is_ ,index) => {
+        if (!this.isStopTypewriter) {
+          setTimeout(()=>{
             if (!is_) {
               arr[index] = '__'
               $DOM.text(arr.join(''))
@@ -519,6 +487,7 @@ jQuery(function($){
           },50)
         }
       }
+      run(false, 0)
     }
     /** 
      * @direction  {bool} 方向 true为右，false为左 
@@ -526,39 +495,37 @@ jQuery(function($){
      * @time  {int} 每次时间 循环时计算得，无需给出
      * @return {undefined}
      */
-    carousel(direction, times, time) {
-      var self = this
-      var times = times || 1
-      var time = time || (self.animeTime+50*times - 50)/times
+    carousel(direction, times = 1, time = (this.animeTime+50*times - 50)/times) {
 
-      var animeCount = self.animeCount
+      let animeCount = this.animeCount
 
-      self.onCarousel = true
-      direction == true ? self.animeSel++ : self.animeSel--
-      if (self.animeSel >= animeCount) {
-        self.animeSel -= animeCount
-      } else if (self.animeSel < 0) {
-        self.animeSel += animeCount
+      this.onCarousel = true
+      direction == true ? this.animeSel++ : this.animeSel--
+      if (this.animeSel >= animeCount) {
+        this.animeSel -= animeCount
+      } else if (this.animeSel < 0) {
+        this.animeSel += animeCount
       }
         
       $('#anime .slide-in').removeClass('slide-in')
-      $('#anime .slide').eq(self.animeSel).addClass('slide-in')
+      $('#anime .slide').eq(this.animeSel).addClass('slide-in')
 
       $('#anime .title').hide()
 
-      setTimeout(function() {
-        self.lastCarouselTime = Date.now()
+      setTimeout( () => {
+        this.lastCarouselTime = Date.now()
         if (times > 1) {
-          self.carousel(direction, --times, time)
+          this.carousel(direction, --times, time)
         } else {
-          self.onCarousel = false
-          $('.carousel-item').eq(self.animeSel).find('#anime .title').show()
+          this.onCarousel = false
+          $('.carousel-item').eq(this.animeSel).find('#anime .title').show()
         }
       }, time)
 
+      let self = this
       $('.carousel-item').each(function(index){
-        var con = index-self.animeSel
-        var $this = $(this)
+        let con = index-self.animeSel
+        let $this = $(this)
         if (con == -3 || con == animeCount-3 || con == -animeCount-3) {
           $this.css(self.CarouselStatus.left2)
           $this.children('.carousel-item-div').css({opacity: 0})
@@ -573,7 +540,7 @@ jQuery(function($){
           $this.children('.carousel-item-div').animate({opacity: 0.5},time)
         } 
         else if (con == 0 || con == animeCount || con == -animeCount) {
-          var $title = $this.children('#anime .title')
+          let $title = $this.children('#anime .title')
           $this.css({zIndex: 12}).animate(self.CarouselStatus.middle, time).hover(function() {
             $title.animate(self.CarouselStatus.titleEnter,200)
           },function(){
@@ -622,27 +589,26 @@ jQuery(function($){
     }
     // 全部重置
     resetAll(){
-      for (var i = 0; i < this.len; i++) {
+      for (let i = 0; i < this.len; i++) {
         this.resetOfIndex(i)
       }
     }
     // 移动到part后的animate
     moveAnimateOfIndex(index){
-      var self = this
-      self.typewriter($('.part-tips').eq(index),self.parts[index].tips)
+      this.typewriter($('.part-tips').eq(index),this.parts[index].tips)
       switch (index) {
         case 1:
-          $('#anime').animate({opacity: 1}, 500, function(){
-            if (!self.onCarousel) {
-              self.carousel(true)
+          $('#anime').animate({opacity: 1}, 500, ()=>{
+            if (!this.onCarousel) {
+              this.carousel(true)
             }
           })
           $('#anime .search').animate({opacity: 1}, 500) // ie
           // carousel自动移动
-          self.lastCarouselTime = Date.now()
-          self.carouselTimer = setInterval(function(){
-            if (!self.onCarousel && Date.now() - self.lastCarouselTime > 3000) {
-              self.carousel(true)
+          this.lastCarouselTime = Date.now()
+          this.carouselTimer = setInterval(()=>{
+            if (!this.onCarousel && Date.now() - this.lastCarouselTime > 3000) {
+              this.carousel(true)
             }
           }, 1000) 
           break;
@@ -654,7 +620,7 @@ jQuery(function($){
                 marginTop:'0px',
                 opacity:1
               },300)
-            } else if(i<6 && i>0) {
+            } else if (i<6 && i>0) {
               $(this).delay(i*100).animate({
                 marginLeft:'0px',
                 opacity:1
@@ -679,46 +645,45 @@ jQuery(function($){
     }
     // 核心移动方法
     moveTo(index) {
-      var self = this
       this.resetOfIndex(this.sel)
-      self.sel = index
-      self.onMove = true
+      this.sel = index
+      this.onMove = true
 
       $('.part-tips').hide().text(' ')
-      self.isStopTypewriter = true
+      this.isStopTypewriter = true
 
       $('#slide .item-text').hide()
       $('#slide .item-text').eq(index).show()
       $('#slide .item').eq(index).addClass('item-in').siblings().removeClass('item-in')
 
-      $('html,body').animate({scrollTop : self.bH*index},500,function(){    
-        self.onMove = false
-        self.moveAnimateOfIndex(index)
+      $('html,body').animate({scrollTop : this.bH*index},500,()=>{    
+        this.onMove = false
+        this.moveAnimateOfIndex(index)
       })
     }
     codeInit(){
-      var self = this
-      $('#demos [code]').on('click', function() {
+      let self = this
+      $('#demos [code]').on('click', function () {
         self._isAllowedMousewheel = false
-        var $code = $('#code')
+        let $code = $('#code')
         $code.show()
-        $code.find('.del').on('click', function(){
+        $code.find('.del').on('click', () => {
           self._isAllowedMousewheel = true
           $code.hide()
         })
 
-        var codeName = $(this).attr('code')
+        let codeName = $(this).attr('code')
 
         $('#code .slide').html('')
         $('#code .body').html('')
 
-        self.Codes.forEach(function(obj){
+        self.Codes.forEach( obj =>{
           if (obj.name === codeName) {
             $('#code .title').text(obj.title)
             $('#code .detail').parent().attr('href',obj.detail)
             $('#code .github').parent().attr('href',obj.github)
 
-            obj.codes.forEach( function(code, index) {
+            obj.codes.forEach( (code, index) => {
               $('#code .slide').append('<li>' + code.name +'</li>')
               $('#code .body').append('<li><pre class="language-' +code.type+'" style="height: ' + (self.bH - 270) +'px"><code class="language-' +code.type+ '">'+ Prism.highlight(code.text,Prism.languages[code.type]) +'</code></pre></li>')
               if (index == 0) {
@@ -744,13 +709,13 @@ jQuery(function($){
             $(this).addClass('slide-in')
             $('#code .body li').hide()
             $('#code .body li').eq(index).show()
-            var leftWidth = 20
+            let left = 20
             $('#code .slide li').eq(index).prevAll().each(function(){
-              leftWidth += $(this).outerWidth()
+              left += $(this).outerWidth()
             })
             $('#code .slide-span').animate({
               width: $('#code .slide li').eq(index).outerWidth(),
-              left: leftWidth
+              left
             },200)
           })
         })
@@ -760,7 +725,7 @@ jQuery(function($){
   }
 
 
-  var haizai = new Haizai({
+  let haizai = new Haizai({
     parts:[
       {
         title:'主页',
@@ -857,7 +822,7 @@ jQuery(function($){
         codes: [{
           name: 'calendar.js',
           type: 'javascript',
-          text: "function Calendar(input) {\n  this.input = input\n  this.date = new Date()\n  this.container = null\n  this.head = null\n  this.content = null\n  this.init()\n}\n\nCalendar.prototype = {\n  init: function() {\n    this.container = $('<div></div>').attr('id', 'calendar')\n    this.input.after(this.container)\n    this.head = $('<div></div>').appendTo(this.container).addClass('head')\n    $('<div></div>')\n      .addClass('middle')\n      .html('<span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>')\n      .appendTo(this.container)\n    this.content = $('<div></div').addClass('content').appendTo(this.container)\n    this.toggleDisplay()\n    this.render(this.date)\n    this.inputClick()\n  },\n  //渲染日历本身\n  render: function(date) {\n    var self = this\n    this.head.html('<span class=\"leftCreat\"></span>' + date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + '<span class=\"rightCreat\"></span>')\n    this.content.html('')\n      //上个月补全\n    var lastdate = new Date(date.getFullYear(), date.getMonth(), 0) //上个月最后一天\n    if (lastdate.getDay() !== 6)\n      for (var i = lastdate.getDate() - lastdate.getDay(); i < lastdate.getDate() + 1; i++) {\n        ($('<span></span>').addClass('last').html(i)).appendTo(self.content)\n      }\n      //本月\n    var nextdate = new Date(date.getFullYear(), date.getMonth() + 1, 0) //这个月最后一天\n    for (var i = 1; i < nextdate.getDate() + 1; i++) {\n      ($('<span></span>').html(i)).appendTo(self.content)\n    }\n    //下个月\n    for (var i = 1; i < (7 - nextdate.getDay()); i++) {\n      ($('<span></span>').addClass('next').html(i)).appendTo(self.content)\n    }\n\n    this.content\n      .children()\n      .filter(function(index) {\n        return (index % 7 === 0 || index % 7 === 6)\n      })\n      .not($('.last'))\n      .not($('.next'))\n      .addClass('side')\n      //如果是本年本月,就激活今天\n    if (this.date.getMonth() === new Date().getMonth() && this.date.getFullYear() === new Date().getFullYear()) {\n      this.dateActive(date.getDate())\n    }\n    this.click()\n  },\n  //激活某一天\n  dateActive: function(date) {\n    this.content //复原\n      .children()\n      .filter($('.active'))\n      .removeClass('active')\n    this.content\n      .children()\n      .not($('.last'))\n      .not($('.next'))\n      .filter(function() {\n        return ($(this).text() == date)\n      })\n      .addClass('active')\n    this.input.text(this.head.text() + date + '日')\n  },\n  toggleDisplay: function() {\n    this.container.toggleClass('displayNone')\n  },\n  inputClick: function() {\n    var self = this\n    this.input.click(function() {\n      self.toggleDisplay()\n    })\n  },\n  click: function() {\n    var self = this\n      //点击本月的一天,则激活那天\n    this.content\n      .children()\n      .not($('.last'))\n      .not($('.next'))\n      .click(function() {\n        self.dateActive($(this).text())\n      })\n      //点击上月的一天,则来到上月,并激活\n    this.content\n      .children()\n      .filter($('.last'))\n      .click(function() {\n        self.lastMouth()\n        self.dateActive($(this).text())\n      })\n      //点击下月的一天,则来到下月,并激活\n    this.content\n      .children()\n      .filter($('.next'))\n      .click(function() {\n        self.nextMouth()\n        self.dateActive($(this).text())\n      })\n\n    this.head.find($('.leftCreat'))\n      .click(function() {\n        self.lastMouth()\n      })\n    this.head.find($('.rightCreat'))\n      .click(function() {\n        self.nextMouth()\n      })\n  },\n  lastMouth: function() {\n    this.date.setMonth(this.date.getMonth() - 1)\n    this.render(this.date)\n  },\n  nextMouth: function() {\n    this.date.setMonth(this.date.getMonth() + 1)\n    this.render(this.date)\n  },\n}\nnew Calendar($('#input'))"
+          text: "function Calendar(input) {\n  this.input = input\n  this.date = new Date()\n  this.container = null\n  this.head = null\n  this.content = null\n  this.init()\n}\n\nCalendar.prototype = {\n  init: function() {\n    this.container = $('<div></div>').attr('id', 'calendar')\n    this.input.after(this.container)\n    this.head = $('<div></div>').appendTo(this.container).addClass('head')\n    $('<div></div>')\n      .addClass('middle')\n      .html('<span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>')\n      .appendTo(this.container)\n    this.content = $('<div></div').addClass('content').appendTo(this.container)\n    this.toggleDisplay()\n    this.render(this.date)\n    this.inputClick()\n  },\n  //渲染日历本身\n  render: function(date) {\n    let self = this\n    this.head.html('<span class=\"leftCreat\"></span>' + date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + '<span class=\"rightCreat\"></span>')\n    this.content.html('')\n      //上个月补全\n    let lastdate = new Date(date.getFullYear(), date.getMonth(), 0) //上个月最后一天\n    if (lastdate.getDay() !== 6)\n      for (let i = lastdate.getDate() - lastdate.getDay(); i < lastdate.getDate() + 1; i++) {\n        ($('<span></span>').addClass('last').html(i)).appendTo(self.content)\n      }\n      //本月\n    let nextdate = new Date(date.getFullYear(), date.getMonth() + 1, 0) //这个月最后一天\n    for (let i = 1; i < nextdate.getDate() + 1; i++) {\n      ($('<span></span>').html(i)).appendTo(self.content)\n    }\n    //下个月\n    for (let i = 1; i < (7 - nextdate.getDay()); i++) {\n      ($('<span></span>').addClass('next').html(i)).appendTo(self.content)\n    }\n\n    this.content\n      .children()\n      .filter(function(index) {\n        return (index % 7 === 0 || index % 7 === 6)\n      })\n      .not($('.last'))\n      .not($('.next'))\n      .addClass('side')\n      //如果是本年本月,就激活今天\n    if (this.date.getMonth() === new Date().getMonth() && this.date.getFullYear() === new Date().getFullYear()) {\n      this.dateActive(date.getDate())\n    }\n    this.click()\n  },\n  //激活某一天\n  dateActive: function(date) {\n    this.content //复原\n      .children()\n      .filter($('.active'))\n      .removeClass('active')\n    this.content\n      .children()\n      .not($('.last'))\n      .not($('.next'))\n      .filter(function() {\n        return ($(this).text() == date)\n      })\n      .addClass('active')\n    this.input.text(this.head.text() + date + '日')\n  },\n  toggleDisplay: function() {\n    this.container.toggleClass('displayNone')\n  },\n  inputClick: function() {\n    let self = this\n    this.input.click(function() {\n      self.toggleDisplay()\n    })\n  },\n  click: function() {\n    let self = this\n      //点击本月的一天,则激活那天\n    this.content\n      .children()\n      .not($('.last'))\n      .not($('.next'))\n      .click(function() {\n        self.dateActive($(this).text())\n      })\n      //点击上月的一天,则来到上月,并激活\n    this.content\n      .children()\n      .filter($('.last'))\n      .click(function() {\n        self.lastMouth()\n        self.dateActive($(this).text())\n      })\n      //点击下月的一天,则来到下月,并激活\n    this.content\n      .children()\n      .filter($('.next'))\n      .click(function() {\n        self.nextMouth()\n        self.dateActive($(this).text())\n      })\n\n    this.head.find($('.leftCreat'))\n      .click(function() {\n        self.lastMouth()\n      })\n    this.head.find($('.rightCreat'))\n      .click(function() {\n        self.nextMouth()\n      })\n  },\n  lastMouth: function() {\n    this.date.setMonth(this.date.getMonth() - 1)\n    this.render(this.date)\n  },\n  nextMouth: function() {\n    this.date.setMonth(this.date.getMonth() + 1)\n    this.render(this.date)\n  },\n}\nnew Calendar($('#input'))"
         },{
           name: 'calendar.html',
           type: 'html',
@@ -876,7 +841,7 @@ jQuery(function($){
         codes: [{
           name: 'todos.js',
           type: 'javascript',
-          text: "jQuery(function($) {\n  var NAME = 'jQuery-todos-haizai'\n  var App = {\n    init: function () {\n      this.todos = JSON.parse(window.localStorage.getItem(NAME)) || [{text: \"默认todo1\", selected: false}, {text: \"默认todo2\", selected: true}]\n      this.visibility = '全部'\n      this.bindEvents()\n      this.render()\n    },\n    bindEvents: function() {\n      $('.head')\n        .on('keydown', '.head-input', this.addTodo.bind(this))\n        .on('click', '.round', this.toggleAll.bind(this))\n      $('.body')\n        .on('mouseenter', '.body-item', this.todoDelShow.bind(this))\n        .on('mouseleave', '.body-item', this.todoDelHide.bind(this))\n        .on('click', '.body-del', this.delTodo.bind(this))\n        .on('click', '.round', this.toggle.bind(this))\n        .on('click', '.body-label', this.tryEdit.bind(this))\n        .on('blur keydown', '.body-input', this.submitEdit.bind(this))\n      $('.foot')\n        .on('click', '.foot-del', this.delSelectedTodos.bind(this))\n        .on('click', '.foot-visibility span', this.changeVisibility.bind(this))\n    },\n    render: function() {\n      window.localStorage.setItem(NAME,JSON.stringify(this.todos))\n      var self = this\n      $('.body').empty()\n      this.todos.filter(function (todo) {\n        switch (self.visibility) {\n          case '全部': return true\n          case '被选中的': return todo.selected\n          case '未被选中的': return !todo.selected\n        }\n      }).forEach(function(todo) {\n        if (todo.selected) {\n          $('.body').append('<div class=\"body-item\"><i class=\"round round-selected\"></i><div class=\"body-label body-label-selected\">'\n            + todo.text +\n            '</div><input type=\"text\" class=\"body-input\"><i class=\"body-del\" style=\"display: none\">&times;</i></div>')          \n        } else {\n          $('.body').append('<div class=\"body-item\"><i class=\"round\"></i><div class=\"body-label\">'\n            + todo.text +\n            '</div><input type=\"text\" class=\"body-input\"><i class=\"body-del\" style=\"display: none\">&times;</i></div>')\n        }\n      })\n      this.todos.length == 0 ? $('.foot').hide() : $('.foot').show()\n      $('.foot-count').text(function() {\n        return self.todos.filter(function (todo) { \n          return todo.selected \n        }).length\n      })\n    },\n    getIndex: function(el) {\n      var all = document.getElementsByClassName('body-item')\n      for (var i = 0, len = all.length; i < len; i++) {\n        if (el === all[i]) return i\n      }\n    },\n    addTodo: function(e) {\n      if (e.keyCode === 13 && e.target.value.trim() !== '') {\n        this.todos.push({text: e.target.value, selected: false})\n        this.render()\n        e.target.value = ''\n      }\n    },\n    delTodo: function(e) {\n      var index = this.getIndex(e.target.parentNode)\n      this.todos.splice(index, 1)\n      this.render()\n    },\n    toggle: function(e) {\n      var index = this.getIndex(e.target.parentNode)\n      this.todos[index].selected = !this.todos[index].selected\n      this.render()\n    },\n    toggleAll: function() {\n      this.todos.some( function(todo) { return !todo.selected } )\n        ? this.todos.forEach( function(todo) { todo.selected = true } )\n        : this.todos.forEach( function(todo) { todo.selected = false } )\n      this.render()\n    },\n    delSelectedTodos: function() {\n      this.todos = this.todos.filter( function(todo){ return !todo.selected })\n      this.render()\n    },\n    todoDelShow: function(e) {\n      $(e.target).hasClass('body-item')\n      ? $(e.target).find('.body-del').show()\n      : $(e.target).parent().find('.body-del').show()\n    },\n    todoDelHide: function(e) {\n      $(e.target).hasClass('body-item')\n      ? $(e.target).find('.body-del').hide()\n      : $(e.target).parent().find('.body-del').hide() \n    },\n    tryEdit: function (e) {\n      $(e.target).next().val($(e.target).text()).show().select().focus()\n    },\n    submitEdit: function (e) {\n      if (e.type == 'keydown') {\n        if (e.keyCode === 13) e.target.blur()\n        return\n      }\n      var index = this.getIndex(e.target.parentNode)\n      if (e.target.value.trim()) {\n        this.todos[index].text = e.target.value\n        $(e.target).hide()\n      } else {\n        this.todos.splice(index, 1)\n      }\n      this.render()\n    },\n    changeVisibility: function (e) {\n      this.visibility = $(e.target).text()\n      $(e.target).siblings().removeClass('foot-visibility-in')\n      $(e.target).addClass('foot-visibility-in')\n      this.render()\n    }\n  }\n  App.init()\n})"
+          text: "jQuery(function($) {\n  let NAME = 'jQuery-todos-haizai'\n  let App = {\n    init: function () {\n      this.todos = JSON.parse(window.localStorage.getItem(NAME)) || [{text: \"默认todo1\", selected: false}, {text: \"默认todo2\", selected: true}]\n      this.visibility = '全部'\n      this.bindEvents()\n      this.render()\n    },\n    bindEvents: function() {\n      $('.head')\n        .on('keydown', '.head-input', this.addTodo.bind(this))\n        .on('click', '.round', this.toggleAll.bind(this))\n      $('.body')\n        .on('mouseenter', '.body-item', this.todoDelShow.bind(this))\n        .on('mouseleave', '.body-item', this.todoDelHide.bind(this))\n        .on('click', '.body-del', this.delTodo.bind(this))\n        .on('click', '.round', this.toggle.bind(this))\n        .on('click', '.body-label', this.tryEdit.bind(this))\n        .on('blur keydown', '.body-input', this.submitEdit.bind(this))\n      $('.foot')\n        .on('click', '.foot-del', this.delSelectedTodos.bind(this))\n        .on('click', '.foot-visibility span', this.changeVisibility.bind(this))\n    },\n    render: function() {\n      window.localStorage.setItem(NAME,JSON.stringify(this.todos))\n      let self = this\n      $('.body').empty()\n      this.todos.filter(function (todo) {\n        switch (self.visibility) {\n          case '全部': return true\n          case '被选中的': return todo.selected\n          case '未被选中的': return !todo.selected\n        }\n      }).forEach(function(todo) {\n        if (todo.selected) {\n          $('.body').append('<div class=\"body-item\"><i class=\"round round-selected\"></i><div class=\"body-label body-label-selected\">'\n            + todo.text +\n            '</div><input type=\"text\" class=\"body-input\"><i class=\"body-del\" style=\"display: none\">&times;</i></div>')          \n        } else {\n          $('.body').append('<div class=\"body-item\"><i class=\"round\"></i><div class=\"body-label\">'\n            + todo.text +\n            '</div><input type=\"text\" class=\"body-input\"><i class=\"body-del\" style=\"display: none\">&times;</i></div>')\n        }\n      })\n      this.todos.length == 0 ? $('.foot').hide() : $('.foot').show()\n      $('.foot-count').text(function() {\n        return self.todos.filter(function (todo) { \n          return todo.selected \n        }).length\n      })\n    },\n    getIndex: function(el) {\n      let all = document.getElementsByClassName('body-item')\n      for (let i = 0, len = all.length; i < len; i++) {\n        if (el === all[i]) return i\n      }\n    },\n    addTodo: function(e) {\n      if (e.keyCode === 13 && e.target.value.trim() !== '') {\n        this.todos.push({text: e.target.value, selected: false})\n        this.render()\n        e.target.value = ''\n      }\n    },\n    delTodo: function(e) {\n      let index = this.getIndex(e.target.parentNode)\n      this.todos.splice(index, 1)\n      this.render()\n    },\n    toggle: function(e) {\n      let index = this.getIndex(e.target.parentNode)\n      this.todos[index].selected = !this.todos[index].selected\n      this.render()\n    },\n    toggleAll: function() {\n      this.todos.some( function(todo) { return !todo.selected } )\n        ? this.todos.forEach( function(todo) { todo.selected = true } )\n        : this.todos.forEach( function(todo) { todo.selected = false } )\n      this.render()\n    },\n    delSelectedTodos: function() {\n      this.todos = this.todos.filter( function(todo){ return !todo.selected })\n      this.render()\n    },\n    todoDelShow: function(e) {\n      $(e.target).hasClass('body-item')\n      ? $(e.target).find('.body-del').show()\n      : $(e.target).parent().find('.body-del').show()\n    },\n    todoDelHide: function(e) {\n      $(e.target).hasClass('body-item')\n      ? $(e.target).find('.body-del').hide()\n      : $(e.target).parent().find('.body-del').hide() \n    },\n    tryEdit: function (e) {\n      $(e.target).next().val($(e.target).text()).show().select().focus()\n    },\n    submitEdit: function (e) {\n      if (e.type == 'keydown') {\n        if (e.keyCode === 13) e.target.blur()\n        return\n      }\n      let index = this.getIndex(e.target.parentNode)\n      if (e.target.value.trim()) {\n        this.todos[index].text = e.target.value\n        $(e.target).hide()\n      } else {\n        this.todos.splice(index, 1)\n      }\n      this.render()\n    },\n    changeVisibility: function (e) {\n      this.visibility = $(e.target).text()\n      $(e.target).siblings().removeClass('foot-visibility-in')\n      $(e.target).addClass('foot-visibility-in')\n      this.render()\n    }\n  }\n  App.init()\n})"
         },{
           name: 'todos.html',
           type: 'html',
@@ -963,7 +928,7 @@ jQuery(function($){
         codes: [{
           name:'build.js',
           type:'javascript',
-          text:"Vue.transition('container', {\n  afterLeave: function(el) {\n    appVue.isTran = true\n    console.log('Transition ending. ')\n      //若过渡结束时,ajax已返回,$set data为newData,并v-show: true\n    if (appVue.isAjax) {\n      appVue.$set('data', appVue.newData)\n      appVue.isShow = true\n      document.activeElement.blur()\n      appVue.isTran = false\n      appVue.isAjax = false\n    }\n  }\n})\n\nvar appVue = new Vue({\n  created: function() { //初始化，发送ajax设置data\n    this.getAjax()\n  },\n  el: '#app',\n  data: {\n    allCity: allCityData,\n    cityInput: '切换城市',\n    isShow: true,\n    isAjax: false,\n    isTran: false\n  },\n  computed: {\n    //根据天气设置背景色\n    topBackground: function() {\n      if (this.data.now.cond.code[0] == 1) {\n        return '#70b8e3'\n      } else {\n        return '#a1b4b8'\n      }\n    }\n  },\n  methods: {\n    getAjax: function(x) {\n      //初始化时不传入参数\n      if (!x) {\n        $.ajax({\n          //获得ip\n          type: \"GET\",\n          url: 'https://pv.sohu.com/cityjson', // 必须使用https协议\n          dataType: 'script',\n          success: function() {\n            console.log('my-ip: ', returnCitySN.cip)\n            $.ajax({\n              //获得ip对应的城市名\n              type: 'GET',\n              url: 'https://apis.baidu.com/showapi_open_bus/ip/ip',\n              data: {\n                ip: returnCitySN.cip\n              },\n              headers: {\n                apikey: 'ace4c062b938e16663ff786b61323c75'\n              },\n              success: function(msg) {\n                console.log('my-city: ', msg)\n                  // 若返回了city且存在于allCityData中，\n                if (msg.showapi_res_body.city && allCityData.some(function(item) {\n                    return item === msg.showapi_res_body.city\n                  })) {\n                  changeCityAjax(msg.showapi_res_body.city, true)\n                } else {\n                  changeCityAjax('北京', true)\n                }\n              },\n              error: function() {\n                changeCityAjax('北京', true)\n              }\n            })\n          },\n          error: function() {\n            changeCityAjax('北京', true)\n          }\n        })\n      } else {\n        changeCityAjax(x)\n      }\n      // 发送ajax 改变city\n      function changeCityAjax(cityAjax, isFirst) {\n        var api = null\n        $.ajax({\n          //http://www.heweather.com/documents/api\n          type: 'GET',\n          url: 'https://api.heweather.com/x3/weather',\n          data: {\n            city: cityAjax,\n            key: '980022d93f2a4b8c8c02cdb3126ce910'\n          },\n          success: function(api) {\n            if (isFirst) {\n              appVue.$set('data', api['HeWeather data service 3.0'][0])\n              return\n            }\n            appVue.isAjax = true\n              //若ajax返回时过渡完成，直接$set data，并v-show: true\n              //否则$set newData，等待Vue.transition的afterLeave事件。\n            if (appVue.isTran) {\n              appVue.$set('data', api['HeWeather data service 3.0'][0])\n              appVue.isShow = true\n              document.activeElement.blur()\n              appVue.isTran = false\n              appVue.isAjax = false\n            } else {\n              appVue.$set('newData', api['HeWeather data service 3.0'][0])\n            }\n            console.log('Ajax return. ')\n          }\n        })\n      }\n    },\n\n    clearCityInput: function() {\n      this.cityInput = ''\n    },\n    // 重置Input输入框，不能用blur()，不然点击浮出框时也触发事件！\n    resetCityInput: function(e) {\n      if (e.target.className !== 'city-input' && e.target.className !== 'city-search-item')\n        this.cityInput = '切换城市'\n    },\n    //点击浮出框的城市\n    changeCity: function(city) {\n      this.cityInput = '切换城市'\n      this.isShow = false\n      this.getAjax(city)\n    },\n    //输入框按enter\n    getCityInput: function(cityInput) {\n      var isFond = false\n      var str = null\n      this.allCity.forEach(function(item) {\n        if (item === cityInput) {\n          isFond = true\n          str = '切换城市'\n        }\n      })\n      if (str) {\n        this.cityInput = '切换城市'\n        this.isShow = false\n        this.getAjax(cityInput)\n      }\n      if (!isFond) {\n        alert('未找到所查城市')\n      }\n    }\n  },\n  filters: {\n    dateHour: function(date) {\n      return date.split(' ')[1]\n    },\n    // 后几天的日期\n    indexToWeekDay: function(index) {\n      if (index === 0) {\n        return '今天'\n      } else if (index === 1) {\n        return '明天'\n      } else {\n        var num = new Date().getDay() + index\n        switch (num) {\n          case 2:\n          case 9:\n            return \"周二\";\n          case 3:\n          case 10:\n            return \"周三\";\n          case 4:\n          case 11:\n            return \"周四\";\n          case 5:\n          case 12:\n            return \"周五\";\n          case 6:\n            return \"周六\";\n          case 7:\n            return \"周日\";\n          case 8:\n            return \"周一\";\n          default:\n            return \"未知\";\n        }\n      }\n    },\n    popToicon: function(num) {\n      var i = null\n      if (num > 50) {\n        i = 306\n      } else {\n        i = 102\n      }\n      return {\n        'background-image': 'url(png/' + i + '.png)'\n      }\n    },\n    //根据input过滤所有城市\n    searchCity: function(allCity, input, nowCity) {\n      if (input.trim()) {\n        var arr = []\n        var reg = new RegExp(input, \"g\")\n        allCity.forEach(function(city) {\n          if (reg.test(city) && city !== nowCity) {\n            arr.push(city)\n          }\n        })\n        return arr\n      }\n    }\n  }\n})"
+          text:"Vue.transition('container', {\n  afterLeave: function(el) {\n    appVue.isTran = true\n    console.log('Transition ending. ')\n      //若过渡结束时,ajax已返回,$set data为newData,并v-show: true\n    if (appVue.isAjax) {\n      appVue.$set('data', appVue.newData)\n      appVue.isShow = true\n      document.activeElement.blur()\n      appVue.isTran = false\n      appVue.isAjax = false\n    }\n  }\n})\n\nlet appVue = new Vue({\n  created: function() { //初始化，发送ajax设置data\n    this.getAjax()\n  },\n  el: '#app',\n  data: {\n    allCity: allCityData,\n    cityInput: '切换城市',\n    isShow: true,\n    isAjax: false,\n    isTran: false\n  },\n  computed: {\n    //根据天气设置背景色\n    topBackground: function() {\n      if (this.data.now.cond.code[0] == 1) {\n        return '#70b8e3'\n      } else {\n        return '#a1b4b8'\n      }\n    }\n  },\n  methods: {\n    getAjax: function(x) {\n      //初始化时不传入参数\n      if (!x) {\n        $.ajax({\n          //获得ip\n          type: \"GET\",\n          url: 'https://pv.sohu.com/cityjson', // 必须使用https协议\n          dataType: 'script',\n          success: function() {\n            console.log('my-ip: ', returnCitySN.cip)\n            $.ajax({\n              //获得ip对应的城市名\n              type: 'GET',\n              url: 'https://apis.baidu.com/showapi_open_bus/ip/ip',\n              data: {\n                ip: returnCitySN.cip\n              },\n              headers: {\n                apikey: 'ace4c062b938e16663ff786b61323c75'\n              },\n              success: function(msg) {\n                console.log('my-city: ', msg)\n                  // 若返回了city且存在于allCityData中，\n                if (msg.showapi_res_body.city && allCityData.some(function(item) {\n                    return item === msg.showapi_res_body.city\n                  })) {\n                  changeCityAjax(msg.showapi_res_body.city, true)\n                } else {\n                  changeCityAjax('北京', true)\n                }\n              },\n              error: function() {\n                changeCityAjax('北京', true)\n              }\n            })\n          },\n          error: function() {\n            changeCityAjax('北京', true)\n          }\n        })\n      } else {\n        changeCityAjax(x)\n      }\n      // 发送ajax 改变city\n      function changeCityAjax(cityAjax, isFirst) {\n        let api = null\n        $.ajax({\n          //http://www.heweather.com/documents/api\n          type: 'GET',\n          url: 'https://api.heweather.com/x3/weather',\n          data: {\n            city: cityAjax,\n            key: '980022d93f2a4b8c8c02cdb3126ce910'\n          },\n          success: function(api) {\n            if (isFirst) {\n              appVue.$set('data', api['HeWeather data service 3.0'][0])\n              return\n            }\n            appVue.isAjax = true\n              //若ajax返回时过渡完成，直接$set data，并v-show: true\n              //否则$set newData，等待Vue.transition的afterLeave事件。\n            if (appVue.isTran) {\n              appVue.$set('data', api['HeWeather data service 3.0'][0])\n              appVue.isShow = true\n              document.activeElement.blur()\n              appVue.isTran = false\n              appVue.isAjax = false\n            } else {\n              appVue.$set('newData', api['HeWeather data service 3.0'][0])\n            }\n            console.log('Ajax return. ')\n          }\n        })\n      }\n    },\n\n    clearCityInput: function() {\n      this.cityInput = ''\n    },\n    // 重置Input输入框，不能用blur()，不然点击浮出框时也触发事件！\n    resetCityInput: function(e) {\n      if (e.target.className !== 'city-input' && e.target.className !== 'city-search-item')\n        this.cityInput = '切换城市'\n    },\n    //点击浮出框的城市\n    changeCity: function(city) {\n      this.cityInput = '切换城市'\n      this.isShow = false\n      this.getAjax(city)\n    },\n    //输入框按enter\n    getCityInput: function(cityInput) {\n      let isFond = false\n      let str = null\n      this.allCity.forEach(function(item) {\n        if (item === cityInput) {\n          isFond = true\n          str = '切换城市'\n        }\n      })\n      if (str) {\n        this.cityInput = '切换城市'\n        this.isShow = false\n        this.getAjax(cityInput)\n      }\n      if (!isFond) {\n        alert('未找到所查城市')\n      }\n    }\n  },\n  filters: {\n    dateHour: function(date) {\n      return date.split(' ')[1]\n    },\n    // 后几天的日期\n    indexToWeekDay: function(index) {\n      if (index === 0) {\n        return '今天'\n      } else if (index === 1) {\n        return '明天'\n      } else {\n        let num = new Date().getDay() + index\n        switch (num) {\n          case 2:\n          case 9:\n            return \"周二\";\n          case 3:\n          case 10:\n            return \"周三\";\n          case 4:\n          case 11:\n            return \"周四\";\n          case 5:\n          case 12:\n            return \"周五\";\n          case 6:\n            return \"周六\";\n          case 7:\n            return \"周日\";\n          case 8:\n            return \"周一\";\n          default:\n            return \"未知\";\n        }\n      }\n    },\n    popToicon: function(num) {\n      let i = null\n      if (num > 50) {\n        i = 306\n      } else {\n        i = 102\n      }\n      return {\n        'background-image': 'url(png/' + i + '.png)'\n      }\n    },\n    //根据input过滤所有城市\n    searchCity: function(allCity, input, nowCity) {\n      if (input.trim()) {\n        let arr = []\n        let reg = new RegExp(input, \"g\")\n        allCity.forEach(function(city) {\n          if (reg.test(city) && city !== nowCity) {\n            arr.push(city)\n          }\n        })\n        return arr\n      }\n    }\n  }\n})"
         },{
           name:'weather.html',
           type:'html',
@@ -1003,7 +968,7 @@ jQuery(function($){
         },{
           name:'./todo.vue',
           type:'html',
-          text:"<template>\n  <div \n      class=\"body-item\"\n      transition=\"fade\"\n      @mouseenter=\"toggleMouseEnter(true)\"\n      @mouseleave=\"toggleMouseEnter(false)\">\n    <i \n      class=\"round\" \n      :class=\"{'round-selected':todo.selected}\" \n      @click=\"toggle(index)\"></i>\n    <div \n      class=\"body-label\"\n      :class=\"{'body-label-selected':todo.selected}\"\n      @click=\"tryEdit\">{{todo.text}}</div>\n    <input \n      type=\"text\" \n      class=\"body-input\"\n      :class=\"{'body-input-show':isInputShow}\"\n      @keydown.enter=\"submitEdit\"\n      @blur=\"submitEdit\">\n    <i \n      class=\"body-del\" \n      v-show=\"isMouseEnter\"\n      @click=\"delTodo(index)\">&times;</i>\n  </div>\n</template>\n\n<script>\n  import { delTodo, toggle, changeText } from '../vuex/actions'\n  export default {\n    props: ['todo', 'index'],\n    data() { return {\n      isMouseEnter: false,\n      isInputShow: false\n    }},\n    vuex: {\n      getters: {\n        todos: state => state.todos\n      },\n      actions: {\n        delTodo, \n        toggle,\n        changeText\n      }\n    },\n    methods: {\n      toggleMouseEnter (bool) {\n        this.isMouseEnter = bool\n      },\n      tryEdit (e) {\n        this.isInputShow = true\n        this.$nextTick(() => {\n          var input = e.target.nextElementSibling\n          input.value = this.todo.text\n          input.focus()\n          input.select()\n        })\n      },\n      submitEdit (e) {\n        if (e.target.value.trim()) {\n          this.changeText(this.index, e.target.value.trim())\n          this.isInputShow = false\n        } else {\n          this.delTodo(this.index)\n        }\n      }\n    }\n  }\n</script>\n"
+          text:"<template>\n  <div \n      class=\"body-item\"\n      transition=\"fade\"\n      @mouseenter=\"toggleMouseEnter(true)\"\n      @mouseleave=\"toggleMouseEnter(false)\">\n    <i \n      class=\"round\" \n      :class=\"{'round-selected':todo.selected}\" \n      @click=\"toggle(index)\"></i>\n    <div \n      class=\"body-label\"\n      :class=\"{'body-label-selected':todo.selected}\"\n      @click=\"tryEdit\">{{todo.text}}</div>\n    <input \n      type=\"text\" \n      class=\"body-input\"\n      :class=\"{'body-input-show':isInputShow}\"\n      @keydown.enter=\"submitEdit\"\n      @blur=\"submitEdit\">\n    <i \n      class=\"body-del\" \n      v-show=\"isMouseEnter\"\n      @click=\"delTodo(index)\">&times;</i>\n  </div>\n</template>\n\n<script>\n  import { delTodo, toggle, changeText } from '../vuex/actions'\n  export default {\n    props: ['todo', 'index'],\n    data() { return {\n      isMouseEnter: false,\n      isInputShow: false\n    }},\n    vuex: {\n      getters: {\n        todos: state => state.todos\n      },\n      actions: {\n        delTodo, \n        toggle,\n        changeText\n      }\n    },\n    methods: {\n      toggleMouseEnter (bool) {\n        this.isMouseEnter = bool\n      },\n      tryEdit (e) {\n        this.isInputShow = true\n        this.$nextTick(() => {\n          let input = e.target.nextElementSibling\n          input.value = this.todo.text\n          input.focus()\n          input.select()\n        })\n      },\n      submitEdit (e) {\n        if (e.target.value.trim()) {\n          this.changeText(this.index, e.target.value.trim())\n          this.isInputShow = false\n        } else {\n          this.delTodo(this.index)\n        }\n      }\n    }\n  }\n</script>\n"
         },{
           name:'./foot.vue',
           type:'html',
@@ -1039,7 +1004,7 @@ jQuery(function($){
         },{
           name:'scss/main.scss',
           type:'scss',
-          text:"//公用\n@import './variable';\n@import './mixin';\n@import './common';\n@import './transition';\n//views\n@import './list';\n@import './detail';\n@import './ans';\n@import './new';\n//components\n@import './modal';"
+          text:"//公用\n@import './letiable';\n@import './mixin';\n@import './common';\n@import './transition';\n//views\n@import './list';\n@import './detail';\n@import './ans';\n@import './new';\n//components\n@import './modal';"
         },{
           name:'views/new.vue',
           type:'html',
