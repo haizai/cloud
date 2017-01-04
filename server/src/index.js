@@ -229,7 +229,7 @@ jQuery(function($){
     this.len = 5
     this.Img = o.Img
 
-    this.typewriterText = o.typewriterText
+    this.parts = o.parts
 
     this.Animes = o.Animes
     this.animeSel = 1
@@ -291,27 +291,11 @@ jQuery(function($){
       //出现侧栏
       for (var i = 0; i < this.len; i++) {
         $('<li class="item"><span class="item-text"></span><div class="item-round"></div></li>').appendTo($('#slide .items'))
-        switch (i) {
-          case 0:
-            $('.item').eq(0).addClass('item-in')
-            $('.item-text').eq(0).text('主页').css({opacity:1})
-            break;
-          case 1:
-            $('.item-text').eq(1).text('动漫')
-            break
-          case 2:
-            $('.item-text').eq(2).text('小项目')
-            break
-          case 3:
-            $('.item-text').eq(3).text('数据分析')
-            break
-          case 4:
-            $('.item-text').eq(4).text('关于我')
-            break
-          default:
-            break
-        }
+        $('.item-text').eq(i).text(this.parts[i].title).css({opacity:1})
       }
+      $('.item').eq(0).addClass('item-in')
+      $('.item-text').eq(0).css({opacity:1})
+      
     },
     carouselInit: function(){
       var self = this
@@ -373,7 +357,7 @@ jQuery(function($){
       }
       
       var newImg = new Image()
-      newImg.src = isBig ? this.Img.bigSrcs[index] :this.Img.smallSrcs[index]
+      newImg.src = isBig ? this.parts[index].bigSrc :this.parts[index].smallSrc
       newImg.onload = function() {
         $('.part').eq(index).css({'backgroundImage': "url('" + newImg.src + "')"})
         if (!isBig) {
@@ -647,10 +631,8 @@ jQuery(function($){
     // 移动到part后的animate
     moveAnimateOfIndex: function(index){
       var self = this
-      self.typewriter($('.part-tips').eq(index),self.typewriterText[index])
+      self.typewriter($('.part-tips').eq(index),self.parts[index].tips)
       switch (index) {
-        case 0:
-          break;
         case 1:
           $('#anime').animate({opacity: 1}, 500, function(){
             if (!self.onCarousel) {
@@ -779,30 +761,38 @@ jQuery(function($){
     },
   }
   
+
+
+
   var haizai = new Haizai({
-    typewriterText: [
-      "苟利国家生死以，岂因祸福避趋之。——林则徐",
-      "我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」",
-      "使生如夏花之绚烂，死如秋叶之静美。——泰戈尔",
-      "我思故我在。——笛卡尔",
-      "誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」"
+    parts:[
+      {
+        title:'主页',
+        tips: "苟利国家生死以，岂因祸福避趋之。——林则徐",
+        smallSrc: "../img/index/58955949_s.jpg",
+        bigSrc: "../img/index/58955949_big.jpg",
+      },{
+        title:'动漫',
+        tips: "我们所经历的每一个平凡的日常，也许就是连续发生的奇迹。——「日常」",
+        smallSrc: "../img/index/58888280_s.jpg",
+        bigSrc: "../img/index/58888280_big.png",
+      },{
+        title:'小项目',
+        tips: "使生如夏花之绚烂，死如秋叶之静美。——泰戈尔",
+        smallSrc: "../img/index/59547966_s.jpg",
+        bigSrc: "../img/index/59547966_big.jpg",
+      },{
+        title:'数据分析',
+        tips: "我思故我在。——笛卡尔",
+        smallSrc: "../img/index/53117853_s.jpg",
+        bigSrc: "../img/index/53117853_big.jpg",
+      },{
+        title:'关于我',
+        tips: "誰そ彼とわれをな問ひそ、九月の露に濡れつつ君待つ我そ。——「万葉集」",
+        smallSrc: "../img/index/57171771_s.jpg",
+        bigSrc: "../img/index/57171771_big.jpg",
+      }
     ],
-    Img: {
-      smallSrcs: [
-        "../img/index/58955949_s.jpg",
-        "../img/index/58888280_s.jpg",
-        "../img/index/59547966_s.jpg",
-        "../img/index/53117853_s.jpg",
-        "../img/index/57171771_s.jpg"
-      ],
-      bigSrcs: [
-        "../img/index/58955949_big.jpg",
-        "../img/index/58888280_big.png",
-        "../img/index/59547966_big.jpg",
-        "../img/index/53117853_big.jpg",
-        "../img/index/57171771_big.jpg"
-      ]
-    },
     Animes: [
       {id: 1998799, title: '灌篮高手'},
       {id: 1463371, title: '名侦探柯南'},
