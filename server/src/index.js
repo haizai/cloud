@@ -541,11 +541,10 @@ jQuery(function($){
         } 
         else if (con == 0 || con == animeCount || con == -animeCount) {
           let $title = $this.children('#anime .title')
-          $this.css({zIndex: 12}).animate(self.CarouselStatus.middle, time).hover(function() {
-            $title.animate(self.CarouselStatus.titleEnter,200)
-          },function(){
-            $title.animate(self.CarouselStatus.titleLeave,200)
-          })
+          $this.css({zIndex: 12}).animate(self.CarouselStatus.middle, time).hover(
+            () => $title.animate(self.CarouselStatus.titleEnter,200),
+            () => $title.animate(self.CarouselStatus.titleLeave,200)
+          )
           $this.children('.carousel-item-div').animate({opacity: 0},time)
         } 
         else if (con == 1 || con == animeCount+1 || con == -animeCount+1) {
