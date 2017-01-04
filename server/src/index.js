@@ -1,22 +1,23 @@
 "use strict"
 
-
-require('./scss/main.scss')
+import './scss/main.scss'
 
 jQuery(function($){
 
-  function Chart(o){
-    this.chart = echarts.init(document.getElementById(o.id))
-    this.option = o.option
-    this.books = o.books
-  }
-  Chart.prototype = {
-    init: function(){
+
+
+  class Chart {
+    constructor(o){
+      this.chart = echarts.init(document.getElementById(o.id))
+      this.option = o.option
+      this.books = o.books
+    }
+    init(){
       this.chart.setOption(this.option)
       this.bindEvent()
       this.bookInit()
-    },
-    bookInit: function(){
+    }
+    bookInit(){
       for (var i = 1; i < 9; i++) {
         $('#chart .rank').append('<li><div class="rank-left"><span class="rank-level">'+i+'</span></div><table class="rank-table"><tbody><tr><td style="width:140px;font-weight:bold;"></td><td></td></tr><tr><td></td><td></td></tr><tr><td></td><td></td></tr></tbody></table></li>')
       }
@@ -33,12 +34,12 @@ jQuery(function($){
         })
       })
       this.changeBookData('玄幻')
-    },
-    bindEvent: function(){
+    }
+    bindEvent(){
       this.chart.on('legendselectchanged', this.legendselectchanged.bind(this))
       this.chart.on('pieselectchanged', this.pieselectchanged.bind(this))
-    },
-    legendselectchanged: function(params){
+    }
+    legendselectchanged(params){
       var option = this.option
       if (!params.selected[params.name]) {
         var isSelectSelected = option.series[0].data.some(function(item){
@@ -55,8 +56,8 @@ jQuery(function($){
           this.chart.setOption(option)
         }
       }
-    },
-    pieselectchanged: function (params) {
+    }
+    pieselectchanged(params) {
       var isAllNotSelected = true
       var chart = this.chart
       var option = this.option
@@ -206,8 +207,8 @@ jQuery(function($){
         option.series[1].data = []
         chart.setOption(option)
       }
-    },
-    changeBookData: function(type) {
+    }
+    changeBookData(type) {
       $('#chart .title').text(type + '小说top8')
       this.books[type].forEach( function(book, index) {
         var $tds = $('#chart .rank li').eq(index).find('td')
@@ -218,39 +219,37 @@ jQuery(function($){
         $tds.eq(4).text(Math.round(book.wordCount) + ' 万总字数')
         $tds.eq(5).text(Math.round(book.allCommendCount) + ' 万总推荐')
       });
-    },
+    }
   }
 
+  class Haizai {
+    constructor(o) {
+      this.bH = $('body').height()
+      this.sel =  $('body').scrollTop()/this.bH
+      this.onMove = false
+      this.len = 5
+      this.Img = o.Img
 
-  function Haizai(o){
-    this.bH = $('body').height()
-    this.sel =  $('body').scrollTop()/this.bH
-    this.onMove = false
-    this.len = 5
-    this.Img = o.Img
+      this.parts = o.parts
 
-    this.parts = o.parts
+      this.Animes = o.Animes
+      this.animeSel = 1
+      this.animeCount = o.Animes.length
+      this.animeTime = 500
+      this.onCarousel = false
+      this.CarouselStatus = o.CarouselStatus
+      this.carouselTimer = null
+      this.lastCarouselTime = Date.now()
 
-    this.Animes = o.Animes
-    this.animeSel = 1
-    this.animeCount = o.Animes.length
-    this.animeTime = 500
-    this.onCarousel = false
-    this.CarouselStatus = o.CarouselStatus
-    this.carouselTimer = null
-    this.lastCarouselTime = Date.now()
+      this.Codes = o.Codes
+      this._isAllowedMousewheel = true
 
-    this.Codes = o.Codes
-    this._isAllowedMousewheel = true
+      this.chart = new Chart(o.chart)
 
-    this.chart = new Chart(o.chart)
-
-    this.isStopTypewriter = false    
-    this.init()
-  }
-
-  Haizai.prototype = {
-    init: function(){
+      this.isStopTypewriter = false    
+      this.init()
+    }
+    init(){
       this.setItemHeight()
       this.slideInit()
       this.carouselInit()
@@ -260,9 +259,9 @@ jQuery(function($){
       this.codeInit()
       this.chart.init()
       this.loadImg(0, false)
-    },
+    }
     //设置高度适应
-    setItemHeight: function() {
+    setItemHeight() {
       var self = this
       $('.part').each(function(){
         $(this).css({
@@ -286,8 +285,8 @@ jQuery(function($){
       $('#demos').css({marginTop: (bH-474)/4 + 50 + 'px'})
       $('#aboutme').css({marginTop: (bH-372)/4 + 50 + 'px'})
       $('pre[class*="language-"]').css({height:(bH - 270) +'px'})
-    },
-    slideInit: function() {
+    }
+    slideInit() {
       //出现侧栏
       for (var i = 0; i < this.len; i++) {
         $('<li class="item"><span class="item-text"></span><div class="item-round"></div></li>').appendTo($('#slide .items'))
@@ -295,9 +294,8 @@ jQuery(function($){
       }
       $('.item').eq(0).addClass('item-in')
       $('.item-text').eq(0).css({opacity:1})
-      
-    },
-    carouselInit: function(){
+    }
+    carouselInit(){
       var self = this
       //生成carousel每一个item
       for (var i = 0; i < self.animeCount; i++) {
@@ -347,8 +345,8 @@ jQuery(function($){
             break;
         }
       })
-    },
-    loadImg: function(index, isBig) {
+    }
+    loadImg(index, isBig) {
       var self = this
       if (index == 0 && isBig) {
         $('.carousel-item').find('img').each(function(index){
@@ -368,8 +366,8 @@ jQuery(function($){
           }
         }
       }
-    },
-    bindEvents: function(){
+    }
+    bindEvents(){
       // 滚轮滚动
       var self = this
 
@@ -486,14 +484,14 @@ jQuery(function($){
           self.carousel(true)
         }
       })
-    },  
+    }
     /**
      * 汉字打字机效果
      * @param  {obj} $DOM  要插入的dom节点
      * @param  {str} text  要插入的汉字
      * @return {underfined}
      */
-    typewriter:function($DOM,text) {
+    typewriter($DOM,text) {
       var self = this
       self.isStopTypewriter = false
       $DOM.show()
@@ -521,14 +519,14 @@ jQuery(function($){
           },50)
         }
       }
-    },
+    }
     /** 
      * @direction  {bool} 方向 true为右，false为左 
      * @times  {int} 循环次数
      * @time  {int} 每次时间 循环时计算得，无需给出
      * @return {undefined}
      */
-    carousel: function(direction, times, time) {
+    carousel(direction, times, time) {
       var self = this
       var times = times || 1
       var time = time || (self.animeTime+50*times - 50)/times
@@ -597,9 +595,9 @@ jQuery(function($){
           $this.children('.carousel-item-div').css({opacity: 0})
         }
       })
-    },
+    }
     // 移动重置
-    resetOfIndex: function(index){
+    resetOfIndex(index){
       switch (index) {
         case 1:
           this.carouselTimer = null
@@ -621,15 +619,15 @@ jQuery(function($){
         default:
           break;
       }
-    },
+    }
     // 全部重置
-    resetAll: function(){
+    resetAll(){
       for (var i = 0; i < this.len; i++) {
         this.resetOfIndex(i)
       }
-    },
+    }
     // 移动到part后的animate
-    moveAnimateOfIndex: function(index){
+    moveAnimateOfIndex(index){
       var self = this
       self.typewriter($('.part-tips').eq(index),self.parts[index].tips)
       switch (index) {
@@ -678,9 +676,9 @@ jQuery(function($){
         default:
           break;
       }
-    },
+    }
     // 核心移动方法
-    moveTo: function(index) {
+    moveTo(index) {
       var self = this
       this.resetOfIndex(this.sel)
       self.sel = index
@@ -697,8 +695,8 @@ jQuery(function($){
         self.onMove = false
         self.moveAnimateOfIndex(index)
       })
-    },
-    codeInit: function(){
+    }
+    codeInit(){
       var self = this
       $('#demos [code]').on('click', function() {
         self._isAllowedMousewheel = false
@@ -758,10 +756,8 @@ jQuery(function($){
         })
 
       })
-    },
+    }
   }
-  
-
 
 
   var haizai = new Haizai({
