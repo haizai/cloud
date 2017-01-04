@@ -5,27 +5,36 @@
 npm install
 ```
 安装所有依赖
+<br>
 ```
 npm install --production
 ```
 安装生产坏境的依赖
+<br>
 ```
 npm run dev
 ```
 本地测试环境，包括webpackDevMiddleware，webpackHotMiddleware两个中间件。
+<br>
 ```
 npm run build
 ```
 webpack打包，UglifyJsPlugin压缩
+<br>
+
 ```
 npm run server
 ```
 生产坏境
+<br>
 ```
 npm run pm2
 ```
 pm2生产坏境,遇到错误自动重启，允许多线程（虽然我的学生云服务器是单核单线程的...）
+<br>
+
 ```
 pm2 delate all
 ```
 删除pm2坏境,其他pm2指令见pm2官网
+<br>
