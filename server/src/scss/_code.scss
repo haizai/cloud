@@ -41,32 +41,22 @@
     line-height: 36px;
   }
   .github {
-    display: inline-block;
     width: 106px;
     margin-right: 20px;
     height: 36px;
     float: right;
     line-height: 36px;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    text-align: center;
     font-size: 14px;
-    @include btn-color($blue);
+    @include btn($blue);
   }
 
   .detail {
-    display: inline-block;
     width: 106px;
     height: 36px;
     float: right;
     line-height: 36px;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    text-align: center;
     font-size: 14px;
-    @include btn-color($pink)
+    @include btn($pink)
   }
   .slide-span {
     display: inline-block;

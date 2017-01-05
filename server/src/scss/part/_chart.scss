@@ -60,4 +60,17 @@
   .rank-table tr {
     height: 30px;
   }
+
+  .github {
+    width: 106px;
+    margin-right: 20px;
+    height: 36px;
+    float: right;
+    line-height: 36px;
+    font-size: 14px;
+    position: absolute;
+    right: 20px;
+    top: 500px;
+    @include btn($blue);
+  }
 }

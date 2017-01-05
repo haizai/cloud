@@ -1,5 +1,10 @@
-@mixin btn-color($color) {
+@mixin btn($color) {
   background-color: $color;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
   &:hover {
     background-color: darken($color, 5%);
   }
