@@ -17,6 +17,9 @@
     margin: 0 auto;
     position: relative;
   }
+  .latter i {
+    z-index: 2;
+  }
   .a { 
     background: url('/img/index/a.png') no-repeat;
     width: 84px;

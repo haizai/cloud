@@ -565,6 +565,10 @@ jQuery(function($){
     // 移动重置
     resetOfIndex(index){
       switch (index) {
+        case 0:
+          $('#index .latter').children().stop(true).css({opacity: 0,transform:'scale(2)'})
+          $('#index .warp').children('i').stop(true).css({opacity:0,transform:'scale(2)'})
+          break
         case 1:
           this.carouselTimer = null
           $('#anime').stop(true).css({opacity: 0})
@@ -596,6 +600,20 @@ jQuery(function($){
     moveAnimateOfIndex(index){
       this.typewriter($('.part-tips').eq(index),this.parts[index].tips)
       switch (index) {
+        case 0: 
+          $('#index .warp').children('i').each(function(index){
+            $(this).delay(index*100).animate({
+              opacity:1,
+              transform:'scale(1)'
+            })
+          })
+          $('#index .latter').children().each(function(index) {
+            $(this).delay(800+index*150).animate({
+              opacity:1,
+              transform:'scale(1)'
+            })
+          })
+          break
         case 1:
           $('#anime').animate({opacity: 1}, 500, ()=>{
             if (!this.onCarousel) {
