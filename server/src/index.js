@@ -280,7 +280,7 @@ jQuery(function($){
         $('#anime').css({marginTop: (bH-750)/4 + 50 + 'px'})
       }
       $('#chart').css({marginTop: (bH-650)/4 + 50 + 'px'})
-      $('#demos').css({marginTop: (bH-474)/4 + 50 + 'px'})
+      $('#index').css({paddingTop: (bH-200)/2.5 + 50 + 'px'})
       $('#aboutme').css({marginTop: (bH-372)/4 + 50 + 'px'})
       $('pre[class*="language-"]').css({height:(bH - 270) +'px'})
     }

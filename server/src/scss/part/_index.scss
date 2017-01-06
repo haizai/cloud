@@ -2,10 +2,79 @@
   width: 100%;
   text-align: center;
   position: absolute;
-  bottom: 200px;
+  bottom: 150px;
   color: #fff;
   text-shadow: 2px 2px 4px #000;
   letter-spacing: .5em;
   font-size: 24px;
   animation: info 1s infinite;
+}
+#index {
+  padding-top: 200px;
+
+  .warp {
+    width: 740px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .a { 
+    background: url('/img/index/a.png') no-repeat;
+    width: 84px;
+    height: 80px;
+  }
+  .e { 
+    background: url('/img/index/e.png') no-repeat;
+    width: 64px;
+    height: 80px;
+  }
+  .h_b { 
+    background: url('/img/index/h_b.png') no-repeat;
+    width: 90px;
+    height: 90px;
+  }
+  .i { 
+    background: url('/img/index/i.png') no-repeat;
+    width: 12px;
+    height: 80px;
+  }
+  .n_b { 
+    background: url('/img/index/n_b.png') no-repeat;
+    width: 90px;
+    height: 90px;
+  }
+  .v { 
+    background: url('/img/index/v.png') no-repeat;
+    width: 80px;
+    height: 80px;
+  }
+  .z_b { 
+    background: url('/img/index/z_b.png') no-repeat;
+    width: 80px;
+    height: 90px;
+  }
+
+  .h_s { 
+    background: url('/img/index/h_s.png') no-repeat;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 4px;
+    top: 4px;
+  }
+  .z_s { 
+    background: url('/img/index/z_s.png') no-repeat;
+    width: 74px;
+    height: 80px;
+    position: absolute;
+    left: 199px;
+    top: 5px; 
+  }
+  .n_s { 
+    background: url('/img/index/n_s.png') no-repeat;
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: 388px;
+    top: 6px;
+  }
 }
