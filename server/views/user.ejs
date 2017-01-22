@@ -11,7 +11,8 @@
     <div id='user'>
         <p>uid: <span><%= user.uid %></span></p>
         <p>用户名: <span><%= user.account %></span></p>
-        <p>个性签名：<span><%= user.sign %></span></p>
+        <p>注册时间：<span><%= new Date(user.registerTime).toLocaleString() %></span></p>
+        <p>个性签名：<input id="user-sign" type="text" value="<%= user.sign %>"/> <button id="user-changeSign">修改</button></p>
         <p><button type="submit" id="user-logoff">注销</button></p>
     </div>
     <script src="js/common/jquery-3.1.1.min.js"></script>
@@ -22,6 +23,11 @@
           setTimeout(function(){
             window.location.pathname = ''
           }, 1000)
+        })
+      })
+      $('#user-changeSign').on('click',function(){
+        $.post('ajax/changeSign',{sign: $('#user-sign').val()},function(data){
+          console.log('changeSign: ',data)
         })
       })
     </script>

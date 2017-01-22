@@ -59,7 +59,11 @@ router.get('/login',(req, res) => {
   }
 
   User.findOne({account:req.query.account},{_id:0,__v:0},(err,user) => {
-    if(err) console.log(__dirname,' ERROR:\n',err)
+    if (err) {
+      console.log(__dirname,' ERROR:\n',err)
+      res.send({state:1005}) //数据库错误
+      return 
+    }
     if (user) {
       if (req.query.password === user.password) {
         req.session.isLogin = true
@@ -86,7 +90,37 @@ router.get('/logoff',(req, res) => {
   req.session.isLogin = false
   req.session.user = null
   res.send({state:1})
-  
+
+})
+
+router.post('/changeSign', (req, res) => {
+  if (process.env.NODE_ENV === 'dev') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
+  console.log('?POST changeSign',req.body)
+  if (req.session.isLogin) {
+    if (!req.body.sign) {
+      res.send({state:1002}) //个性签名为空
+    } else {
+      if (req.body.sign.length > 30) {
+        res.send({state:1003}) //个性签名超过30个字符
+      } else {
+        User.update({account: req.session.user.account},{$set: {sign: req.body.sign}}, err => {
+          if (err) {
+            console.log(__dirname,' Error:\n', err)
+            res.send({state:1004}) //数据库更新错误
+          } else {
+            req.session.user.sign = req.body.sign
+            res.send({state:1}) //成功
+          }
+        })
+      }
+    }
+  } else {
+    res.send({state:1001}) //尚未登入
+  }
 })
 
 module.exports = router
