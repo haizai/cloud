@@ -7,4 +7,6 @@ var animes = require('./animes')
 router.use(file)
 router.use(animes)
 
+require('./userTest')
+
 module.exports = router;
