@@ -4,30 +4,29 @@
 <html>
 <head>
   <%- include('head'); %>
+  <script src="js/common/jquery-3.1.1.min.js"></script>
 </head>
 <body>
   <%- include('header') %>
   <% if (!user) { %>
     <div id='login'>
       <div>
-        <label for="login-account">用户名：</label>
-        <input type="text" id="login-account" autocomplete="off">
+        <label>用户名：</label>
+        <input type="text" id="login-account">
       </div>
       <div>
-        <label for="login-password">密码：</label>
-        <input type="password" id="login-password" autocomplete="off">
+        <label>密码：</label>
+        <input type="password" id="login-password">
       </div>
       <div>
-        <button type="button" id="login-submit">登入</button>
+        <button type="submit" id="login-submit">登入</button>
       </div>
-      <p id="login-text"></p>
+      <p class="login-text"></p>
     </div>
-
-    <script src="js/common/jquery-3.1.1.min.js"></script>
     <script>
       jQuery(function(){
         $('#login-submit').on('click', function(){
-          $('#login-text').text('登入中...')
+          $('.login-text').text('登入中...')
           $.ajax({
             url: 'ajax/login',
             data: {
@@ -37,25 +36,25 @@
             success: function(doc){
               switch (doc.state) {
                 case 1:
-                  $('#login-text').text('登入成功')
+                  $('.login-text').text('登入成功')
                   setTimeout(function(){
                     window.location.reload()
                   }, 1000)
                   break;
                 case 1001:
-                  $('#login-text').text('用户名为空')
+                  $('.login-text').text('用户名为空')
                   break;
                 case 1002:
-                  $('#login-text').text('密码为空')
+                  $('.login-text').text('密码为空')
                   break;
                 case 1003:
-                  $('#login-text').text('用户名不存在')
+                  $('.login-text').text('用户名不存在')
                   break;
                 case 1004:
-                  $('#login-text').text('密码错误')
+                  $('.login-text').text('密码错误')
                   break;
                 default:
-                  $('#login-text').text('位置错误')
+                  $('.login-text').text('位置错误')
                   break;
               }
             }
@@ -67,7 +66,18 @@
   <% } else { %>
     <div>
       <p>尊敬的 <span><%= user.account %></span></p>
-      <p>您已登入</p>
+      <p class="login-text">您已登入</p>
+      <button type="submit" id="login-logoff">注销</button>
+      <script>
+        $('#login-logoff').on('click',function(){
+          $.get('ajax/logoff',function(){
+            $('.login-text').text('您已注销')
+            setTimeout(function(){
+              window.location.reload()
+            }, 1000)
+          })
+        })
+      </script>
     </div>
   <% } %>
 
