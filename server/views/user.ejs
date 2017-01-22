@@ -1,0 +1,40 @@
+<% var user = user || null %>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('head'); %>
+</head>
+<body>
+  <%- include('header') %>
+  <% if (user) { %>
+    <div id='user'>
+        <p>uid: <span><%= user.uid %></span></p>
+        <p>用户名: <span><%= user.account %></span></p>
+        <p>个性签名：<span><%= user.sign %></span></p>
+        <p><button type="submit" id="user-logoff">注销</button></p>
+    </div>
+    <script src="js/common/jquery-3.1.1.min.js"></script>
+    <script>
+      $('#user-logoff').on('click',function(){
+        $.get('ajax/logoff',function(){
+          $('#user').empty().text('注销成功')
+          setTimeout(function(){
+            window.location.pathname = ''
+          }, 1000)
+        })
+      })
+    </script>
+  <% } else { %>
+    <div>
+      喵，你进入了一个神秘的领域。
+    </div>
+  <% } %>
+
+
+
+
+
+
+</body>
+</html>

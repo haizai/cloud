@@ -1,16 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/login', function(req, res, next) {
+router.get('/user', function(req, res, next) {
 
   var session = req.session
 
   if (session.isLogin) {
-    res.redirect('/user')
+    res.render('user',{user: session.user});
   } else {
-    res.render('login');
+    res.redirect('/login');
   }
-
 
 
 });
