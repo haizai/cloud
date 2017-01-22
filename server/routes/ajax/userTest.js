@@ -58,11 +58,14 @@ router.get('/login',(req, res) => {
     return
   }
 
-  User.findOne({account:req.query.account},{_id:0,__v:0},(err,doc) => {
+  User.findOne({account:req.query.account},{_id:0,__v:0},(err,user) => {
     if(err) console.log(__dirname,' ERROR:\n',err)
-    if (doc) {
-      if (req.query.password === doc.password) {
-        res.send({state:1,user:doc}) //登入成功
+    if (user) {
+      if (req.query.password === user.password) {
+        req.session.isLogin = true
+        req.session.user = user
+        console.log('?login',req.session)
+        res.send({state:1,user}) //登入成功
       } else {
         res.send({state:1004}) //密码错误
       }

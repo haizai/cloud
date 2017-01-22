@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var formidable = require('formidable');
-
+var session = require('express-session')
 
 
 var routes = require('./routes/routes');
@@ -23,6 +23,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+// express-session
+app.set('trust proxy', 1)
+let sess = {
+  secret: 'keyboard cat',
+  cookie: {}
+}
+if (process.env.NODE_ENV !== 'dev') {
+  app.set('trust proxy', 1)
+  sess.cookie.secure = true
+}
+app.use(session(sess))
+
+
+
 
 app.use('/', routes);
 
@@ -52,8 +68,6 @@ if (process.env.NODE_ENV == "dev") {
   //   console.log('App (dev) is now running on port 80!');
   // });
 }
-
-
 
 
 // catch 404 and forward to error handler
