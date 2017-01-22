@@ -11,6 +11,7 @@ var admin = {
   account: 'admin',
   password: 'admin123',
   position: 'admin',
+  sign: '使生如夏花之灿烂。'
 }
 
 var tourist = {

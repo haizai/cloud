@@ -31,10 +31,6 @@ let sess = {
   secret: 'keyboard cat',
   cookie: {}
 }
-if (process.env.NODE_ENV !== 'dev') {
-  app.set('trust proxy', 1)
-  sess.cookie.secure = true
-}
 app.use(session(sess))
 
 
