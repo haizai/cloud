@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%- include('head'); %>
+
+</head>
+<body>
+  <%- include('header') %>
+  <div id='login'>
+    <div>
+      <label for="login-account">用户名：</label>
+      <input type="text" id="login-account">
+    </div>
+    <div>
+      <label for="login-password">密码：</label>
+      <input type="password" id="login-password">
+    </div>
+    <div>
+      <button type="button" id="login-submit">登入</button>
+    </div>
+    <p id="login-text"></p>
+  </div>
+  <script src="js/common/jquery-3.1.1.min.js"></script>
+  <script>
+    jQuery(function(){
+      $('#login-submit').on('click', function(){
+        $('#login-text').text('登入中...')
+        $.ajax({
+          url: 'ajax/login',
+          data: {
+            account: $('#login-account').val(),
+            password: $('#login-password').val()
+          },
+          success: function(doc){
+            switch (doc.state) {
+              case 1:
+                $('#login-text').text('登入成功')
+                break;
+              case 1001:
+                $('#login-text').text('用户名为空')
+                break;
+              case 1002:
+                $('#login-text').text('密码为空')
+                break;
+              case 1003:
+                $('#login-text').text('用户名不存在')
+                break;
+              case 1004:
+                $('#login-text').text('密码错误')
+                break;
+              default:
+                $('#login-text').text('位置错误')
+                break;
+            }
+          }
+        })
+      })
+    })
+  </script>
+</body>
+</html>
