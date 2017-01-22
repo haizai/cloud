@@ -75,4 +75,18 @@ router.get('/login',(req, res) => {
   })
 })
 
+router.get('/logoff',(req, res) => {
+
+  if (process.env.NODE_ENV === 'dev') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
+  console.log('?GET logoff')
+  req.session.isLogin = false
+  req.session.user = null
+  res.send({state:1})
+  
+})
+
 module.exports = router
