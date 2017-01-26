@@ -8,7 +8,7 @@ router.get('/login', function(req, res, next) {
   if (session.isLogin) {
     res.redirect('/user')
   } else {
-    res.render('login');
+    res.render('login',{session: req.session});
   }
 
 

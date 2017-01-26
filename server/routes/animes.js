@@ -9,7 +9,7 @@ router.get('/animes', function(req, res, next) {
   if(agentID) {
     res.redirect('/mobile/animes')
   } else {
-    res.render('default', { title: 'animes' });
+    res.render('default', { title: 'animes' ,session: req.session});
     console.log(util.inspect({ip: req.headers['x-real-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress || "unknown", url: "/animes",time: new Date()},{colors: true}));
   }
 });

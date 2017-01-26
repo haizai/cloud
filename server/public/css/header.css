@@ -5,7 +5,6 @@ body {
 }
 
 a {
-  color: #333;
   text-decoration: none;
 }
 
@@ -28,11 +27,14 @@ a {
   height: 50px;
   line-height: 0;
 }
-.header-a {
+.header-item {
   color: #fff;
   float: right;
   padding: 0 20px;
   font-size: 18px;
+}
+.header-item a {
+  color: #fff;
 }
 .header-active {
   background: #00a1d6;
@@ -45,6 +47,6 @@ a {
 .header-img:hover {
   background: #00a1d6;
 } 
-.header-a:hover{
+.header-item:hover{
   background: #00a1d6;
 } 
