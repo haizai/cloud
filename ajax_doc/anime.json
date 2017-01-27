@@ -1,0 +1,63 @@
+{
+  "url": "ajax/animes", //搜索获得动漫列表
+  "type": "GET",
+  "param": {
+    "keyword": "String", //关键词
+    "page": "Int", //页码 从1开始
+    "range": ["default","title","person","summary","all"], //搜索范围：默认 标题 人物 简介 全部
+    "sort": ["default","year","value","count"] //排序方式： 默认 时间 评分 人数
+  },
+  "res": {
+    "count": "Int", //满足条件的总数量
+    "animes": [{ //动漫，最多10个
+      "id": "Int",
+      "title": "String", // 中文名
+      "allTitle": "String", // 全名
+      "year": "Int", // 时间
+      "info": {
+        "主演": "String",
+        "单集片长": "String",
+        "又名": "String",
+        "导演": "String",
+        "类型": "String",
+        "编剧": "String",
+        "集数": "String",
+        "首播": "String",
+        "季数": "String",
+        "又名": "String"
+      },
+      "rating": {
+        "value": "Float", //评分
+        "count": "Int", //人数
+      }
+    }], 
+  }  
+},
+{
+  "url": "ajax/anime", //获得指定id动漫
+  "type": "GET",
+  "param": {"id": "Int"},
+  "res": { //除了上述以外
+     "rating": {
+        "value": "Float", //评分
+        "count": "Int", //人数
+        "start5": "Float", //5星
+        "start4": "Float", //4星
+        "start3": "Float", //3星
+        "start2": "Float", //2星
+        "start1": "Float", //1星
+     },
+    "comments" :["String"], // 评论
+    "summary" :"String", // 简介
+    "reviews" :[{ //影评  
+      "title": "String",
+      "html": ["String"]
+    }],
+  }, 
+},
+{
+  "url": "ajax/anime", //随机获得单部动漫id
+  "type": "GET",
+  "param": {"random": true}, 
+  "res": { "id": "Int"}
+}
