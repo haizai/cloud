@@ -32,6 +32,7 @@ a {
   float: right;
   padding: 0 20px;
   font-size: 18px;
+  transition: all .3s;
 }
 .header-item a {
   color: #fff;
@@ -42,6 +43,7 @@ a {
 
 .header-img {
   border-width: 0;
+  transition: all .3s;
 }
 
 .header-img:hover {

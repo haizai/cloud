@@ -10,18 +10,20 @@
   <%- include('header') %>
   <% if (!user) { %>
     <div id='login'>
-      <p class="login-title">登入</p>
-      <div class="login-line">
-        <label>用户名</label><input type="text" id="login-account" maxlength="16">
+      <h2 class="login-head">用户中心</h2>
+      <div class="login-body">
+        <div class="login-line">
+          <label>用户名</label><input type="text" id="login-account" maxlength="16">
+        </div>
+        <div class="login-line">
+          <label>密码</label><input type="password" id="login-password" maxlength="16">
+        </div>
+        <div class="login-line">
+          <div class="login-btn" id="login-submit">登入</div>
+          <div class="login-btn" id="login-reg">注册</div>
+        </div>
+        <p class="login-text"></p>
       </div>
-      <div class="login-line">
-        <label>密码</label><input type="password" id="login-password" maxlength="16">
-      </div>
-      <div class="login-line">
-        <div class="login-btn" id="login-submit">登入</div>
-        <div class="login-btn" id="login-reg">注册</div>
-      </div>
-      <p class="login-text"></p>
     </div>
     <script src="js/common/jquery-3.1.1.min.js"></script>
     <script>
