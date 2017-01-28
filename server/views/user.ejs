@@ -1,6 +1,18 @@
-<% var session = session || {} %>
-<% var user = session.user || null %>
-<% var sign = session.sign || "你还没有个性签名，点此修改哦？！" %>
+<% 
+  var session = session || {} 
+  var user = session.user || null
+  var sign = user.sign || "你还没有个性签名，点此修改哦？！"
+  var position = '未知';
+  switch (user.position) {
+    case 'admin': 
+      position = '管理员';
+      break;
+    case 'member':
+      position = '正式会员';
+      break;
+  };
+%>
+
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +29,7 @@
           <p>
             <span class="user-account"><%= user.account %></span>
             <span class="user-uid">uid: <span><%= user.uid %></span></span>
+            <span class="user-position"><%= position %></span>
             <span class="user-btn" id="user-logoff">注销</span>
           </p>
           <p>注册时间： <span><%= new Date(user.registerTime).toLocaleString() %></span></p>

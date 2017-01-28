@@ -7,7 +7,7 @@ var userSchma = new mongoose.Schema({
   password: String,
   registerTime: { type: Date, default: Date.now() },
   sign: { type: String, default: '' },
-  position: { type: String,dafault: 'tourist' },
+  position: { type: String,default: 'member' }
 });
 
 var User = mongoose.model('User', userSchma);

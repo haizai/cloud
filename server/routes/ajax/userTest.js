@@ -14,25 +14,17 @@ var admin = {
   sign: '使生如夏花之灿烂。'
 }
 
-var tourist = {
+var member = {
   uid: 1, 
-  account: 'tourist',
-  password: 'tourist123',
+  account: 'member',
+  password: 'member123',
 }
 
-User.findOne({uid: 0}).exec((err,doc)=>{
-  if (doc) {
-    User.update({uid: 0},{$set:admin})
-  } else {
-    new User(admin).save()
-  }
+User.remove({uid: 0}).exec((err,doc)=>{
+  new User(admin).save()
 })
-User.findOne({uid: 1}).exec((err,doc)=>{
-  if (doc) {
-    User.update({uid: 1},{$set:tourist})
-  } else {
-    new User(tourist).save()
-  }
+User.remove({uid: 1}).exec((err,doc)=>{
+  new User(member).save()
 })
 
 
