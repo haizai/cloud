@@ -41,28 +41,7 @@
         </div>
     </div>
     <script src="js/common/jquery-3.1.1.min.js"></script>
-    <script>
-      $('#user-logoff').on('click',function(){
-        $.get('ajax/logoff',function(){
-          window.location.pathname = 'login'
-        })
-      })
-      $('#user-sign-span').on('click',function(){
-        $(this).hide().next().show().val($(this).text()).focus().select()
-      })
-      $('#user-sign-input').on('keydown', function(e){
-        if (e.keyCode == 13) $(this).blur()
-      })
-      $('#user-sign-input').on('blur', function(e){
-        var val = $(this).val().trim()
-        if (val !== ''){
-          $(this).hide().prev().show().text(val)
-          $.post('ajax/changeSign',{sign: val})
-        } else {
-          $(this).hide().prev().show().text('修改失败，请输入非空签名！')
-        }
-      })
-    </script>
+    <script src="js/user/user.js"></script>
   <% } else { %>
     <div>
       喵，你进入了一个神秘的领域。
