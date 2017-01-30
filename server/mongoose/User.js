@@ -8,6 +8,10 @@ var userSchma = new mongoose.Schema({
   registerTime: { type: Date, default: Date.now() },
   sign: { type: String, default: '' },
   position: { type: String,default: 'member' }
+  position: { type: String,default: 'member' }, // admin
+  msg: {
+    sex: {type: String, default: 'secret'}, // male female other
+  }
 });
 
 var User = mongoose.model('User', userSchma);

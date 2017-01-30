@@ -2,7 +2,7 @@ jQuery(function(){
   function login() {
     $('.login-text').text('登入中...')
     $.ajax({
-      url: 'ajax/login',
+      url: 'ajax/user/login',
       data: {
         account: $('#login-account').val(),
         password: $('#login-password').val()
@@ -27,7 +27,7 @@ jQuery(function(){
           case 1004:
             $('.login-text').text('密码错误')
             break;
-          case 1005:
+          case 3001:
             $('.login-text').text('数据库错误')
             break;
           default:

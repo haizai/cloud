@@ -11,7 +11,10 @@ var admin = {
   account: 'admin',
   password: 'admin123',
   position: 'admin',
-  sign: '使生如夏花之灿烂。'
+  sign: '使生如夏花之灿烂。',
+  msg: {
+    sex: 'male'
+  }
 }
 
 var member = {
@@ -54,7 +57,7 @@ router.get('/login',(req, res) => {
   User.findOne({account:req.query.account},{_id:0,__v:0},(err,user) => {
     if (err) {
       console.log(__dirname,' ERROR:\n',err)
-      res.send({state:1005}) //数据库错误
+      res.send({state:3001}) //数据库错误
       return 
     }
     if (user) {
@@ -103,7 +106,7 @@ router.post('/changeSign', (req, res) => {
         User.update({account: req.session.user.account},{$set: {sign: req.body.sign}}, err => {
           if (err) {
             console.log(__dirname,' Error:\n', err)
-            res.send({state:1004}) //数据库更新错误
+            res.send({state:3001}) //数据库更新错误
           } else {
             req.session.user.sign = req.body.sign
             res.send({state:1}) //成功
@@ -112,8 +115,43 @@ router.post('/changeSign', (req, res) => {
       }
     }
   } else {
-    res.send({state:1001}) //尚未登入
+    res.send({state:2001}) //尚未登入
   }
 })
+
+router.post('/changeSex', (req, res) => {
+  if (process.env.NODE_ENV === 'dev') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
+  console.log('?POST changeSex',req.body)
+  if (!req.session.isLogin) {
+    res.send({state:2001}) //尚未登入
+    return
+  }
+  if (!req.body.sex) {
+    res.send({state:1001}) //性别为空
+    return
+  }
+  if (req.body.sex != 'secret' && req.body.sex != 'male' && req.body.sex != 'female' && req.body.sex != 'other' ) {
+    res.send({state:1002}) //性别不为给定值
+    return
+  }
+  User.update({account: req.session.user.account},{$set: {'msg.sex': req.body.sex}}, err => {
+    if (err) {
+      console.log(__dirname,' Error:\n', err)
+      res.send({state:3001}) //数据库更新错误
+      return
+    }
+    req.session.user.msg.sex = req.body.sex
+    res.send({state:1}) //成功
+  })
+})
+
+
+
+
+
 
 module.exports = router

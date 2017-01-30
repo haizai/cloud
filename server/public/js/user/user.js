@@ -1,6 +1,6 @@
 jQuery(function($){
   $('#user-logoff').on('click',function(){
-    $.get('ajax/logoff',function(){
+    $.get('ajax/user/logoff',function(){
       window.location.pathname = 'login'
     })
   })
@@ -14,7 +14,7 @@ jQuery(function($){
     var val = $(this).val().trim()
     if (val !== ''){
       $(this).hide().prev().show().text(val)
-      $.post('ajax/changeSign',{sign: val})
+      $.post('ajax/user/changeSign',{sign: val})
     } else {
       $(this).hide().prev().show().text('修改失败，请输入非空签名！')
     }

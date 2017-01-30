@@ -11,6 +11,7 @@
       position = '正式会员';
       break;
   };
+
 %>
 
 
@@ -37,6 +38,15 @@
             个性签名：
             <span id="user-sign-span"><%= sign %></span>
             <input id="user-sign-input" type="text" maxlength="30" value="<%= user.sign %>"/>
+          </p>
+          <p>
+            性别：
+            <select>
+              <option <% if (user.msg.sex == "male") {%>   <%= 'selected' %> <% } %> value="male">男性</option>
+              <option <% if (user.msg.sex == "female") {%> <%= 'selected' %> <% } %> value="female">女性</option>
+              <option <% if (user.msg.sex == "other") {%>  <%= 'selected' %> <% } %> value="other">其它</option>
+              <option <% if (user.msg.sex == "secret") {%> <%= 'selected' %> <% } %> value="secret">保密</option>
+            </select>
           </p>
         </div>
     </div>
