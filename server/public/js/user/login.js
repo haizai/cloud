@@ -1,6 +1,6 @@
 jQuery(function(){
   function login() {
-    $('.login-text').text('登入中...')
+    tip('登入中...')
     $.ajax({
       url: 'ajax/user/login',
       data: {
@@ -10,28 +10,28 @@ jQuery(function(){
       success: function(doc){
         switch (doc.state) {
           case 1:
-            $('.login-text').text('登入成功！ 2秒后自动转跳')
+            tip('登入成功，2秒后自动转跳。')
             setTimeout(function(){
               window.location = 'user'
             }, 2000)
             break;
           case 1001:
-            $('.login-text').text('用户名为空')
+            tip('用户名为空','err')
             break;
           case 1002:
-            $('.login-text').text('密码为空')
+            tip('密码为空','err')
             break;
           case 1003:
-            $('.login-text').text('用户名不存在')
+           tip('用户名不存在','err')
             break;
           case 1004:
-            $('.login-text').text('密码错误')
+            tip('密码错误','err')
             break;
           case 3001:
-            $('.login-text').text('数据库错误')
+            tip('数据库错误','err')
             break;
           default:
-            $('.login-text').text('未知错误')
+            tip('未知错误','err')
             break;
         }
       }
