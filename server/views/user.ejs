@@ -41,7 +41,7 @@
           </p>
           <p>
             性别：
-            <select>
+            <select id="user-sex">
               <option <% if (user.msg.sex == "male") {%>   <%= 'selected' %> <% } %> value="male">男性</option>
               <option <% if (user.msg.sex == "female") {%> <%= 'selected' %> <% } %> value="female">女性</option>
               <option <% if (user.msg.sex == "other") {%>  <%= 'selected' %> <% } %> value="other">其它</option>
