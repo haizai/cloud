@@ -13,7 +13,9 @@ var admin = {
   position: 'admin',
   sign: '使生如夏花之灿烂。',
   msg: {
-    sex: 'male'
+    sex: 'male',
+    proID: 11,
+    cityID: 78
   }
 }
 
@@ -150,7 +152,33 @@ router.post('/changeSex', (req, res) => {
 })
 
 
+router.get('/getProAndCity',(req, res) => {
 
+  if (process.env.NODE_ENV === 'dev') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
+  console.log('?GET getProAndCity')
+
+  if (!req.session.isLogin) {
+    res.send({state:2001}) //尚未登入
+    return
+  }
+
+  User.findOne({account: req.session.user.account},{'msg.proID':1,'msg.cityID':1}).exec( (err,doc) => {
+    if (err) {
+      console.log(__dirname,' Error:\n', err)
+      res.send({state:3001}) //数据库错误
+      return
+    }
+    res.send({
+      state:1,
+      proID: doc.msg.proID,
+      cityID: doc.msg.cityID,
+    })
+  })
+})
 
 
 

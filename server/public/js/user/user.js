@@ -49,4 +49,32 @@ jQuery(function($){
         }
       })
   })
+
+
+  provinces.forEach(function(pro){
+    $('#user-pro').append('<option value="' + pro.proID + '">'+ pro.name +'</option>')
+  })
+  $('#user-pro').on('change',function(e){
+    cityByProID($(this).val())
+  })
+  $.get('ajax/user/getProAndCity',function(obj){
+    if (obj.state == 1) {
+      $('#user-pro').val(obj.proID)
+      cityByProID(obj.proID,obj.cityID)
+    }
+  })
+  function cityByProID(proID,cityID) {
+    if (proID == 0 || proID == 1 || proID == 2 || proID == 9 || proID == 27 || proID == 33 || proID == 34 ) {
+      $('#user-city').hide()
+      return
+    } 
+    $('#user-city').show().empty().append('<option value="0">请选择城市</option>')
+    citys.forEach(function(city){
+      if(city.proID == proID) {
+        $('#user-city').append('<option value="' + city.cityID + '">'+ city.name +'</option>')
+      }
+    })
+    cityID !== void 0 ? $('#user-city').val(cityID) : $('#user-city').val(0)
+  }
+
 })

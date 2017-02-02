@@ -7,10 +7,11 @@ var userSchma = new mongoose.Schema({
   password: String,
   registerTime: { type: Date, default: Date.now() },
   sign: { type: String, default: '' },
-  position: { type: String,default: 'member' }
   position: { type: String,default: 'member' }, // admin
   msg: {
     sex: {type: String, default: 'secret'}, // male female other
+    proID: {type: Number, default: 0},
+    cityID: {type: Number}
   }
 });
 

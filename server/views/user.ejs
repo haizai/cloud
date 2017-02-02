@@ -48,10 +48,21 @@
               <option <% if (user.msg.sex == "secret") {%> <%= 'selected' %> <% } %> value="secret">保密</option>
             </select>
           </p>
+          <p class="user-location">
+            所在地：
+            <select id="user-pro">
+              <option value="0">请选择省份</option>
+            </select>
+            <select id="user-city" style="display: none;">
+              <option value="0">请选择城市</option>
+            </select>
+          </p>
         </div>
     </div>
     <script src="js/common/jquery-3.1.1.min.js"></script>
     <script src="js/common/tip.js"></script>
+    <script src="data/province.js"></script>
+    <script src="data/city.js"></script>
     <script src="js/user/user.js"></script>
   <% } else { %>
     <div>
