@@ -1,10 +1,23 @@
+var _tip = [false,false,false]
 
-function tip(msg,state){
+function tip(msg,state,time){
+
+  var time = time || 1500
+
+  var index = _tip.indexOf(false)
+  if (index==-1) {
+    setTimeout(function(){
+      tip(msg,state,time)
+    }, 500)
+    return
+  }
+  _tip[index] = true
+  var bottom = 80 - index*35
   var $span = $('<span></span>')
   $span.css({
     position:'fixed',
     zIndex: 1000,
-    bottom: '50px',
+    bottom: bottom+'px',
     paddingLeft: '15px',
     paddingRight: '15px',
     paddingTop: '2px',
@@ -27,7 +40,8 @@ function tip(msg,state){
   }
 
   var outerWidth = $span.text(msg).outerWidth()
-  $span.css({left: -outerWidth + 'px'}).animate({left:0},200).delay(2000).animate({left: -outerWidth + 'px'},200,function(){
+  $span.css({left: -outerWidth + 'px'}).animate({left:0},200).delay(time).animate({left: -outerWidth + 'px'},200,function(){
     $span.remove()
+    _tip[index] = false
   })
 }

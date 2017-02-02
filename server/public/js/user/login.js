@@ -1,6 +1,6 @@
 jQuery(function(){
   function login() {
-    tip('登入中...')
+    tip('登入中...','info',500)
     $.ajax({
       url: 'ajax/user/login',
       data: {
@@ -10,16 +10,16 @@ jQuery(function(){
       success: function(doc){
         switch (doc.state) {
           case 1:
-            tip('登入成功，2秒后自动转跳。')
+            tip('登入成功，即将自动转跳')
             setTimeout(function(){
               window.location = 'user'
-            }, 2000)
+            }, 1500)
             break;
           case 1001:
-            tip('用户名为空','info')
+            tip('用户名为空','err')
             break;
           case 1002:
-            tip('密码为空','info')
+            tip('密码为空','err')
             break;
           case 1003:
            tip('用户名不存在','err')
