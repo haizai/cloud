@@ -16,10 +16,10 @@ jQuery(function(){
             }, 2000)
             break;
           case 1001:
-            tip('用户名为空','err')
+            tip('用户名为空','info')
             break;
           case 1002:
-            tip('密码为空','err')
+            tip('密码为空','info')
             break;
           case 1003:
            tip('用户名不存在','err')

@@ -1,17 +1,33 @@
-jQuery(function($){
-  $('body').append("<span id='tip' style='position:fixed;z-index:1000;bottom:50px;left:-100%;background:#29AAD4;color:#fff;padding: 2px 15px;font-size: 14px;border-radius: 4px;'><span>")
-})
-function tip(msg,state){
 
+function tip(msg,state){
+  var $span = $('<span></span>')
+  $span.css({
+    position:'fixed',
+    zIndex: 1000,
+    bottom: '50px',
+    paddingLeft: '15px',
+    paddingRight: '15px',
+    paddingTop: '2px',
+    paddingBottom: '2px',
+    fontSize: '14px',
+    borderRadius: '4px',
+    color:'#fff'
+  }).appendTo($('body'))
+  
   switch (state) {
     case 'err':
-      $('#tip').css({backgroundColor:'#f25d8e'})
+      $span.css({backgroundColor:'#f25d8e'})
+      break;
+    case 'info': 
+      $span.css({backgroundColor:'#76EE00'})  
       break;
     default:
-      $('#tip').css({backgroundColor:'#29AAD4'})
+      $span.css({backgroundColor:'#29AAD4'})
       break;
   }
 
-  var outerWidth = $('#tip').text(msg).outerWidth()
-  $('#tip').stop(true).css({left: -outerWidth + 'px'}).animate({left:0},200).delay(3000).animate({left: -outerWidth + 'px'},200)
+  var outerWidth = $span.text(msg).outerWidth()
+  $span.css({left: -outerWidth + 'px'}).animate({left:0},200).delay(2000).animate({left: -outerWidth + 'px'},200,function(){
+    $span.remove()
+  })
 }
