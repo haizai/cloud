@@ -12,7 +12,8 @@ var userSchma = new mongoose.Schema({
     sex: {type: String, default: 'secret'}, // male female other
     proID: {type: Number, default: 0},
     cityID: {type: Number}
-  }
+  },
+  record: {type: Array, default: []}
 });
 
 var User = mongoose.model('User', userSchma);

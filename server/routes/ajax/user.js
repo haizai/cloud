@@ -3,6 +3,8 @@ mongoose.Promise = global.Promise;
 var fs = require('fs')
 var path = require('path')
 
+var util = require('util')
+
 var db = require(path.resolve(__dirname, '..', '..', 'mongoose/db'))
 var User = require(path.resolve(__dirname, '..', '..', 'mongoose/User'))
 
@@ -36,30 +38,48 @@ User.remove({uid: 1}).exec((err,doc)=>{
 var express = require('express');
 var router = express.Router();
 
+function send(req,res,obj,cb) {
+  var method = req.method
+  var param = method == 'GET' ? req.query : req.body
+  var url = req.originalUrl.replace(/\?.*$/,'')
+  console.log('?'+method,url,param,obj)
+  if (req.session.isLogin) {
+    User.update({account: req.session.user.account},{$push:{record:{
+      url,
+      method,
+      param,
+      res: obj,
+      time: new Date()
+    }}}).exec(err=> {
+      if (err) {
+        console.log('?record:',err)
+      }
+    })
+  }
+  if (cb) cb()
+  res.send(obj)
+}
+
+
+
+
 router.get('/login',(req, res) => {
 
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-
-  console.log('?GET login',req.query)
 
   if (!req.query.account) {
-    res.send({state: 1001}) //用户名为空
+    send(req, res, {state: 1001}) //用户名为空
     return
   }
 
   if (!req.query.password) {
-    res.send({state: 1002}) //密码为空
+    send(req,res,{state: 1002}) //密码为空
     return
   }
 
   User.findOne({account:req.query.account},{_id:0,__v:0},(err,user) => {
     if (err) {
       console.log(__dirname,' ERROR:\n',err)
-      res.send({state:3001}) //数据库错误
+      send(req, res, {state:3001}) //数据库错误
       return 
     }
     if (user) {
@@ -67,112 +87,92 @@ router.get('/login',(req, res) => {
         req.session.isLogin = true
         req.session.user = user
         console.log('?login',req.session)
-        res.send({state:1,user}) //登入成功
+        send(req,res,{state:1})
+        // send(req, res, {state:1,user}) //登入成功
       } else {
-        res.send({state:1004}) //密码错误
+        send(req, res, {state:1004}) //密码错误
       }
     } else {
-      res.send({state:1003}) //用户名不存在
+      send(req, res, {state:1003}) //用户名不存在
     }
   })
+
 })
 
 router.get('/logoff',(req, res) => {
 
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-  console.log('?GET logoff')
-  req.session.isLogin = false
-  req.session.user = null
-  res.send({state:1})
+  send(req,res,{state:1},function() {
+    req.session.isLogin = false
+    req.session.user = null
+  })
 
 })
 
 router.post('/setSign', (req, res) => {
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-  console.log('?POST setSign',req.body)
+
   if (req.session.isLogin) {
     if (!req.body.sign) {
-      res.send({state:1002}) //个性签名为空
+      send(req, res, {state:1002}) //个性签名为空
     } else {
       if (req.body.sign.length > 30) {
-        res.send({state:1003}) //个性签名超过30个字符
+        send(req, res, {state:1003}) //个性签名超过30个字符
       } else {
         User.update({account: req.session.user.account},{$set: {sign: req.body.sign}}, err => {
           if (err) {
             console.log(__dirname,' Error:\n', err)
-            res.send({state:3001}) //数据库更新错误
+            send(req, res, {state:3001}) //数据库更新错误
           } else {
             req.session.user.sign = req.body.sign
-            res.send({state:1}) //成功
+            send(req,res,{state:1}) //成功
           }
         })
       }
     }
   } else {
-    res.send({state:2001}) //尚未登入
+    send(req, res, {state:2001}) //尚未登入
   }
 })
 
 router.post('/setSex', (req, res) => {
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-  console.log('?POST setSex',req.body)
+
   if (!req.session.isLogin) {
-    res.send({state:2001}) //尚未登入
+    send(req, res, {state:2001}) //尚未登入
     return
   }
   if (!req.body.sex) {
-    res.send({state:1001}) //性别为空
+    send(req, res, {state:1001}) //性别为空
     return
   }
   if (req.body.sex != 'secret' && req.body.sex != 'male' && req.body.sex != 'female' && req.body.sex != 'other' ) {
-    res.send({state:1002}) //性别不为给定值
+    send(req, res, {state:1002}) //性别不为给定值
     return
   }
   User.update({account: req.session.user.account},{$set: {'msg.sex': req.body.sex}}, err => {
     if (err) {
       console.log(__dirname,' Error:\n', err)
-      res.send({state:3001}) //数据库更新错误
+      send(req, res, {state:3001}) //数据库更新错误
       return
     }
     req.session.user.msg.sex = req.body.sex
-    res.send({state:1}) //成功
+    send(req, res, {state:1}) //成功
   })
 })
 
 
 router.get('/getProAndCity',(req, res) => {
 
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-  console.log('?GET getProAndCity')
-
   if (!req.session.isLogin) {
-    res.send({state:2001}) //尚未登入
+    send(req, res, {state:2001}) //尚未登入
     return
   }
 
   User.findOne({account: req.session.user.account},{'msg.proID':1,'msg.cityID':1}).exec( (err,doc) => {
     if (err) {
       console.log(__dirname,' Error:\n', err)
-      res.send({state:3001}) //数据库错误
+      send(req, res, {state:3001}) //数据库错误
       return
     }
-    res.send({
+    send(req, res, {
       state:1,
       proID: doc.msg.proID,
       cityID: doc.msg.cityID,
@@ -181,60 +181,50 @@ router.get('/getProAndCity',(req, res) => {
 })
 
 router.post('/setProID', (req, res) => {
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-  console.log('?POST setProID',req.body)
+
   if (!req.session.isLogin) {
-    res.send({state:2001}) //尚未登入
+    send(req, res, {state:2001}) //尚未登入
     return
   }
   if (req.body.proID === void 0) {
-    res.send({state:1001}) //proID为空
+    send(req, res, {state:1001}) //proID为空
     return
   }
   if (!/^\d+$/.test(req.body.proID)) {
-    res.send({state:1002}) //proID不全为数字
+    send(req, res, {state:1002}) //proID不全为数字
     return
   }
   User.update({account: req.session.user.account},{$set: {'msg.proID': +req.body.proID,'msg.cityID':0}}, err => {
     if (err) {
       console.log(__dirname,' Error:\n', err)
-      res.send({state:3001}) //数据库更新错误
+      send(req, res, {state:3001}) //数据库更新错误
       return
     }
-    res.send({state:1}) //成功
+    send(req, res, {state:1}) //成功
   })
 })
 
 router.post('/setCityID', (req, res) => {
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-  console.log('?POST setCityID',req.body)
+
   if (!req.session.isLogin) {
-    res.send({state:2001}) //尚未登入
+    send(req, res, {state:2001}) //尚未登入
     return
   }
   if (req.body.cityID === void 0) {
-    res.send({state:1001}) //cityID为空
+    send(req, res, {state:1001}) //cityID为空
     return
   }
   if (!/^\d+$/.test(req.body.cityID)) {
-    res.send({state:1002}) //cityID不全为数字
+    send(req, res, {state:1002}) //cityID不全为数字
     return
   }
   User.update({account: req.session.user.account},{$set: {'msg.cityID': +req.body.cityID}}, err => {
     if (err) {
       console.log(__dirname,' Error:\n', err)
-      res.send({state:3001}) //数据库更新错误
+      send(req, res, {state:3001}) //数据库更新错误
       return
     }
-    res.send({state:1}) //成功
+    send(req, res, {state:1}) //成功
   })
 })
 
