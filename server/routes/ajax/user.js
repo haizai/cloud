@@ -186,7 +186,7 @@ router.post('/setProID', (req, res) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     res.header('Access-Control-Allow-Methods', 'POST, GET');
   }
-  console.log('?POST setPro',req.body)
+  console.log('?POST setProID',req.body)
   if (!req.session.isLogin) {
     res.send({state:2001}) //尚未登入
     return
@@ -200,6 +200,35 @@ router.post('/setProID', (req, res) => {
     return
   }
   User.update({account: req.session.user.account},{$set: {'msg.proID': +req.body.proID,'msg.cityID':0}}, err => {
+    if (err) {
+      console.log(__dirname,' Error:\n', err)
+      res.send({state:3001}) //数据库更新错误
+      return
+    }
+    res.send({state:1}) //成功
+  })
+})
+
+router.post('/setCityID', (req, res) => {
+  if (process.env.NODE_ENV === 'dev') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
+  console.log('?POST setCityID',req.body)
+  if (!req.session.isLogin) {
+    res.send({state:2001}) //尚未登入
+    return
+  }
+  if (req.body.cityID === void 0) {
+    res.send({state:1001}) //cityID为空
+    return
+  }
+  if (!/^\d+$/.test(req.body.cityID)) {
+    res.send({state:1002}) //cityID不全为数字
+    return
+  }
+  User.update({account: req.session.user.account},{$set: {'msg.cityID': +req.body.cityID}}, err => {
     if (err) {
       console.log(__dirname,' Error:\n', err)
       res.send({state:3001}) //数据库更新错误

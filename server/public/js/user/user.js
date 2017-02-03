@@ -63,6 +63,19 @@ jQuery(function($){
       cityByProID(obj.proID,obj.cityID)
     }
   })
+
+  $('#user-city').on('change',function(e){
+    var cityID = $(this).val()
+    $.post('ajax/user/setCityID',{cityID: cityID},function(obj){
+      if (obj.state == 1) {
+        cityID == 0 ? tip('请选择城市','info') : tip('城市修改成功')
+      } else {
+        tip('城市修改失败','err')
+      }
+    })
+  })
+
+
   function cityByProID(proID,cityID) {
     if (proID == 0 || proID == 1 || proID == 2 || proID == 9 || proID == 27 || proID == 33 || proID == 34 ) {
       $('#user-city').hide()
@@ -76,5 +89,8 @@ jQuery(function($){
     })
     cityID !== void 0 ? $('#user-city').val(cityID) : $('#user-city').val(0)
   }
+
+
+
 
 })
