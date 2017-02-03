@@ -97,7 +97,7 @@ router.post('/setSign', (req, res) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     res.header('Access-Control-Allow-Methods', 'POST, GET');
   }
-  console.log('?POST changeSign',req.body)
+  console.log('?POST setSign',req.body)
   if (req.session.isLogin) {
     if (!req.body.sign) {
       res.send({state:1002}) //个性签名为空
@@ -127,7 +127,7 @@ router.post('/setSex', (req, res) => {
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
     res.header('Access-Control-Allow-Methods', 'POST, GET');
   }
-  console.log('?POST changeSex',req.body)
+  console.log('?POST setSex',req.body)
   if (!req.session.isLogin) {
     res.send({state:2001}) //尚未登入
     return
@@ -180,6 +180,33 @@ router.get('/getProAndCity',(req, res) => {
   })
 })
 
-
+router.post('/setProID', (req, res) => {
+  if (process.env.NODE_ENV === 'dev') {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'POST, GET');
+  }
+  console.log('?POST setPro',req.body)
+  if (!req.session.isLogin) {
+    res.send({state:2001}) //尚未登入
+    return
+  }
+  if (req.body.proID === void 0) {
+    res.send({state:1001}) //proID为空
+    return
+  }
+  if (!/^\d+$/.test(req.body.proID)) {
+    res.send({state:1002}) //proID不全为数字
+    return
+  }
+  User.update({account: req.session.user.account},{$set: {'msg.proID': +req.body.proID,'msg.cityID':0}}, err => {
+    if (err) {
+      console.log(__dirname,' Error:\n', err)
+      res.send({state:3001}) //数据库更新错误
+      return
+    }
+    res.send({state:1}) //成功
+  })
+})
 
 module.exports = router

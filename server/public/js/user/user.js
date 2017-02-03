@@ -29,11 +29,7 @@ jQuery(function($){
     if (val !== ''){
       $(this).hide().prev().show().text(val)
       $.post('ajax/user/setSign',{sign: val},function(obj){
-        if (obj.state == 1) {
-          tip('个性签名修改成功')
-        } else {
-          tip('个性签名修改失败','err')
-        }
+        obj.state == 1 ? tip('个性签名修改成功') : tip('个性签名修改失败','err')
       })
     } else {
       $(this).hide().prev().show()
@@ -42,12 +38,8 @@ jQuery(function($){
   })
   $('#user-sex').on('change',function (e) {
     $.post('ajax/user/setSex',{sex:$(this).val()},function(obj){
-        if (obj.state == 1) {
-          tip('性别修改成功')
-        } else {
-          tip('性别修改失败','err')
-        }
-      })
+      obj.state == 1 ? tip('性别修改成功') : tip('性别修改失败','err')
+    })
   })
 
 
@@ -55,7 +47,15 @@ jQuery(function($){
     $('#user-pro').append('<option value="' + pro.proID + '">'+ pro.name +'</option>')
   })
   $('#user-pro').on('change',function(e){
-    cityByProID($(this).val())
+    var proID = $(this).val()
+    cityByProID(proID)
+    $.post('ajax/user/setProID',{proID: proID},function(obj){
+      if (obj.state == 1) {
+        proID == 0 ? tip('请选择省份','info') : tip('省份修改成功')
+      } else {
+        tip('省份修改失败','err')
+      }
+    })
   })
   $.get('ajax/user/getProAndCity',function(obj){
     if (obj.state == 1) {
