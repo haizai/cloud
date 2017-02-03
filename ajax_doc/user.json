@@ -54,4 +54,28 @@
     {"state": 2001 }, //尚未登入
     {"state": 3001 } //数据库错误
   ]
+},
+{
+  "url":"ajax/user/setProID", //更改省份
+  "type": "POST",
+  "param": {"proID": "Int"},
+  "res": [
+    {"state": 1 },
+    {"state": 1001 }, //proID为空
+    {"state": 1002 }, //proID不全为数字
+    {"state": 2001 }, //尚未登入
+    {"state": 3001 } //数据库错误
+  ]  
+},
+{
+  "url":"ajax/user/setCityID", //更改城市
+  "type": "POST",
+  "param": {"cityID": "Int"},
+  "res": [
+    {"state": 1 },
+    {"state": 1001 }, //cityID为空
+    {"state": 1002 }, //cityID不全为数字
+    {"state": 2001 }, //尚未登入
+    {"state": 3001 } //数据库错误
+  ]  
 }
