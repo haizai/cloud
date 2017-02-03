@@ -22,13 +22,36 @@
   "res": {"state": 1 }  //注销成功
 },
 {
-  "url": "ajax/user/changeSign", //更改个性签名
+  "url": "ajax/user/setSign", //更改个性签名
   "type": "POST",
   "param": {"sign": "String"}, //个性签名
   "res": [
+    {"state": 1 },
     {"state": 1001 }, //个性签名为空
-    {"state": 1001 }, //个性签名超过30个字符
+    {"state": 1002 }, //个性签名超过30个字符
     {"state": 2001 }, //尚未登入
     {"state": 3001 } //数据库错误
   ]  
+},
+{
+  "url":"ajax/user/setSex", //更改性别
+  "type": "POST",
+  "param": {"sex": "String"},
+  "res": [
+    {"state": 1 },
+    {"state": 1001 }, //性别为空
+    {"state": 1002 }, //性别不为给定值
+    {"state": 2001 }, //尚未登入
+    {"state": 3001 } //数据库错误
+  ]  
+},
+{
+  "url":"ajax/user/getProAndCity",//获得省份和城市
+  "type":"GET",
+  "param":null,
+  "res":[
+    {"state":1,"proID": "Int","cityID": "Int"},
+    {"state": 2001 }, //尚未登入
+    {"state": 3001 } //数据库错误
+  ]
 }

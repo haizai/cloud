@@ -91,7 +91,7 @@ router.get('/logoff',(req, res) => {
 
 })
 
-router.post('/changeSign', (req, res) => {
+router.post('/setSign', (req, res) => {
   if (process.env.NODE_ENV === 'dev') {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
@@ -121,7 +121,7 @@ router.post('/changeSign', (req, res) => {
   }
 })
 
-router.post('/changeSex', (req, res) => {
+router.post('/setSex', (req, res) => {
   if (process.env.NODE_ENV === 'dev') {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');

@@ -28,7 +28,7 @@ jQuery(function($){
     }
     if (val !== ''){
       $(this).hide().prev().show().text(val)
-      $.post('ajax/user/changeSign',{sign: val},function(obj){
+      $.post('ajax/user/setSign',{sign: val},function(obj){
         if (obj.state == 1) {
           tip('个性签名修改成功')
         } else {
@@ -41,7 +41,7 @@ jQuery(function($){
     }
   })
   $('#user-sex').on('change',function (e) {
-    $.post('ajax/user/changeSex',{sex:$(this).val()},function(obj){
+    $.post('ajax/user/setSex',{sex:$(this).val()},function(obj){
         if (obj.state == 1) {
           tip('性别修改成功')
         } else {
