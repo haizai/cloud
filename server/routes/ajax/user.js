@@ -38,17 +38,18 @@ User.remove({uid: 1}).exec((err,doc)=>{
 var express = require('express');
 var router = express.Router();
 
-function send(req,res,obj,cb) {
+function send(req,res,send,obj) {
   var method = req.method
   var param = method == 'GET' ? req.query : req.body
   var url = req.originalUrl.replace(/\?.*$/,'')
-  console.log('?'+method,url,param,obj)
+
+  console.log('?'+method,url,param,send)
   if (req.session.isLogin) {
     User.update({account: req.session.user.account},{$push:{record:{
       url,
       method,
       param,
-      res: obj,
+      res: send,
       time: new Date()
     }}}).exec(err=> {
       if (err) {
@@ -56,8 +57,14 @@ function send(req,res,obj,cb) {
       }
     })
   }
-  if (cb) cb()
-  res.send(obj)
+  if (obj) {
+    if (obj.cb) cb()
+    if (obj.trueSend) {
+      res.send(obj.trueSend) //防止record循环记录record
+      return
+    }
+  }
+  res.send(send)
 }
 
 
@@ -101,10 +108,10 @@ router.get('/login',(req, res) => {
 
 router.get('/logoff',(req, res) => {
 
-  send(req,res,{state:1},function() {
+  send(req,res,{state:1},{cb:function() {
     req.session.isLogin = false
     req.session.user = null
-  })
+  }})
 
 })
 
@@ -227,5 +234,23 @@ router.post('/setCityID', (req, res) => {
     send(req, res, {state:1}) //成功
   })
 })
+
+router.get('/getRecord',(req, res) => {
+
+  if (!req.session.isLogin) {
+    send(req, res, {state:2001}) //尚未登入
+    return
+  }
+
+  User.findOne({account: req.session.user.account},{'record':1}).exec( (err,doc) => {
+    if (err) {
+      console.log(__dirname,' Error:\n', err)
+      send(req, res, {state:3001}) //数据库错误
+      return
+    }
+    send(req, res, {state:1},{trueSend:{state:1,record: doc.record}})
+  })
+})
+
 
 module.exports = router
