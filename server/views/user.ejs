@@ -25,8 +25,14 @@
   <%- include('header') %>
   <% if (user) { %>
     <div id='user'>
-        <h2 class="user-head">用户中心</h2>
-        <div class="user-body">
+      <h2 class="user-head">用户中心</h2>
+      <div class="user-body">         
+        <ul class="user-slide">
+          <li class="active">首页</li>
+          <li id="slide-record">操作记录</li>
+        </ul>
+        <ul class="user-content">
+        <li id="user-index">
           <p>
             <span class="user-account"><%= user.account %></span>
             <span class="user-uid">uid: <span><%= user.uid %></span></span>
@@ -57,21 +63,15 @@
               <option value="0">请选择城市</option>
             </select>
           </p>
-          <p><button id="user-get-record">操作记录</button></p>
-          <div id="user-record" style="display:none">
-            <table>
-              <tbody>
-                <tr>
-                  <td>url</td>
-                  <td>method</td>
-                  <td>param</td>
-                  <td>res</td>
-                  <td>time</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        </li>
+        <li id="user-record" style="display: none;">
+          <table>
+            <tbody>
+            </tbody>
+          </table>
+        </li>
         </div>
+      </ul>
     </div>
     <script src="js/common/jquery-3.1.1.min.js"></script>
     <script src="js/common/tip.js"></script>

@@ -90,7 +90,7 @@ jQuery(function($){
     cityID !== void 0 ? $('#user-city').val(cityID) : $('#user-city').val(0)
   }
 
-  $('#user-get-record').on('click', function() {
+  $('#slide-record').on('click', function() { 
 
     function objTostr(o) {
       var arr = []
@@ -107,14 +107,25 @@ jQuery(function($){
 
     $.get('ajax/user/getRecord',function(doc) {
       console.log(doc)
-      $('#user-record').show()
+      $('#user-record tbody').empty()
+      $('#user-record tbody').append('<tr><td>地址</td><td>类型</td><td>参数</td><td>返回值</td><td>时间</td></tr>')
       doc.record.forEach(function(item){
         $('#user-record tbody').append('<tr><td>'+ item.url.replace('/ajax/user/','') +'</td><td>'+ item.method +'</td><td>'+ objTostr(item.param) +'</td><td>'+ objTostr(item.res) +'</td><td>'+ new Date(item.time).toLocaleString() +'</td></tr>')
       })
     })
   })
 
-
-
+  function tabChange(slide, content) {
+    jQuery(function($){
+      $(slide).children().each(function(index){
+        $(this).on('click', function(){
+          if ($(this).hasClass('active')) return
+          $(this).addClass('active').siblings().removeClass('active')
+          $(content).children().eq(index).show().siblings().hide()
+        })
+      })
+    })
+  }
+  tabChange('.user-slide','.user-content')
 
 })
