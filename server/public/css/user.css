@@ -63,7 +63,11 @@
   background-color: #f5f5f5;
 }
 
+#user-record table {
+  width: 100%;
+}
 #user-record td {
-    border: #ccc solid 1px;
-    padding: 3px;
+  border: #ccc solid 1px;
+  padding: 3px;
+  white-space: pre-line;
 }

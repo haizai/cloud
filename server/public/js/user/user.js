@@ -93,15 +93,15 @@ jQuery(function($){
   $('#user-get-record').on('click', function() {
 
     function objTostr(o) {
-      var str = ''
+      var arr = []
       for (var key in o) {
         if (typeof o[key] == 'object') {
-          str += key + ': ' + toString.call(o[key]) + ', '
+          arr.push(key + ': ' + toString.call(o[key]))
         } else {
-          str += key + ': ' + o[key] + ', '
+          arr.push(key + ': ' + o[key])
         }
       }
-      return str == '' ? 'null': str
+      return arr.join('\n')
     }
 
 
@@ -109,7 +109,7 @@ jQuery(function($){
       console.log(doc)
       $('#user-record').show()
       doc.record.forEach(function(item){
-        $('#user-record tbody').append('<tr><td>'+ item.url.replace('/ajax/user/','') +'</td><td>'+ item.method +'</td><td>'+ objTostr(item.param) +'</td><td>'+ new Date(item.time).toLocaleString() +'</td><td>'+ objTostr(item.res) +'</td></tr>')
+        $('#user-record tbody').append('<tr><td>'+ item.url.replace('/ajax/user/','') +'</td><td>'+ item.method +'</td><td>'+ objTostr(item.param) +'</td><td>'+ objTostr(item.res) +'</td><td>'+ new Date(item.time).toLocaleString() +'</td></tr>')
       })
     })
   })
