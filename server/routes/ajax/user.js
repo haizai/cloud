@@ -38,6 +38,13 @@ User.remove({uid: 1}).exec((err,doc)=>{
 var express = require('express');
 var router = express.Router();
 
+/**
+ * 中间件函数，记录操作记录
+ * @param  req  请求
+ * @param  res  响应
+ * @param  send 用于记录的返回值
+ * @param  obj  {cb: 返回前执行的函数,trueSend: 真实的返回值}
+ */
 function send(req,res,send,obj) {
   var method = req.method
   var param = method == 'GET' ? req.query : req.body
@@ -58,7 +65,9 @@ function send(req,res,send,obj) {
     })
   }
   if (obj) {
-    if (obj.cb) cb()
+    if (obj.cb) {
+      obj.cb()
+    }
     if (obj.trueSend) {
       res.send(obj.trueSend) //防止record循环记录record
       return
