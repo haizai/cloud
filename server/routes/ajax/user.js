@@ -76,8 +76,16 @@ function send(req,res,send,obj) {
   res.send(send)
 }
 
-
-
+// dev环境允许跨域
+router.all('*',(req,res,next)=> {
+  if (process.env.NODE_ENV === 'dev') {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8080'); // cookie跨域,不能为*
+    res.header('Access-Control-Allow-Credentials', 'true'); //cookie跨域
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', '*');
+  }
+  next()
+})
 
 router.get('/login',(req, res) => {
 
