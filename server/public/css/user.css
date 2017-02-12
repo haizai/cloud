@@ -21,13 +21,22 @@
   float: left;
   width: 150px;
   text-align: center;
-  font-size: 14px;
+  border-right: 1px solid #ccc;
+}
+.user-slide-title {
+  font-size: 16px;
+  height: 60px;
+  line-height: 60px;
+  border-bottom: 1px solid #ccc;
+  color: #999;
+  font-weight: bold;
 }
 .user-slide li {
   width: 100%;
-  background: #f5f5f5;
   padding: 10px 0;
   transition: all .1s;
+  font-size: 14px;
+  background: #f5f5f5;
 }
 .user-slide li:hover {
   background:#ddd;
@@ -38,7 +47,7 @@
   color: #fff;
 }
 .user-content {
-  margin-left: 150px;
+  margin-left: 160px;
 }
 
 .user-account {
