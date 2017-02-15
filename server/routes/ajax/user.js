@@ -204,6 +204,28 @@ router.get('/getProAndCity',(req, res) => {
   })
 })
 
+router.get('/getUserInCenter',(req, res) => {
+
+  if (!req.session.isLogin) {
+    send(req, res, {state:2001}) //尚未登入
+    return
+  }
+
+  User.findOne({account: req.session.user.account},{'_id':0,'uid':1,'account':1,'msg':1,'position':1,'sign':1,'registerTime':1}).exec( (err,doc) => {
+    if (err) {
+      console.log(__dirname,' Error:\n', err)
+      send(req, res, {state:3001}) //数据库错误
+      return
+    }
+    send(req, res, {
+      state:1,
+      user: doc
+    })
+  })
+})
+
+
+
 router.post('/setProID', (req, res) => {
 
   if (!req.session.isLogin) {
