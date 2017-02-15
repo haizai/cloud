@@ -27,12 +27,24 @@ var member = {
   password: 'member123',
 }
 
+var test = {
+  uid: 2, 
+  account: 'test',
+  password: 'test123',
+}
+
+
 User.remove({uid: 0}).exec((err,doc)=>{
   new User(admin).save()
 })
 User.remove({uid: 1}).exec((err,doc)=>{
   new User(member).save()
 })
+User.findOne({uid:2}).exec((err,doc)=>{
+  if (!doc) new User(test).save()
+})
+
+
 
 
 var express = require('express');
@@ -88,6 +100,10 @@ router.all('*',(req,res,next)=> {
 })
 
 router.get('/login',(req, res) => {
+
+  if (req.session.isLogin) {
+    send(req, res, {state: 2001}) //你已登录
+  }
 
 
   if (!req.query.account) {
@@ -290,6 +306,7 @@ router.get('/getRecord',(req, res) => {
     send(req, res, {state:1},{trueSend:{state:1,record: doc.record}})
   })
 })
+
 
 
 module.exports = router
