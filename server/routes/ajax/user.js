@@ -308,5 +308,37 @@ router.get('/getRecord',(req, res) => {
 })
 
 
+router.get('/checkAccount',(req,res) => {
+
+  if (!req.query.account) {
+    send(req, res, {state: 1001}) //用户名为空
+     return
+  }
+
+  let account = req.query.account
+
+  if (account.length < 4 || account.length > 16) {
+    send(req, res, {state: 1002}) //用户名长度应该在4-16之间
+    return
+  }
+
+  if(!/^[\dA-z]+$/.test(account)) {
+    send(req, res, {state: 1003}) //用户名应该仅使用英文或数字
+    return
+  }
+
+  User.findOne({account},(err,doc) => {
+    if (err) {
+      console.log(__dirname,' ERROR:\n',err)
+      send(req, res, {state:3001}) //数据库错误
+      return 
+    } 
+    if (doc) {
+      send(req, res, {state:3002}) //用户名已存在
+      return
+    }
+    send(req, res, {state:1}) //用户名可用
+  })
+})
 
 module.exports = router
