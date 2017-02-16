@@ -341,4 +341,73 @@ router.get('/checkAccount',(req,res) => {
   })
 })
 
+router.post('/register',(req,res)=>{
+  if (!req.body.account) {
+    send(req, res, {state: 1001}) //用户名为空
+    return
+  }
+  if (!req.body.password) {
+    send(req, res, {state: 1011}) //密码为空
+    return
+  }
+  let account = req.body.account,
+    password = req.body.password
+
+  if (account.length < 4 || account.length > 16) {
+    send(req, res, {state: 1002}) //用户名长度应该在4-16之间
+    return
+  }
+
+  if (password.length < 6 || password.length > 16) {
+    send(req, res, {state: 1012}) //密码长度应该在6-16之间
+    return
+  }
+
+  if(!/^[\dA-z]+$/.test(account)) {
+    send(req, res, {state: 1003}) //用户名应该仅使用英文或数字
+    return
+  }
+
+  if(!/^[\dA-z]+$/.test(password)) {
+    send(req, res, {state: 1013}) //密码应该仅使用英文或数字
+    return
+  }
+
+  let passwordStrength = 1
+  if (password.length == 16) passwordStrength++
+  if (/\d/.test(password) && /[A-z]/.test(password)) passwordStrength++
+  if (passwordStrength == 1) {
+    send(req, res, {state: 1014}) //密码强度过低
+    return
+  }
+
+  User.findOne({account},(err,doc) => {
+    if (err) {
+      console.log(__dirname,' ERROR:\n',err)
+      send(req, res, {state:3001}) //数据库findOne错误
+      return 
+    } 
+    if (doc) {
+      send(req, res, {state:3002}) //用户名已存在
+      return
+    }
+    
+    User.find({},{'_id':0,uid:1}).sort({uid:-1}).limit(1).exec((err2,doc)=>{
+      if (err2) {
+        console.log(__dirname,' ERROR:\n',err2)
+        send(req, res, {state:3003}) //数据库find错误
+        return
+      }
+      new User({uid: doc[0].uid+1,account,password}).save(err3=>{
+        if(err3) {
+          console.log(__dirname,' ERROR:\n',err2)
+          send(req, res, {state:3004}) //数据库save错误
+          return
+        }
+        send(req, res, {state:1})
+      })
+    })
+  })
+})
+
 module.exports = router
