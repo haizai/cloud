@@ -54,21 +54,22 @@ var router = express.Router();
  * 中间件函数，记录操作记录
  * @param  req  请求
  * @param  res  响应
- * @param  send 用于记录的返回值
+ * @param  back 用于记录的返回值
  * @param  obj  {cb: 返回前执行的函数,trueSend: 真实的返回值}
  */
-function send(req,res,send,obj) {
+
+function send(req,res,back,obj) {
   var method = req.method
   var param = method == 'GET' ? req.query : req.body
   var url = req.originalUrl.replace(/\?.*$/,'')
 
-  console.log('?'+method,url,param,send)
+  console.log('?'+method,url,param,back)
   if (req.session.isLogin) {
     User.update({account: req.session.user.account},{$push:{record:{
       url,
       method,
       param,
-      res: send,
+      res: back,
       time: new Date()
     }}}).exec(err=> {
       if (err) {
@@ -85,7 +86,7 @@ function send(req,res,send,obj) {
       return
     }
   }
-  res.send(send)
+  res.send(back)
 }
 
 // dev环境允许跨域
@@ -102,7 +103,8 @@ router.all('*',(req,res,next)=> {
 router.get('/login',(req, res) => {
 
   if (req.session.isLogin) {
-    send(req, res, {state: 2001}) //你已登录
+    send(req, res, {state: 2002}) //你已登录
+    return
   }
 
 
@@ -126,7 +128,7 @@ router.get('/login',(req, res) => {
       if (req.query.password === user.password) {
         req.session.isLogin = true
         req.session.user = user
-        console.log('?login',req.session)
+        // console.log('?login',req.session)
         send(req,res,{state:1})
         // send(req, res, {state:1,user}) //登入成功
       } else {
@@ -138,6 +140,12 @@ router.get('/login',(req, res) => {
   })
 
 })
+
+router.get('/checkLogin',(req,res) => {
+  console.log(req.session)
+  req.session.isLogin ? res.send({state:2002}) : res.send({state:2001}) //已登录，未登录
+})
+
 
 router.get('/logoff',(req, res) => {
 
