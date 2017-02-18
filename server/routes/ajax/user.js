@@ -64,8 +64,15 @@ function send(req,res,back,obj) {
   var url = req.originalUrl.replace(/\?.*$/,'')
 
   console.log('?'+method,url,param,back)
+  var account
   if (req.session.isLogin) {
-    User.update({account: req.session.user.account},{$push:{record:{
+    account = req.session.user.account
+  } else {
+    if (method == 'GET') account = req.query.account
+    if (method == 'POST') account = req.body.account
+  }
+  if (account) {
+    User.update({account},{$push:{record:{
       url,
       method,
       param,
