@@ -64,7 +64,7 @@ function send(req,res,back,obj) {
   var url = req.originalUrl.replace(/\?.*$/,'')
 
   console.log('?'+method,url,param,back)
-  var account
+  var account //只要有account参数就能记录
   if (req.session.isLogin) {
     account = req.session.user.account
   } else {
@@ -149,7 +149,6 @@ router.get('/login',(req, res) => {
 })
 
 router.get('/checkLogin',(req,res) => {
-  console.log(req.session)
   req.session.isLogin ? res.send({state:2002}) : res.send({state:2001}) //已登录，未登录
 })
 
