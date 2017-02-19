@@ -96,16 +96,6 @@ function send(req,res,back,obj) {
   res.send(back)
 }
 
-// dev环境允许跨域
-router.all('*',(req,res,next)=> {
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8080'); // cookie跨域,不能为*
-    res.header('Access-Control-Allow-Credentials', 'true'); //cookie跨域
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', '*');
-  }
-  next()
-})
 
 router.get('/login',(req, res) => {
 
@@ -356,6 +346,17 @@ router.get('/checkAccount',(req,res) => {
 })
 
 router.post('/register',(req,res)=>{
+
+  if (!req.body.captcha) {
+    send(req, res, {state: 4001}) //验证码为空
+    return
+  }
+
+  if (req.body.captcha.toLowerCase() !== req.session.captcha.toLowerCase()) {
+    send(req, res, {state: 4002}) //验证码错误
+    return
+  }
+
   if (!req.body.account) {
     send(req, res, {state: 1001}) //用户名为空
     return
