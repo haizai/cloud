@@ -352,7 +352,7 @@ router.post('/register',(req,res)=>{
     return
   }
 
-  if (req.body.captcha.toLowerCase() !== req.session.captcha.toLowerCase()) {
+  if (req.body.captcha !== req.session.captcha) {
     send(req, res, {state: 4002}) //验证码错误
     return
   }
