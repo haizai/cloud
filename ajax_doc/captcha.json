@@ -1,0 +1,17 @@
+{
+  "url": "ajax/getCaptcha", //获得验证码
+  "type": "GET",
+  "param": null,
+  "res": "<svg></svg>" //req.session.captcha为验证码
+},
+{
+  "url": "ajax/checkCaptcha", //验证验证码
+  "type": "GET",
+  "param": {"captcha":"String"}, //4位验证码
+  "res": [
+    {"state":1}, //验证码正确
+    {"state":4001}, //未获取验证码
+    {"state":4002}, //验证码为空
+    {"state":4003}, //验证码错误
+  ] 
+},

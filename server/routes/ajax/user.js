@@ -347,13 +347,16 @@ router.get('/checkAccount',(req,res) => {
 
 router.post('/register',(req,res)=>{
 
-  if (!req.body.captcha) {
-    send(req, res, {state: 4001}) //验证码为空
+  if (!req.session.captcha) {
+    send(req, res, {state: 4001})//未获取验证码
     return
   }
-
-  if (req.body.captcha !== req.session.captcha) {
-    send(req, res, {state: 4002}) //验证码错误
+  if (!req.body.captcha) {
+    send(req, res, {state:4002}) //验证码为空
+    return
+  }
+  if (req.body.captcha!==req.session.captcha) {
+    send(req, res, {state:4003}) //验证码错误
     return
   }
 
