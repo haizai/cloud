@@ -13,7 +13,11 @@ var userSchma = new mongoose.Schema({
     proID: {type: Number, default: 0},
     cityID: {type: Number}
   },
-  record: {type: Array, default: []}
+  record: {type: Array, default: []},
+  face: {
+    style: {type:String}, // boy girl
+    name: {type:Number}, // e.g 1
+  }
 });
 
 var User = mongoose.model('User', userSchma);

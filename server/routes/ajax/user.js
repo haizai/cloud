@@ -44,9 +44,6 @@ User.findOne({uid:2}).exec((err,doc)=>{
   if (!doc) new User(test).save()
 })
 
-
-
-
 var express = require('express');
 var router = express.Router();
 
@@ -231,7 +228,7 @@ router.get('/getUserInCenter',(req, res) => {
     return
   }
 
-  User.findOne({account: req.session.user.account},{'_id':0,'uid':1,'account':1,'msg':1,'position':1,'sign':1,'registerTime':1}).exec( (err,doc) => {
+  User.findOne({account: req.session.user.account},{'_id':0,'uid':1,'account':1,'msg':1,'position':1,'sign':1,'registerTime':1,'face':1}).exec( (err,doc) => {
     if (err) {
       console.log(__dirname,' Error:\n', err)
       send(req, res, {state:3001}) //数据库错误
@@ -428,4 +425,45 @@ router.post('/register',(req,res)=>{
   })
 })
 
+router.post('/setFace', (req, res) => {
+
+  if (!req.session.isLogin) {
+    send(req, res, {state:2001}) //尚未登入
+    return
+  }
+
+  if (!req.body.style) {
+    send(req, res, {state:1001}) //type为空
+    return
+  }
+  let style = req.body.style
+  if (style !== 'boy' && style !== 'girl') {
+    send(req, res, {state:1002}) //type不为给定值
+    return
+  }
+
+  if (!req.body.name) {
+    send(req, res, {state:1011}) //name为空
+    return
+  }
+  let name = parseInt(req.body.name)
+  if (isNaN(name) && name > 8 || name < 1) {
+    send(req, res, {state:1012}) //name不为给定值
+    return
+  }
+  console.log(style,name)
+  User.update({account: req.session.user.account},{$set: {'face.style':style,'face.name': name}}, err => {
+    if (err) {
+      console.log(__dirname,' Error:\n', err)
+      send(req, res, {state:3001}) //数据库更新错误
+      return
+    }
+    send(req, res, {state:1}) //成功
+  })
+})
+
+
+
+
 module.exports = router
+
