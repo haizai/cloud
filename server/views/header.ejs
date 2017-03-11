@@ -1,6 +1,4 @@
 <% var title = title || null %>
-<% var session = session || {} %>
-<% var isLogin = session.isLogin || false %>
 
 <div id="low-ie" style="display:none;">
   <div class="low-ie-wrap">
@@ -15,13 +13,13 @@
   if((/(Mozilla\/4\.0)/.test(navigator.userAgent))) {document.getElementById('low-ie').style.display = 'block'}
 </script>
 <div class="header">
-  <ul class="header-warp">
-    <li class="header-title<%if(title == 'index'){%><%=' header-active'%><%}%>"><a href="/"><img class="header-img" src="../../img/common/haizainaive_20.png" alt="haizainaive"></a></li>
-    <% if (isLogin) {%>
-      <li class="header-item<%if(title == 'user'){%><%=' header-active'%><%}%>"><a href="/user">用户</a></li>
-    <% } else { %>
-      <li class="header-item<%if(title == 'login'){%><%=' header-active'%><%}%>"><a href="/login">登入</a></li>
-    <% } %>
-    <li class="header-item<%if(title == 'animes'){%><%=' header-active'%><%}%>" style="border-right: 1px solid #fff"><a href="/animes">动漫</a></li>
+  <div class="header-warp">
+    <div class="header-title<%if(title == 'index'){%><%=' header-active'%><%}%>"><a href="/"><img class="header-img" src="../../img/common/haizainaive_20.png" alt="haizainaive"></a></div>
+    <div class="header-user"></div>
+    <ul class="header-menu">
+      <li class="header-item<%if(title == 'animes'){%><%=' header-active'%><%}%>"><a href="/animes">动漫</a></li>
+    </ul>
   </div>
 </div>
+<script src="js/common/jquery-3.1.1.min.js"></script>
+<script src="js/common/header.js"></script>
