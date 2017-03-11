@@ -4,7 +4,7 @@ jQuery(function($){
       if(obj.state == 1) {
         tip('注销成功，即将自动转跳')
         setTimeout(function(){
-          window.location.pathname = 'login'
+          window.location.pathname = 'oldLogin'
         }, 1000)
       } else {
         tip('注销失败','err')

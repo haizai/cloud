@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/test', function(req, res, next) {
+router.get('/user', function(req, res, next) {
   res.render('default', { title: 'user' })
 });
 

@@ -12,7 +12,7 @@ jQuery(function(){
           case 1:
             tip('登入成功，即将自动转跳')
             setTimeout(function(){
-              window.location = 'user'
+              window.location = 'oldUser'
             }, 1500)
             break;
           case 1001:

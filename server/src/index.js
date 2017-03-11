@@ -4,6 +4,9 @@ import './scss/main.scss'
 
 jQuery(function($){
 
+  $.get('ajax/user/checkLogin')
+
+
   class Chart {
     constructor(o){
       this.chart = echarts.init(document.getElementById(o.id))
