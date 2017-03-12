@@ -60,7 +60,7 @@ a {
   display: inline-block;
   width: 80px;
   height: 50px;
-  background-color: rgba(41, 170, 212, 0.5);
+/*   background-color: rgba(41, 170, 212, 0.5); */
   text-align: center;
 }
 .header-user a {
@@ -72,4 +72,23 @@ a {
 .header-user .item{
   color: #fff;
   font-size: 18px;
+}
+.header-user .face{
+  position: relative;
+}
+.header-user .small-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  position: absolute;
+  left: 18px;
+  top: 4px;
+  cursor: pointer;
+  transition: .3s all;
+}
+.header-user .small-img:hover {
+  width: 80px;
+  height: 80px;
+  left: 0px;
+  top: 10px;
 }
