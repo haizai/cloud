@@ -2,7 +2,7 @@ var _tip = [false,false,false]
 
 function tip(msg,state,time){
 
-  var time = time || 1500
+  var time = time || 2000
 
   var index = _tip.indexOf(false)
   if (index==-1) {
@@ -18,8 +18,8 @@ function tip(msg,state,time){
     position:'fixed',
     zIndex: 1000,
     bottom: bottom+'px',
-    paddingLeft: '15px',
-    paddingRight: '15px',
+    paddingLeft: '30px',
+    paddingRight: '30px',
     paddingTop: '2px',
     paddingBottom: '2px',
     fontSize: '14px',

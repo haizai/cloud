@@ -84,11 +84,41 @@ a {
   left: 18px;
   top: 4px;
   cursor: pointer;
-  transition: .3s all;
+  transition: .2s all;
+  z-index: 2010;
 }
-.header-user .small-img:hover {
-  width: 80px;
-  height: 80px;
-  left: 0px;
-  top: 10px;
+.header-user:hover .small-img {
+  width: 60px;
+  height: 60px;
+  left: 10px;
+  top: 20px;
+}
+.header-user .face-cont {
+  display: none;
+  position: absolute;
+  width: 160px;
+  height: 120px;
+  background: rgba(0, 0, 0, 0.6);
+  top: 50px;
+  left: -40px;
+  z-index: 2005;
+  color: #fff;
+}
+.header-user:hover .face-cont {
+  display: block;
+}
+.header-user .logoff {
+  position: absolute;
+  right: 15px;
+  bottom: -5px;
+}
+.header-user .enter {
+  position: absolute;
+  left: 15px;
+  bottom: -5px;
+}
+.header-user .account {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 18px;
 }
