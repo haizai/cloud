@@ -25,7 +25,18 @@ function Room(num) {
   this.wing= null
   this.stage= 'notfull' // notfull wait playing end
   this.wingChess=[]
+  this.chessmen = {}
   this.history= []
+
+
+  for (let a = 1; a < 16; a++) { // 将15*15个子都预设好
+
+    if (!this.chessmen[a]) this.chessmen[a] = {}
+
+    for (let b = 1; b < 16; b++) {
+      this.chessmen[a][b] = {color: null}
+    }
+  }
 
   AllRooms.addRoom(this)
 }
@@ -156,20 +167,23 @@ router.get('/getRoomStage', (req, res) => {
     stage: room.stage
   })
 
-
 })
 
-router.get('/checkGomoku', (req, res) => {
-
+router.get('*', (req,res,next) => {
   if (!req.session.gomokuRoomNum) {
     res.send({
       bool: false,
-      text: 'not in gomoku romm'
+      text: 'not in gomoku room'
     })
     return
   }
+  next()
+})
 
-  var room = AllRooms.getRoom(req.session.gomokuRoomNum)
+
+router.get('/checkGomoku', (req, res) => {
+
+  let room = AllRooms.getRoom(req.session.gomokuRoomNum)
   if (req.session.user.account == room.b.account) {
     res.send({
       bool: true,
@@ -198,6 +212,91 @@ router.get('/ready', (req, res) => {
   res.send(obj)
 })
 
+router.post('/move', (req, res) => {
+
+  if (!req.body.r) {
+    res.send({
+      bool: false,
+      text: 'no r'
+    })
+  }
+  if (!/^\d+$/.test(req.body.r)) {
+    res.send({
+      bool: false,
+      text: 'r is not all number'
+    })
+    return
+  }
+  let r = +req.body.r
+  if (r < 1 || r > 15) {
+    res.send({
+      bool: false,
+      text: 'r is not in (1 to 15)'
+    })
+  }
+
+  if (!req.body.c) {
+    res.send({
+      bool: false,
+      text: 'no c'
+    })
+  }
+  if (!/^\d+$/.test(req.body.c)) {
+    res.send({
+      bool: false,
+      text: 'c is not all number'
+    })
+    return
+  }
+  let c = +req.body.c
+  if (c < 1 || c > 15) {
+    res.send({
+      bool: false,
+      text: 'c is not in (1 to 15)'
+    })
+  }
+
+  let room = AllRooms.getRoom(req.session.gomokuRoomNum)
+
+  if (room.stage !== 'playing') {
+    res.send({
+      bool: false,
+      text: 'not playing'
+    })
+  }
 
 
-module.exports = router;
+  if (room.chessmen[r][c].color !== null) {
+    res.send({
+      bool: false,
+      text: 'repeat move' //已有落子
+    })
+    return
+  }
+  room.history.push([r,c])
+  room.chessmen[r][c].color = room.color
+  console.log('move',room.color,r,c)
+  
+  room.color = room.color == 'b' ? 'w' : 'b'
+  res.send({
+    bool: true,
+    text: 'continue' 
+  })
+})
+
+router.get('/getColor',(req,res) => {
+  let room = AllRooms.getRoom(req.session.gomokuRoomNum)
+  let chess = null
+  if (room.history.length > 0) {
+    console.log('history',room.history[room.history.length-1])
+    chess = room.history[room.history.length-1]
+  }
+  res.send({
+    bool: true,
+    text: room.color,
+    chess,
+  })
+
+})
+
+module.exports = router
