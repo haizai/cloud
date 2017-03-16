@@ -15,8 +15,8 @@ var userSchma = new mongoose.Schema({
   },
   record: {type: Array, default: []},
   face: {
-    style: {type:String}, // boy girl
-    name: {type:Number}, // e.g 1
+    style: {type:String, default: 'boy'}, // boy girl
+    name: {type:Number,  default: 1}, // e.g 1
   }
 });
 

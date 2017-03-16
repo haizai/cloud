@@ -15,9 +15,13 @@ var admin = {
   position: 'admin',
   sign: '使生如夏花之灿烂。',
   msg: {
-    sex: 'male',
+    sex: 'female',
     proID: 11,
     cityID: 78
+  },
+  face: {
+    style: 'girl',
+    name: 2
   }
 }
 
@@ -122,7 +126,8 @@ router.get('/login',(req, res) => {
       if (req.query.password === user.password) {
         req.session.isLogin = true
         req.session.user = user
-        // console.log('?login',req.session)
+        req.session.user.record = [] //不在seesion中写入record
+
         send(req,res,{state:1})
         // send(req, res, {state:1,user}) //登入成功
       } else {
