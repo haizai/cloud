@@ -92,12 +92,63 @@ Room.prototype = {
       text: 'unknown account'
     }
   },
+
   allReady() {
     if (this.b.ready && this.w.ready) {
       this.stage = 'playing'
       console.log(this)
       return true
     }
+  },
+  test() {
+    let chessmen = this.chessmen
+    for (let r in chessmen) {
+      r = (+r)
+      for (let c in chessmen[r]) {
+        c = (+c)
+
+        let color = chessmen[r][c].color
+
+        if (color !== null) {
+
+          // 横五个
+          if (c < 12 && color == chessmen[r][c+1].color && color == chessmen[r][c+2].color && color == chessmen[r][c+3].color && color == chessmen[r][c+4].color) {
+            this.wing = color
+            this.wingChess = [[r,c],[r,c+1],[r,c+2],[r,c+3],[r,c+4]]
+            this.stage = 'end'
+          }
+
+          //竖五个
+          if ( r < 12 && color == chessmen[r+1][c].color&& color == chessmen[r+2][c].color&& color == chessmen[r+3][c].color&& color == chessmen[r+4][c].color) {
+            this.wing = color
+            this.wingChess = [[r,c],[r+1,c],[r+2,c],[r+3,c],[r+4,c]]
+            this.stage = 'end'
+          }
+
+
+          //左上斜五个
+          if (c < 12 && r < 12 && color == chessmen[r+1][c+1].color&& color == chessmen[r+2][c+2].color&& color == chessmen[r+3][c+3].color && color == chessmen[r+4][c+4].color) {
+            this.wing = chessmen[r][c].color
+            this.wingChess = [[r,c],[r+1,c+1],[r+2,c+2],[r+3,c+3],[r+4,c+4]]
+            this.stage = 'end'
+          }
+
+          //左下斜五个
+          if (r < 12 && c > 4 && chessmen[r+4] && chessmen[r+4][c-4] &&  color == chessmen[r+1][c-1].color&& color == chessmen[r+2][c-2].color&& color == chessmen[r+3][c-3].color && color == chessmen[r+4][c-4].color) {
+            this.wing = color
+            this.wingChess = [[r,c],[r+1,c-1],[r+2,c-2],[r+3,c-3],[r+4,c-4]]
+            this.stage = 'end'
+          }
+          
+        } 
+      }
+    }
+
+    if (this.history.length === 225) {
+      this.wing = 'draw_225'
+      this.stage = 'end' 
+    }
+
   }
 }
 
@@ -219,6 +270,7 @@ router.post('/move', (req, res) => {
       bool: false,
       text: 'no r'
     })
+    return
   }
   if (!/^\d+$/.test(req.body.r)) {
     res.send({
@@ -233,6 +285,7 @@ router.post('/move', (req, res) => {
       bool: false,
       text: 'r is not in (1 to 15)'
     })
+    return
   }
 
   if (!req.body.c) {
@@ -240,6 +293,7 @@ router.post('/move', (req, res) => {
       bool: false,
       text: 'no c'
     })
+    return
   }
   if (!/^\d+$/.test(req.body.c)) {
     res.send({
@@ -254,6 +308,7 @@ router.post('/move', (req, res) => {
       bool: false,
       text: 'c is not in (1 to 15)'
     })
+    return
   }
 
   let room = AllRooms.getRoom(req.session.gomokuRoomNum)
@@ -263,6 +318,7 @@ router.post('/move', (req, res) => {
       bool: false,
       text: 'not playing'
     })
+    return
   }
 
 
@@ -277,6 +333,17 @@ router.post('/move', (req, res) => {
   room.chessmen[r][c].color = room.color
   console.log('move',room.color,r,c)
   
+
+  room.test()
+
+  if (room.stage == 'end') {
+    res.send({
+      bool: true,
+      text: 'end'
+    })
+    return
+  }
+
   room.color = room.color == 'b' ? 'w' : 'b'
   res.send({
     bool: true,
@@ -288,14 +355,23 @@ router.get('/getColor',(req,res) => {
   let room = AllRooms.getRoom(req.session.gomokuRoomNum)
   let chess = null
   if (room.history.length > 0) {
-    console.log('history',room.history[room.history.length-1])
     chess = room.history[room.history.length-1]
   }
-  res.send({
+
+  let obj = {
     bool: true,
     text: room.color,
     chess,
-  })
+  }
+  if (room.stage == 'end') {
+    obj.stage = 'end'
+    obj.wingChess = room.wingChess
+    obj.wing = room.wing
+  }
+
+
+
+  res.send(obj)
 
 })
 
