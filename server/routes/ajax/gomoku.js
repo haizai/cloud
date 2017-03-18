@@ -18,6 +18,14 @@ const AllRooms = {
 
 let emitterRoom = new events.EventEmitter(); //full,ready
 
+function toggleColor(color) {
+  if (color == 'b') {
+    return 'w'
+  } else {
+    return 'b'
+  }
+}
+
 function Room(num) {
   this.num = num
   this.b= null
@@ -349,9 +357,10 @@ router.post('/move', (req, res) => {
   room.history.push([r,c])
   room.chessmen[r][c].color = room.color
   console.log('move',room.color,r,c)
+
   
 
-  room.test()
+  // room.test()
 
   if (room.stage == 'end') {
     res.send({
@@ -361,10 +370,21 @@ router.post('/move', (req, res) => {
     return
   }
 
-  room.color = room.color == 'b' ? 'w' : 'b'
-  res.send({
-    bool: true,
-    text: 'continue' 
+
+  emitterRoom.emit('move' + room.num, r,c)
+  room.color = toggleColor(room.color)
+  res.send({bool: true})
+
+})
+
+router.get('/waitMove', (req,res) => {
+  let room = AllRooms.getRoom(req.session.gomokuRoomNum)
+  emitterRoom.once('move' + room.num, (rr,cc) => {
+    res.send({
+      bool: true,
+      r:rr,
+      c:cc,
+    })
   })
 })
 
