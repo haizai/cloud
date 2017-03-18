@@ -1,4 +1,5 @@
 var express = require('express');
+var events = require('events');
 var router = express.Router();
 
 const AllRooms = {
@@ -15,7 +16,7 @@ const AllRooms = {
   }
 }
 
-
+let emitterRoom = new events.EventEmitter();
 
 function Room(num) {
   this.num = num
@@ -46,7 +47,7 @@ Room.prototype = {
       this.b = user
       return {
         bool: true,
-        text: 'b'
+        text: 'wait'
       }
     }
     if (this.w === null) {
@@ -55,7 +56,7 @@ Room.prototype = {
         this.stage = 'wait'
         return {
           bool: true,
-          text: 'w',
+          text: 'enter'
         }
       } else {
         return {
@@ -165,6 +166,8 @@ router.get('*', (req,res,next) => {
 })
 
 
+
+
 router.get('/roomEnter',(req,res)=>{
 
   let user = req.session.user
@@ -176,18 +179,34 @@ router.get('/roomEnter',(req,res)=>{
     return
   }
 
-  let room = AllRooms.getRoom(1)
+  let num = req.query.num
+  let room = AllRooms.getRoom(num)
   if (!room) {
-    room = new Room(1)
+    room = new Room(num)
   }
   
   let obj = room.addPerson(user)
-  if (obj.text == 'w') {
-    req.session.gomokuRoomNum = 1
+  if (obj.bool) {
+    req.session.gomokuRoomNum = num
+
+    if (obj.text == 'wait') {
+      emitterRoom.once('full' + num, () => {
+        console.log('emitter full')
+        res.send({
+          bool: true,
+        })
+      })
+    } else {
+      emitterRoom.emit('full' + num)
+      console.log('emitter full')
+      res.send({
+        bool: true,
+      })
+    }
+
+  } else {
+    res.send(obj)
   }
-  res.send(obj)
-
-
 })
 
 router.get('/getRoomStage', (req, res) => {
