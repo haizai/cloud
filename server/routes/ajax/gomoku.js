@@ -16,7 +16,7 @@ const AllRooms = {
   }
 }
 
-let emitterRoom = new events.EventEmitter();
+let emitterRoom = new events.EventEmitter(); //full,ready
 
 function Room(num) {
   this.num = num
@@ -94,10 +94,9 @@ Room.prototype = {
     }
   },
 
-  allReady() {
+  isAllReady() {
     if (this.b.ready && this.w.ready) {
       this.stage = 'playing'
-      console.log(this)
       return true
     }
   },
@@ -190,18 +189,10 @@ router.get('/roomEnter',(req,res)=>{
     req.session.gomokuRoomNum = num
 
     if (obj.text == 'wait') {
-      emitterRoom.once('full' + num, () => {
-        console.log('emitter full')
-        res.send({
-          bool: true,
-        })
-      })
+      emitterRoom.once('full' + num, () => res.send({bool: true}) )
     } else {
       emitterRoom.emit('full' + num)
-      console.log('emitter full')
-      res.send({
-        bool: true,
-      })
+      res.send({bool: true})
     }
 
   } else {
@@ -278,8 +269,15 @@ router.get('/ready', (req, res) => {
   let user = req.session.user
   let room = AllRooms.getRoom(req.session.gomokuRoomNum)
   let obj = room.personReady(user, true)
-  obj.isAllReady = room.allReady()
-  res.send(obj)
+  if (!obj.bool) {
+    res.send(obj)
+    return
+  }
+  emitterRoom.once('ready' + room.num, () => res.send({bool: true}))
+
+  if (room.isAllReady()) {
+    emitterRoom.emit('ready' + room.num)
+  }
 })
 
 router.post('/move', (req, res) => {
