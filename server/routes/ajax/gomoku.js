@@ -358,33 +358,50 @@ router.post('/move', (req, res) => {
   room.chessmen[r][c].color = room.color
   console.log('move',room.color,r,c)
 
-  
+  room.test()
 
-  // room.test()
-
-  if (room.stage == 'end') {
-    res.send({
-      bool: true,
-      text: 'end'
-    })
-    return
+  let obj = {
+    bool: true,
+    r,
+    c
   }
 
+  if (room.stage == 'end') {
+    obj.text = 'end'
+    obj.wing = room.wing
+    obj.wingChess = room.wingChess
+  } else {
+    obj.text = 'continue'
+  }
 
-  emitterRoom.emit('move' + room.num, r,c)
-  room.color = toggleColor(room.color)
-  res.send({bool: true})
+  emitterRoom.emit('move' + room.num, obj)
+
+
+  if (room.stage == 'end') {
+    res.send(obj)
+  } else {
+    room.color = toggleColor(room.color)
+    res.send({bool: true, text: 'continue'})
+  }
 
 })
 
 router.get('/waitMove', (req,res) => {
   let room = AllRooms.getRoom(req.session.gomokuRoomNum)
-  emitterRoom.once('move' + room.num, (rr,cc) => {
-    res.send({
-      bool: true,
-      r:rr,
-      c:cc,
-    })
+
+  emitterRoom.once('move' + room.num, obj => {
+
+    if (obj.text == 'continue') {
+      res.send({
+        bool: true,
+        text: 'continue',
+        r: obj.r,
+        c: obj.c,
+      })
+    } else {
+      res.send(obj)
+    }
+
   })
 })
 
