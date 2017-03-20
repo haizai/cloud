@@ -28,14 +28,17 @@ function toggleColor(color) {
 
 function Room(num) {
   this.num = num
-  this.b= null
-  this.w= null
-  this.color='b'
-  this.wing= null
-  this.stage= 'notfull' // notfull wait playing end
-  this.wingChess=[]
+  this.b = null
+  this.w = null
+  this.color ='b'
+  this.wing = null
+  this.stage = 'notfull' // notfull wait playing end
+  this.wingChess = []
   this.chessmen = {}
-  this.history= []
+  this.history = []
+  this.score = {
+    _draw: 0
+  }
 
 
   for (let a = 1; a < 16; a++) { // 将15*15个子都预设好
@@ -53,6 +56,7 @@ Room.prototype = {
   addPerson(user) {
     if (this.b === null) {
       this.b = user
+      this.score[user.account] = 0
       return {
         bool: true,
         text: 'wait'
@@ -61,6 +65,7 @@ Room.prototype = {
     if (this.w === null) {
       if (this.b.account !== user.account) {
         this.w = user
+        this.score[user.account] = 0
         this.stage = 'wait'
         return {
           bool: true,
@@ -110,6 +115,7 @@ Room.prototype = {
   },
   test() {
     let chessmen = this.chessmen
+
     for (let r in chessmen) {
       r = (+r)
       for (let c in chessmen[r]) {
@@ -123,6 +129,7 @@ Room.prototype = {
           if (c < 12 && color == chessmen[r][c+1].color && color == chessmen[r][c+2].color && color == chessmen[r][c+3].color && color == chessmen[r][c+4].color) {
             this.wing = color
             this.wingChess = [[r,c],[r,c+1],[r,c+2],[r,c+3],[r,c+4]]
+            this.score[this[color].account]++
             this.stage = 'end'
           }
 
@@ -130,6 +137,7 @@ Room.prototype = {
           if ( r < 12 && color == chessmen[r+1][c].color&& color == chessmen[r+2][c].color&& color == chessmen[r+3][c].color&& color == chessmen[r+4][c].color) {
             this.wing = color
             this.wingChess = [[r,c],[r+1,c],[r+2,c],[r+3,c],[r+4,c]]
+            this.score[this[color].account]++
             this.stage = 'end'
           }
 
@@ -138,6 +146,7 @@ Room.prototype = {
           if (c < 12 && r < 12 && color == chessmen[r+1][c+1].color&& color == chessmen[r+2][c+2].color&& color == chessmen[r+3][c+3].color && color == chessmen[r+4][c+4].color) {
             this.wing = chessmen[r][c].color
             this.wingChess = [[r,c],[r+1,c+1],[r+2,c+2],[r+3,c+3],[r+4,c+4]]
+            this.score[this[color].account]++
             this.stage = 'end'
           }
 
@@ -145,18 +154,49 @@ Room.prototype = {
           if (r < 12 && c > 4 && chessmen[r+4] && chessmen[r+4][c-4] &&  color == chessmen[r+1][c-1].color&& color == chessmen[r+2][c-2].color&& color == chessmen[r+3][c-3].color && color == chessmen[r+4][c-4].color) {
             this.wing = color
             this.wingChess = [[r,c],[r+1,c-1],[r+2,c-2],[r+3,c-3],[r+4,c-4]]
+            this.score[this[color].account]++
             this.stage = 'end'
           }
           
         } 
       }
+
     }
 
     if (this.history.length === 225) {
       this.wing = 'draw_225'
+      this.score[_draw]++
       this.stage = 'end' 
     }
+  },
+  again() {
+    this.color ='b'
+    this.wing = null
+    this.stage = 'wait'
+    this.wingChess = []
+    this.chessmen = {}
+    this.history = []
 
+    let _b = this.b
+    let _w = this.w
+    delete this.b
+    delete this.w
+    this.b = _w
+    this.w = _b
+    this.b.ready = false
+    this.w.ready = false
+
+
+    for (let a = 1; a < 16; a++) { // 将15*15个子都预设好
+
+      if (!this.chessmen[a]) this.chessmen[a] = {}
+
+      for (let b = 1; b < 16; b++) {
+        this.chessmen[a][b] = {color: null}
+      }
+    }
+
+    console.log('AGAIN: \n\n', this)
   }
 }
 
@@ -370,6 +410,7 @@ router.post('/move', (req, res) => {
     obj.text = 'end'
     obj.wing = room.wing
     obj.wingChess = room.wingChess
+    obj.score = room.score
   } else {
     obj.text = 'continue'
   }
@@ -378,6 +419,7 @@ router.post('/move', (req, res) => {
 
 
   if (room.stage == 'end') {
+    room.again()
     res.send(obj)
   } else {
     room.color = toggleColor(room.color)
