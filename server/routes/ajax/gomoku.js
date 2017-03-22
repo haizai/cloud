@@ -113,6 +113,15 @@ Room.prototype = {
       return true
     }
   },
+  getColor(user) {
+    if (this.b.account === user.account) {
+      return 'b'
+    }
+    if (this.w.account === user.account) {
+      return 'w'
+    }
+    return false
+  },
   test() {
     let chessmen = this.chessmen
 
@@ -248,35 +257,6 @@ router.get('/roomEnter',(req,res)=>{
   }
 })
 
-router.get('/getRoomStage', (req, res) => {
-
-  if (!req.session.gomokuRoomNum) { //若无gomokuRoomNum则赋值req.query.num
-    if (req.query.num != 1) {
-      res.send({
-        bool: false,
-        text: 'no num'
-      }) //room非法值
-      return
-    }
-    req.session.gomokuRoomNum = req.query.num
-  }
-
-  let room = AllRooms.getRoom(req.session.gomokuRoomNum)
-
-  if (!room) {
-    res.send({
-      bool: false,
-      text: 'no room'
-    }) 
-    return
-  }
-
-  res.send({
-    bool: true,
-    stage: room.stage
-  })
-
-})
 
 router.get('*', (req,res,next) => {
   if (!req.session.gomokuRoomNum) {
@@ -447,28 +427,20 @@ router.get('/waitMove', (req,res) => {
   })
 })
 
-router.get('/getColor',(req,res) => {
-  let room = AllRooms.getRoom(req.session.gomokuRoomNum)
-  let chess = null
-  if (room.history.length > 0) {
-    chess = room.history[room.history.length-1]
-  }
+// router.get('/givein', (req,res) => {
+//   let room = AllRooms.getRoom(req.session.gomokuRoomNum)
+//   let user = req.session.user
+//   let wing = room.getColor(user) + 'givin'
+//   let obj = {
+//     bool: true,
+//     text: 'end',
+//     wing,
+//   }
+//   emitterRoom.emit('move' + room.num, obj)
+//   return {
+//     bool: true
+//   }
+// })
 
-  let obj = {
-    bool: true,
-    text: room.color,
-    chess,
-  }
-  if (room.stage == 'end') {
-    obj.stage = 'end'
-    obj.wingChess = room.wingChess
-    obj.wing = room.wing
-  }
-
-
-
-  res.send(obj)
-
-})
 
 module.exports = router
