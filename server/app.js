@@ -34,9 +34,8 @@ let sess = {
 app.use(session(sess))
 
 
-
-
 app.use('/', routes);
+
 
 if (process.env.NODE_ENV == "dev") {
 
@@ -83,5 +82,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;
