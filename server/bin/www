@@ -4,7 +4,7 @@ console.log('process.env.NODE_ENV: ', process.env.NODE_ENV)
 
 
 var port = require('./port')
-var server = require('./socket.io.js')
+var server = require('./server.js')
 
 
 server.listen(port);
