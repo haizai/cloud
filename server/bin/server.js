@@ -233,7 +233,7 @@ iog.on('connection', function (socket) {
 
   // 中间件: 未登录&未进入房间
   socket.use((packet, next) => {
-    console.log('use',packet)
+    console.log('use',packet, 'isLogin:',socket.request.session.isLogin)
     if (!socket.request.session.isLogin) {
       socket.emit('err', {
         name: packet[0],
@@ -313,7 +313,7 @@ iog.on('connection', function (socket) {
     let num = socket.request.session.gomokuRoomNum
     let room = AllRooms.getRoom(num)
     let user = socket.request.session.user
-    
+
     let obj = room.personReady(user, true)
     if (!obj.bool) {
       socket.emit('err', {name: 'ready', text: obj.text})
@@ -324,6 +324,83 @@ iog.on('connection', function (socket) {
     if (room.isAllReady()) {
       iog.to(num).emit('allReady')
     }
+  })
+
+  socket.on('move', o => {
+
+    if (!o.r) {
+      socket.emit('err',{name: 'move', text: 'no r'})
+      return
+    }
+    if (!/^\d+$/.test(o.r)) {
+      socket.emit('err',{name: 'move', text: 'r is not all number'})
+      return
+    }
+    let r = +o.r
+    if (r < 1 || r > 15) {
+      socket.emit('err',{name: 'move', text: 'r is not in (1 to 15)'})
+      return
+    }
+
+    if (!o.c) {
+      socket.emit('err',{name: 'move', text: 'no c'})
+      return
+    }
+    if (!/^\d+$/.test(o.c)) {
+      socket.emit('err',{name: 'move', text: 'c is not all number'})
+      return
+    }
+
+    let c = +o.c
+    if (c < 1 || c > 15) {
+      socket.emit('err',{name: 'move', text: 'c is not in (1 to 15)'})
+      return
+    }
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'move', text: 'not playing'})
+      return
+    }
+
+
+    if (room.chessmen[r][c].color !== null) {
+      socket.emit('err',{name: 'move', text: 'repeat move'}) //已有落子
+      return
+    }
+
+    room.history.push([r,c])
+    room.chessmen[r][c].color = room.color
+    console.log('move',room.color,r,c)
+
+    socket.broadcast.to(num).emit('otherMove', {r,c})
+
+    // room.test()
+
+
+    // if (room.stage == 'end') {
+    //   obj.text = 'end'
+    //   obj.wing = room.wing
+    //   obj.wingChess = room.wingChess
+    //   obj.score = room.score
+    // } else {
+    //   obj.text = 'continue'
+    // }
+
+    // emitterRoom.emit('move' + room.num, obj)
+
+
+    // if (room.stage == 'end') {
+    //   room.again()
+    //   res.send(obj)
+    // } else {
+    //   room.color = toggleColor(room.color)
+    //   res.send({bool: true, text: 'continue'})
+    // }
+
   })
 
 
