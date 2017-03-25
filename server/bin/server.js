@@ -67,6 +67,7 @@ function Room(num) {
 Room.prototype = {
   addPerson(user) {
     if (this.b === null) {
+      user.ready = false
       this.b = user
       this.score[user.account] = 0
       return {
@@ -76,6 +77,7 @@ Room.prototype = {
     }
     if (this.w === null) {
       if (this.b.account !== user.account) {
+        user.ready = false
         this.w = user
         this.score[user.account] = 0
         this.stage = 'wait'
@@ -223,9 +225,13 @@ Room.prototype = {
 
 let iog = io.of('gomoku')
 
+// socket.broadcast.to(num).emit() 对房间内他人广播
+// iog.to(num).emit() 对房间内所有人广播
+
 iog.on('connection', function (socket) {
   console.log('gomoku connection')
 
+  // 中间件: 未登录&未进入房间
   socket.use((packet, next) => {
     console.log('use',packet)
     if (!socket.request.session.isLogin) {
@@ -278,10 +284,10 @@ iog.on('connection', function (socket) {
   socket.on('checkGomoku', () => {
 
     let num = socket.request.session.gomokuRoomNum
-
     let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
 
-    if (socket.request.session.user.account == room.b.account) {
+    if (user.account == room.b.account) {
       socket.emit('user', {
         color: 'b',
         other: room.w,
@@ -289,7 +295,7 @@ iog.on('connection', function (socket) {
       })
       return
     }
-    if (socket.request.session.user.account == room.w.account) {
+    if (user.account == room.w.account) {
       socket.emit('user', {
         color: 'w',
         other: room.b,
@@ -301,6 +307,26 @@ iog.on('connection', function (socket) {
     socket.emit('err',{name: 'checkGomoku', text: 'session account !== room account'})
 
   })
+
+  socket.on('ready', () => {
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+    
+    let obj = room.personReady(user, true)
+    if (!obj.bool) {
+      socket.emit('err', {name: 'ready', text: obj.text})
+      return
+    }
+    socket.broadcast.to(num).emit('otherReady')
+
+    if (room.isAllReady()) {
+      iog.to(num).emit('allReady')
+    }
+  })
+
+
 
 
 
