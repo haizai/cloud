@@ -233,7 +233,7 @@ iog.on('connection', function (socket) {
 
   // 中间件: 未登录&未进入房间
   socket.use((packet, next) => {
-    console.log('use',packet, 'isLogin:',socket.request.session.isLogin)
+    console.log('use',packet)
     if (!socket.request.session.isLogin) {
       socket.emit('err', {
         name: packet[0],
@@ -376,9 +376,22 @@ iog.on('connection', function (socket) {
     room.chessmen[r][c].color = room.color
     console.log('move',room.color,r,c)
 
-    socket.broadcast.to(num).emit('otherMove', {r,c})
+    room.test()
 
-    // room.test()
+    if (room.stage == 'end') {
+      iog.to(num).emit('end',{
+        wing: room.wing,
+        wingChess: room.wingChess,
+        score: room.score,
+        r,
+        c
+      })
+      room.again()
+    } else {
+      socket.broadcast.to(num).emit('otherMove', {r,c})
+      room.color = toggleColor(room.color)
+    }
+
 
 
     // if (room.stage == 'end') {
