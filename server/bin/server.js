@@ -12,6 +12,7 @@ io.use(function(socket, next) {
 });
 
 
+
 const AllRooms = {
   rooms: {},
   addRoom(room) {
@@ -192,7 +193,7 @@ Room.prototype = {
       this.stage = 'end' 
     }
   },
-  again() {
+  reset() {
     this.color ='b'
     this.wing = null
     this.stage = 'wait'
@@ -314,6 +315,12 @@ iog.on('connection', function (socket) {
     let room = AllRooms.getRoom(num)
     let user = socket.request.session.user
 
+    if (room.stage !== 'wait' && room.stage !== 'end') {
+      console.log('ready',room.stage)
+      socket.emit('err',{name: 'ready', text: 'not (wait & end)'})
+      return
+    }
+
     let obj = room.personReady(user, true)
     if (!obj.bool) {
       socket.emit('err', {name: 'ready', text: obj.text})
@@ -323,6 +330,7 @@ iog.on('connection', function (socket) {
 
     if (room.isAllReady()) {
       iog.to(num).emit('allReady')
+
     }
   })
 
@@ -386,36 +394,31 @@ iog.on('connection', function (socket) {
         r,
         c
       })
-      room.again()
+      room.reset()
     } else {
       socket.broadcast.to(num).emit('otherMove', {r,c})
       room.color = toggleColor(room.color)
     }
 
-
-
-    // if (room.stage == 'end') {
-    //   obj.text = 'end'
-    //   obj.wing = room.wing
-    //   obj.wingChess = room.wingChess
-    //   obj.score = room.score
-    // } else {
-    //   obj.text = 'continue'
-    // }
-
-    // emitterRoom.emit('move' + room.num, obj)
-
-
-    // if (room.stage == 'end') {
-    //   room.again()
-    //   res.send(obj)
-    // } else {
-    //   room.color = toggleColor(room.color)
-    //   res.send({bool: true, text: 'continue'})
-    // }
-
   })
 
+
+  socket.on('givein', () => {
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'givein', text: 'not playing'})
+    }
+    socket.broadcast.to(num).emit('otherGivein')
+
+    room.score[room[toggleColor(user.color)].account]++
+
+    room.reset()
+    console.log('givein',room)
+  })
 
 
 
