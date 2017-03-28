@@ -421,7 +421,48 @@ iog.on('connection', function (socket) {
   })
 
 
+  socket.on('tryDraw', () => {
 
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'tryDraw', text: 'not playing'})
+    }
+    socket.broadcast.to(num).emit('otherTryDraw')
+
+  })
+
+
+  socket.on('agreeDraw', () => {
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'agreeDraw', text: 'not playing'})
+    }
+    socket.broadcast.to(num).emit('otherAgreeDraw')
+    room.score._draw++
+
+    room.reset()
+    console.log('agreeDraw',room)
+  })
+
+  socket.on('refuseDraw', () => {
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'refuseDraw', text: 'not playing'})
+    }
+    socket.broadcast.to(num).emit('otherRefuseDraw')
+
+  })
 
   socket.on('log',()=>{
     console.log(
