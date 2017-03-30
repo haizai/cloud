@@ -464,6 +464,47 @@ iog.on('connection', function (socket) {
 
   })
 
+
+  socket.on('tryRegret', () => {
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'tryRegret', text: 'not playing'})
+    }
+    socket.broadcast.to(num).emit('otherTryRegret')
+
+  })
+
+
+  socket.on('agreeRegret', () => {
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'agreeRegret', text: 'not playing'})
+    }
+    socket.broadcast.to(num).emit('otherAgreeRegret')
+
+  })
+
+  socket.on('refuseRegret', () => {
+
+    let num = socket.request.session.gomokuRoomNum
+    let room = AllRooms.getRoom(num)
+    let user = socket.request.session.user
+
+    if (room.stage !== 'playing') {
+      socket.emit('err',{name: 'refuseRegret', text: 'not playing'})
+    }
+    socket.broadcast.to(num).emit('otherRefuseRegret')
+
+  })
+
   socket.on('log',()=>{
     console.log(
       'socket.request.session:\n\n',
