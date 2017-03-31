@@ -43,7 +43,7 @@ function Room(num) {
   this.num = num
   this.b = null
   this.w = null
-  this.color ='b'
+  this.color ='b' // 前台为nowColor
   this.wing = null
   this.stage = 'notfull' // notfull wait playing end
   this.wingChess = []
@@ -430,6 +430,11 @@ iog.on('connection', function (socket) {
     if (room.stage !== 'playing') {
       socket.emit('err',{name: 'tryDraw', text: 'not playing'})
     }
+
+    if (room.history.length < 3) {
+      socket.emit('err',{name: 'tryDraw', text: 'room.history.length < 3'})
+    }
+
     socket.broadcast.to(num).emit('otherTryDraw')
 
   })
@@ -465,7 +470,7 @@ iog.on('connection', function (socket) {
   })
 
 
-  socket.on('tryRegret', () => {
+  socket.on('tryRegret', color => {
 
     let num = socket.request.session.gomokuRoomNum
     let room = AllRooms.getRoom(num)
@@ -474,12 +479,12 @@ iog.on('connection', function (socket) {
     if (room.stage !== 'playing') {
       socket.emit('err',{name: 'tryRegret', text: 'not playing'})
     }
-    socket.broadcast.to(num).emit('otherTryRegret')
+    socket.broadcast.to(num).emit('otherTryRegret', color)
 
   })
 
 
-  socket.on('agreeRegret', () => {
+  socket.on('agreeRegret', color => {
 
     let num = socket.request.session.gomokuRoomNum
     let room = AllRooms.getRoom(num)
@@ -488,7 +493,20 @@ iog.on('connection', function (socket) {
     if (room.stage !== 'playing') {
       socket.emit('err',{name: 'agreeRegret', text: 'not playing'})
     }
-    socket.broadcast.to(num).emit('otherAgreeRegret')
+
+    // 若同色，后退2步；若不同色，后退1步
+    let regretCount = room.color == color ? 2 : 1;
+    let regretChessmen = room.history.splice(-regretCount, regretCount)
+
+    // 将后退的步重置颜色
+    regretChessmen.forEach( item => {
+      room.chessmen[item[0]][item[1]].color = null
+    })
+
+    // 当前颜色
+    room.color = color
+
+    socket.broadcast.to(num).emit('otherAgreeRegret', color)
 
   })
 
