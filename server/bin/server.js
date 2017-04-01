@@ -431,9 +431,9 @@ iog.on('connection', function (socket) {
       socket.emit('err',{name: 'tryDraw', text: 'not playing'})
     }
 
-    if (room.history.length < 3) {
-      socket.emit('err',{name: 'tryDraw', text: 'room.history.length < 3'})
-    }
+    // if (room.history.length < 3) {
+    //   socket.emit('err',{name: 'tryDraw', text: 'room.history.length < 3'})
+    // }
 
     socket.broadcast.to(num).emit('otherTryDraw')
 
