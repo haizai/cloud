@@ -35,9 +35,18 @@ a {
   padding: 0 20px;
   font-size: 18px;
   transition: all .3s;
+  display: inline-block;
 }
 .header-item a {
   color: #fff;
+}
+.header-hr {
+  display: inline-block;
+  position: absolute;
+  margin-left: -1px;
+  border-right: 2px solid #fff;
+  top: 15px;
+  height: 20px;
 }
 .header-active {
   background: #00a1d6;
