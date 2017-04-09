@@ -1,3 +1,5 @@
+// 以下已弃用，转移至../bin/server.js
+
 var express = require('express');
 var events = require('events');
 var router = express.Router();
