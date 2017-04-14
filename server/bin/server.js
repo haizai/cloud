@@ -36,33 +36,56 @@ function toggleColor(color) {
 }
 
 function Room(num) {
-  this.num = num
-  this.b = null
-  this.w = null
-  this.color ='b' // 前台为nowColor
-  this.wing = null
-  this.stage = 'notfull' // notfull wait playing end
-  this.wingChess = []
-  this.chessmen = {}
-  this.history = []
-  this.score = {
-    _draw: 0
-  }
-
-
-  for (let a = 1; a < 16; a++) { // 将15*15个子都预设好
-
-    if (!this.chessmen[a]) this.chessmen[a] = {}
-
-    for (let b = 1; b < 16; b++) {
-      this.chessmen[a][b] = {color: null}
+    this.num = num
+    this.b = null
+    this.w = null
+    this.color ='b' // 前台为nowColor
+    this.wing = null
+    this.stage = 'notfull' // notfull wait playing end
+    this.wingChess = []
+    this.chessmen = {}
+    this.history = []
+    this.score = {
+      _draw: 0
     }
-  }
+
+
+    for (let a = 1; a < 16; a++) { // 将15*15个子都预设好
+
+      if (!this.chessmen[a]) this.chessmen[a] = {}
+
+      for (let b = 1; b < 16; b++) {
+        this.chessmen[a][b] = {color: null}
+      }
+    }
 
   AllRooms.addRoom(this)
 }
+
 Room.prototype = {
+  init() {
+    this.b = null
+    this.w = null
+    this.color ='b' // 前台为nowColor
+    this.wing = null
+    this.stage = 'notfull' // notfull wait playing end
+    this.wingChess = []
+    this.chessmen = {}
+    this.history = []
+    this.score = {
+      _draw: 0
+    }
+    for (let a = 1; a < 16; a++) { // 将15*15个子都预设好
+
+      if (!this.chessmen[a]) this.chessmen[a] = {}
+
+      for (let b = 1; b < 16; b++) {
+        this.chessmen[a][b] = {color: null}
+      }
+    }
+  },
   addPerson(user) {
+    console.log('addperson'+ user.account)
     if (this.b === null) {
       user.ready = false
       this.b = user
@@ -216,7 +239,6 @@ Room.prototype = {
       }
     }
 
-    console.log('AGAIN: \n\n', this)
   }
 }
 
@@ -226,7 +248,6 @@ let iog = io.of('gomoku')
 // iog.to(num).emit() 对房间内所有人广播
 
 iog.on('connection', function (socket) {
-  console.log('gomoku connection')
 
   // 中间件: 未登录&未进入房间
   socket.use((packet, next) => {
@@ -236,7 +257,7 @@ iog.on('connection', function (socket) {
         name: packet[0],
         text: 'not login'
       })
-    } else if (packet[0] !=='tryRoomEnter' && !socket.request.session.gomokuRoomNum) {
+    } else if (packet[0] !=='tryRoomEnter' && packet[0] !=='init' && !socket.request.session.gomokuRoomNum) {
       socket.emit('err', {
         name: packet[0],
         text: 'not enter room'
@@ -246,11 +267,32 @@ iog.on('connection', function (socket) {
     }
   })
 
+  // 完全重置房间
+  socket.on('init', (num) => {
+
+    let user = socket.request.session.user
+
+    if (num != 100) {
+      socket.emit('err', {name: 'init',text: 'num is not 100'})
+      return
+    }
+
+    if (user.position === 'admin') {
+      let room = AllRooms.getRoom(num)
+      if (room) {
+        room.init()
+      }
+      iog.to(num).emit('init')
+    }
+    
+  })
+
+
   socket.on('tryRoomEnter', num => {
 
     let user = socket.request.session.user
     if (num != 100) {
-      socket.emit('err', {name: 'tryRoomEnter',text: 'num is not 1'})
+      socket.emit('err', {name: 'tryRoomEnter',text: 'num is not 100'})
       return
     }
 
@@ -261,6 +303,7 @@ iog.on('connection', function (socket) {
     
 
     let obj = room.addPerson(user)
+
 
     if (obj.bool) {
       socket.request.session.gomokuRoomNum = num
@@ -517,20 +560,6 @@ iog.on('connection', function (socket) {
     }
     socket.broadcast.to(num).emit('otherRefuseRegret')
 
-  })
-
-  socket.on('log',()=>{
-    console.log(
-      'socket.request.session:\n\n',
-      socket.request.session
-    );
-  })
-  socket.on('join',()=>{
-    socket.join('roomtest')
-  })
-
-  socket.on('seesion', (a)=>{
-    console.log('seesion:\n\n',a);
   })
 
 });
