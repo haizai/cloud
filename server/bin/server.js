@@ -85,7 +85,7 @@ Room.prototype = {
     }
   },
   addPerson(user) {
-    console.log('addperson'+ user.account)
+    // console.log('addperson'+ user.account)
     if (this.b === null) {
       user.ready = false
       this.b = user
@@ -251,7 +251,7 @@ iog.on('connection', function (socket) {
 
   // 中间件: 未登录&未进入房间
   socket.use((packet, next) => {
-    console.log('use',packet)
+    // console.log('use',packet)
     if (!socket.request.session.isLogin) {
       socket.emit('err', {
         name: packet[0],
@@ -355,7 +355,7 @@ iog.on('connection', function (socket) {
     let user = socket.request.session.user
 
     if (room.stage !== 'wait' && room.stage !== 'end') {
-      console.log('ready',room.stage)
+      // console.log('ready',room.stage)
       socket.emit('err',{name: 'ready', text: 'not (wait & end)'})
       return
     }
@@ -421,7 +421,7 @@ iog.on('connection', function (socket) {
 
     room.history.push([r,c])
     room.chessmen[r][c].color = room.color
-    console.log('move',room.color,r,c)
+    // console.log('move',room.color,r,c)
 
     room.test()
 
@@ -456,7 +456,7 @@ iog.on('connection', function (socket) {
     room.score[room[toggleColor(user.color)].account]++
 
     room.reset()
-    console.log('givein',room)
+    // console.log('givein',room)
   })
 
 
@@ -492,7 +492,7 @@ iog.on('connection', function (socket) {
     room.score._draw++
 
     room.reset()
-    console.log('agreeDraw',room)
+    // console.log('agreeDraw',room)
   })
 
   socket.on('refuseDraw', () => {
