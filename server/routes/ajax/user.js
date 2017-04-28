@@ -44,8 +44,8 @@ User.remove({uid: 0}).exec((err,doc)=>{
 User.remove({uid: 1}).exec((err,doc)=>{
   new User(member).save()
 })
-User.findOne({uid:2}).exec((err,doc)=>{
-  if (!doc) new User(test).save()
+User.remove({uid:2}).exec((err,doc)=>{
+  new User(member).save()
 })
 
 var express = require('express');

@@ -15,14 +15,7 @@ var Anime = require(path.resolve(__dirname, '..', '..', 'mongoose/Anime'))
 
 router.get('/animes', (req, res) => {
 
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
-
 	console.log('?GET animes',req.query)
-
 
   let keyword = req.query.keyword ? decodeURIComponent(req.query.keyword).replace(/[\*\.\?\+\$\^\[\]\(\)\{\}\|\\\/]/g,'') : ''
   let skip = (req.query.page && parseInt(req.query.page, 10) > 0) ? parseInt(req.query.page, 10) * 10 - 10 : 0
@@ -71,7 +64,6 @@ router.get('/animes', (req, res) => {
     }
   } 
 
-
   co(function* () {
     var animes = yield Anime
       .find(
@@ -94,12 +86,6 @@ router.get('/animes', (req, res) => {
 })
 
 router.get('/anime', (req, res) => {
-
-  if (process.env.NODE_ENV === 'dev') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-    res.header('Access-Control-Allow-Methods', 'POST, GET');
-  }
 
   console.log('?GET anime',req.query)
 
@@ -127,6 +113,5 @@ router.get('/anime', (req, res) => {
     }
 
 })
-
 
 module.exports = router;
