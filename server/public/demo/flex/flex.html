@@ -3,57 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>flex</title>
-<style>
-  body {
-    font-size: 14px;
-    font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
-  }
-  p {
-    margin: 0;
-  }
-  #app{
-    position: relative;
-    width: 980px;
-    margin: 0 auto;
-  }
-  .parent{
-    display: flex;
-    width: 600px;
-    height: 160px;
-    border: 1px solid #888;
-  }
-  .part {
-    background-color: #29aad4;
-    text-align: center;
-    color: #fff;
-    cursor: pointer;
-    margin: 5px;
-    padding: 5px;
-  }
-  .style{
-    position: absolute;
-    left: 620px;
-    top: 0;
-  }
-  .import {
-    background: #f25d8e;
-    color: #fff;
-    padding: 1px 8px;
-    border-radius: 2px;
-  }
-  .red {
-    color:#f25d8e;
-    text-decoration: underline;
-  }
-  .radio {
-    cursor: pointer;
-  }
-  .radio:hover {
-    color: #f25d8e;
-  }
-</style>
-
-
+  <link rel="stylesheet" href="flex.css">
 </head>
 <body>
   <h3 style="text-align:center">flex布局测试 作者:<a href="https://github.com/haizai" target="_blank">haizai</a></h3>
@@ -87,76 +37,8 @@
       </li>
     </ul>
 
-
   </div>
+  <script src="vue.min.js"></script>
+  <script src="flex.js"></script>
 </body>
-
-
-<script src="vue.min.js"></script>
-<script>
-  let app = new Vue({
-    el:'#app',
-    created: function(){
-      var obj = {}
-      for (var name in this.partAllStyle) {
-        obj[name] = this.partAllStyle[name][0]
-      }
-      this.parts.push(JSON.parse(JSON.stringify(obj)))
-      this.parts.push(JSON.parse(JSON.stringify(obj)))
-      this.parts.push(JSON.parse(JSON.stringify(obj)))
-    },
-    data:{
-      selected:0,
-      parentStyle: {
-        'flex-direction': 'row',
-        'flex-wrap': 'nowrap',
-        'justify-content':'flex-start',
-        'align-items':'stretch',
-        'align-content':'stretch',
-      },
-      parentAllStyle: {
-        'flex-direction': ['row','row-reverse','column','column-reverse'],
-        'flex-wrap': ['nowrap','wrap','wrap-reverse'],
-        'justify-content':['flex-start','flex-end','center', 'space-between','space-around'],
-        'align-items':['stretch','flex-start','flex-end','center', 'baseline'],
-        'align-content':['stretch','flex-start','flex-end','center','space-between', 'space-around'],
-      },
-      parts: [],
-      partAllStyle: {
-        'flex-grow': [0,1,2,5],
-        'flex-shrink': [1,0,2,5],
-        'flex-basis': ['auto',0,'40px','100px','400px'],
-        'order':[0,1,-1],
-        'align-self':['auto','flex-start','flex-end','center','baseline','stretch'],
-        'height':['auto','40px','100px'],
-        'width':['auto','100px','400px'],
-      }
-    },
-    methods:{
-      changeParentStyle: function(name,val){
-        this.parentStyle[name] = val
-      },
-      changePartStyle: function(index,name,val){
-        this.parts[index][name] = val
-      },
-      changeSelected: function(index){
-        this.selected = index
-        this.$forceUpdate()
-      },
-      addPart:function(){
-        var obj = {}
-        for (var name in this.partAllStyle) {
-          obj[name] = this.partAllStyle[name][0]
-        }
-        this.parts.push(JSON.parse(JSON.stringify(obj)))
-      },
-      removePart: function(){
-        if (this.parts.length>1)
-        this.parts.shift()
-      }
-    }
-  })
-
-
-</script>
 </html>

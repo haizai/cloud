@@ -1,0 +1,47 @@
+body {
+  font-size: 14px;
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+p {
+  margin: 0;
+}
+#app{
+  position: relative;
+  width: 980px;
+  margin: 0 auto;
+}
+.parent{
+  display: flex;
+  width: 600px;
+  height: 160px;
+  border: 1px solid #888;
+}
+.part {
+  background-color: #29aad4;
+  text-align: center;
+  color: #fff;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+}
+.style{
+  position: absolute;
+  left: 620px;
+  top: 0;
+}
+.import {
+  background: #f25d8e;
+  color: #fff;
+  padding: 1px 8px;
+  border-radius: 2px;
+}
+.red {
+  color:#f25d8e;
+  text-decoration: underline;
+}
+.radio {
+  cursor: pointer;
+}
+.radio:hover {
+  color: #f25d8e;
+}
