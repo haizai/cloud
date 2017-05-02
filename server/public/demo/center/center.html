@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>center</title>
+  <link rel="stylesheet" href="prism.css">
+  <link rel="stylesheet" href="center.css">
+</head>
+<body>
+
+<div class="container">
+  
+<h3 style="text-align: center;">css水平垂直居中 作者:<a href="https://github.com/haizai" target="_blank">haizai</a></h3>
+
+
+  
+  <ul>
+
+<li>
+<h4>内联元素，已知容器高度，line-height居中</h4>
+<div class="left"><div class="outer"><p class="inner1">inner1</p></div></div>
+<div class="code"><pre><code class="language-css">.inner1 {
+  line-height : 100px; //已知容器高度为100px
+  text-align  : center;
+}
+</code></pre></div>
+</li>
+
+<li>
+<h4>内联元素，table居中</h4>
+<div class="left"><div class="outer outer2"><p class="inner2">inner2</p></div></div>
+<div class="code"><pre><code class="language-css">.outer2 {
+  display : table;
+}
+</code></pre></div>
+<div class="code"><pre><code class="language-css">.inner2 {
+  display        : table-cell;
+  vertical-align : middle;
+  text-align     : center;
+}
+</code></pre></div>
+</li>
+
+<li>
+<h4>已知元素长宽，absolute + margin 居中</h4>
+<div class="left"><div class="outer outer3"><p class="inner3">inner3</p></div></div>
+<div class="code"><pre><code class="language-css">.outer3 {
+  position : relative;
+}
+</code></pre></div>
+<div class="code"><pre><code class="language-css">.inner3 {
+  position    : absolute;
+  top         : 50%;
+  left        : 50%;
+  margin-left : -24px; // 已知元素宽度48px
+  margin-top  : -0.5em;
+}
+</code></pre></div>
+</li>
+
+<li>
+<h4>任意元素，absolute + translate居中(css3)</h4>
+<div class="left"><div class="outer outer4"><p class="inner4">inner4</p></div></div>
+<div class="code"><pre><code class="language-css">.outer4 {
+  position : relative;
+}
+</code></pre></div>
+<div class="code"><pre><code class="language-css">.inner4 {
+  position  : absolute;
+  top       : 50%;
+  left      : 50%;
+  transform : translate(-50%,-50%);
+}
+</code></pre></div>
+</li>
+
+<li>
+<h4>任意元素，flex居中(css3)</h4>
+<div class="left"><div class="outer outer5"><p class="inner5">inner5</p></div></div>
+<div class="code"><pre><code class="language-css">.outer5 {
+  display         : flex;
+  justify-content : center;
+  align-items     : center;
+}
+</code></pre></div>
+</li>
+
+<li>
+<h4>已知容器与元素长度，calc居中(css3)</h4>
+<div class="left"><div class="outer outer6"><p class="inner6">inner6</p></div></div>
+<div class="code"><pre><code class="language-css">.inner6 {
+  margin-left : calc(50% - 24px);// 已知元素宽度48px;
+  margin-top  : calc(50px - .5em);// 已知容器高度100px
+}
+</code></pre></div>
+</li>
+
+  </ul>
+
+
+</div>
+<script src="prism.js"></script>
+</body>
+</html>
