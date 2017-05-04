@@ -149,7 +149,8 @@
 
     if (e.target === $b) {
       var left = startX - $bo.offsetLeft
-      var top = startY - $bo.offsetTop
+      var scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+      var top = startY - $bo.offsetTop + scrollTop
       $br.style.left = left + 'px'
       $br.style.top = top + 'px'
       renderInXY(left,top)
