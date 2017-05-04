@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>colorpicker</title>
+  <link rel="stylesheet" href="colorpicker.css">
+</head>
+<body>
+  <div class="container">
+    <h2 class="title">colorPicker 作者:<a href="https://github.com/haizai">haizai</a></h2>
+    <div id="board-outer">  
+      <canvas id="board" width="500" height="500"></canvas>
+      <span id="board-round" class="round"></span>
+    </div>
+    <div id="now-color"></div>
+    <div id="color-bar">
+      <span id="color-round" class="round"></span>
+    </div>
+    <p class="p">
+      rgb( <span id="tr"></span> , <span id="tg">0</span> , <span id="tb">0</span> )
+    </p>
+    <p class="p">
+      hsl( <span id="th"></span> , <span id="ts">0</span> , <span id="tl">0</span> )
+    </p>
+    <p class="p">
+      HEX: <span id="hex"></span>
+    </p>
+  </div>
+  <script src="fn.js"></script>
+  <script src="colorPicker.js"></script>
+</body>
+</html>
