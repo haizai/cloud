@@ -1,0 +1,96 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+
+}
+
+.title {
+  text-align: center;
+  background: #727f80;
+  color: #fff;
+  height: 100px;
+  line-height: 100px;
+}
+.info {
+  text-align: center;
+  font-size: 16px;
+  height: 70px;
+  line-height: 70px;
+  background: #f6f6f6;
+}
+.container {
+  width: 980px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+#mission {
+  position: relative;
+  background-image: url(img/background.jpg);
+  z-index: 10;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#mission .box {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url(img/box.png);
+  z-index: 20;
+}
+#mission .person {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-image: url(img/person.png);
+  z-index: 40;
+}
+#mission .flower {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-image: url(img/flower.png);
+  z-index: 30;
+}
+#mission .wall {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url(img/wall.png);
+  z-index: 30;
+}
+.btn {
+  padding: 5px 30px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-left: 40px;
+}
+.btn:hover {
+  color: #f6f6f6;
+  background: #727f80;
+}
+#select {
+  padding: 3px 10px 3px 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+code {
+  background: #727f80;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin: 0 3px;
+}
+.tip {
+  text-align: center;
+  margin: 20px;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>sokoban</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+  <h2 class="title">推箱子</h2>
+  <p class="info">
+    当前关卡： <span id="level"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+    当前步数： <span id="step"></span>
+  </p>
+  
+  <div class="container">
+    <div id="mission">
+      <div id="things"></div>
+      <div id="change"></div>
+    </div>
+  </div>
+  <p class="info">
+    <span>选择关卡</span>
+    <select id="select"></select>
+    <span class="btn" id="reset">重开</span>
+  </p>
+  <p class="tip">
+    使用键盘<code>↑↓←→</code>或<code>W S A D</code>进行上下左右操作
+  </p>
+  <p class="tip">
+    2017 
+    <a href="https://github.com/haizai" target="_blank">haizai</a>
+    <a href="https://github.com/haizai/cloud/tree/master/server/public/demo/sokoban" target="_blank">源码</a>
+  </p>
+  <script src="data.js"></script>
+  <script>
+    var script = document.createElement('script')
+    var src = 'game.js'
+    try {
+      eval('let a = new Set(); const b = {f(){}};')
+    } catch(e) {
+      src = 'game-babel.js'
+    }
+    script.src = src
+    document.body.appendChild(script)
+  </script>
+</body>
+</html>
