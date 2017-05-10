@@ -1,4 +1,5 @@
 'use strict';
+let game
 (function(){
   const Game = function(arr){
     this.missions = [],
@@ -11,6 +12,7 @@
       reset: document.getElementById('reset'),
       step: document.getElementById('step'),
       select: document.getElementById('select'),
+      back: document.getElementById('back'),
     }
     this.nowLevel = 0,
     this.add(arr)
@@ -73,10 +75,22 @@
             e.preventDefault()
             this.emit('go','b')
             break;
+          case 8:
+          case 46:
+            e.preventDefault()
+            this.emit('back')
+            break;
+          case 27:
+            e.preventDefault()
+            this.emit('init')
+            break;
         }
       }, false)
       this.el.reset.addEventListener('click', e => {
         this.emit('init')
+      }, false)
+      this.el.back.addEventListener('click', e => {
+        this.emit('back')
       }, false)   
       this.el.select.addEventListener('change', e => {
         this.changeLevel(e.target.value)
@@ -104,14 +118,14 @@
     this.cells = null
     this.person = null
     this._cells = null
-    this.step = null
+    this.history = null
     // this.init()
 
   }
 
   Mission.prototype = {
     init(){
-      this.step = 0
+      this.history = []
       this.initData()
       this.initCells()
       this.initBoxes()
@@ -234,13 +248,15 @@
             this.person.y = y1
             nextCell.thing = this.person
             lastCell.thing = null
-            this.step++
+
+            this.history.push([arg,true])
           } else if (nextCell.thing === null) {
             this.person.x = x1
             this.person.y = y1
             nextCell.thing = this.person
             lastCell.thing = null
-            this.step++
+
+            this.history.push([arg,false])
           }
 
           this.render()
@@ -249,15 +265,54 @@
         case 'init':
           this.init()
           break;
+        case 'back':
+          this.back()
+          break;
         default:
           break;
       }
+    },
+    /**
+     * 后退一步
+     */
+    back(){
+      if (this.history.length === 0) {
+        return
+      }
+
+      let [type, hasBox] = this.history.pop()
+      let x = this.person.x
+      let y = this.person.y
+      let x1 = x,x2 = x, y1 = y, y2 = y
+
+      switch (type) {
+        case 't': y1 = y+1; y2 = y-1; break;
+        case 'b': y1 = y-1; y2 = y+1; break;
+        case 'l': x1 = x+1; x2 = x-1; break;
+        case 'r': x1 = x-1; x2 = x+1; break;
+      }
+
+      let nowCell = this.getCell(x,y)
+      let lastCell = this.getCell(x1,y1)
+      let nextCell = this.getCell(x2,y2)
+
+      lastCell.thing = this.person 
+      this.person.x = x1
+      this.person.y = y1
+
+      if (hasBox) {
+        nextCell.thing = null
+        nowCell.thing = 'box'
+      } else {
+        nowCell.thing = null
+      }
+      this.render()
     },
     test(){
       if (this.flowers.every(flower=>{
         return this.getCell(flower[0],flower[1]).thing === 'box'
       })) {
-        alert('你通过了第 ' + (this.level + 1) + ' 关，共用 ' + this.step + ' 步。')
+        alert('你通过了第 ' + (this.level + 1) + ' 关，共用 ' + this.history.length + ' 步。')
         this.game.next()
       }
     },
@@ -304,7 +359,7 @@
       let _top = 'top: ' + (this.person.y * unit) + 'px;'
       let _left = 'left: ' + (this.person.x * unit) + 'px;'
       txt+="<span class='person' style='" + _top + _left + " '></span>"
-      this.game.el.step.innerHTML = this.step
+      this.game.el.step.innerHTML = this.history.length
       this.game.el.change.innerHTML = txt
     },
   };
@@ -320,7 +375,7 @@
     this.y = y
   }
 
-  let game = new Game(GameData)
+   game = new Game(GameData)
   
 }())
 
