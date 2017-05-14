@@ -1,0 +1,96 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+.title {
+  text-align: center;
+  background: #727f80;
+  color: #fff;
+  height: 100px;
+  line-height: 100px;
+}
+.info {
+  text-align: center;
+  font-size: 16px;
+  height: 70px;
+  line-height: 70px;
+  background: #f6f6f6;
+}
+.info-input{
+  width: 40px;
+  font-size: 16px;
+  text-align: center;
+  padding: 5px 5px;
+  margin-right: 20px;
+}
+.btn {
+  padding: 5px 30px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-left: 20px;
+}
+.btn:hover {
+  color: #f6f6f6;
+  background: #727f80;
+}
+#mission {
+  position: relative;
+  background: #888;
+  padding: 0 3px 3px 0;
+  border: 2px solid #888;
+  border-radius: 6px;
+  margin: 0 auto;
+}
+.cell {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin-left: 3px;
+  margin-top: 3px;
+  border: 1px solid #ccc;
+  text-align: center;
+  line-height: 32px;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: bold;
+}
+.cell.not-show {
+  background-color: #bfefff;
+  cursor: pointer;
+}
+.cell.not-show:hover {
+  background-color:#83d4ef;
+}
+.cell.mine0{
+  
+}
+.cell.mine1{
+  color: #333;
+}
+.cell.mine2{
+  color: #0096c7;
+}
+.cell.mine3{
+  color: #FF7F24;
+}
+.cell.mine4{
+  color: #EE00EE;
+}
+.cell.mine5,.cell.mine6,.cell.mine7,.cell.mine8 {
+  color: #DC143C;
+}
+.cell.mine {
+  background-image: url('img/mine.png');
+  background-position: 2px 1px;
+  background-repeat: no-repeat;
+}
+.cell.flag {
+  background-image: url('img/flag.png');
+  background-repeat: no-repeat;
+}
