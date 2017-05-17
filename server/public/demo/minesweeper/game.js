@@ -150,14 +150,57 @@ let game;
       // 阻止右键菜单
       this.dom.addEventListener('contextmenu',e=>{
         e.preventDefault()
+      },false)   
+      // 阻止文本选中   
+      this.dom.addEventListener('selectstart',e=>{
+        e.preventDefault()
       },false)
 
+      // 双击 自动打开周围
+      this.dom.addEventListener('dblclick', e =>{
+
+        if (!e.target.classList.contains('cell')) return
+        if (e.target.classList.contains('not-show')) return
+
+        let id = e.target.id
+        let [x,y] = id.split('_')
+        let cell = this._cells[id]
+        if (cell.roundMineCount === 0) return
+
+
+        let flagCount = 0
+        this.getRoundCells(+x,+y).forEach( roundCell => {
+          if (!roundCell.isShow) {
+            if (roundCell.hasFlag) {
+              flagCount++
+            }
+          }
+        })
+
+        
+        this.getRoundCells(+x,+y).forEach(roundCell => {
+          if (!roundCell.hasFlag && !roundCell.isShow) {
+            if (cell.roundMineCount <= flagCount) {
+              this.go(roundCell.x,roundCell.y)
+            } else {
+              roundCell.dom.classList.add('pika')
+              setTimeout(()=>{
+                roundCell.dom.classList.remove('pika')
+              }, 200)
+            }
+          }
+        })
+
+
+      }, false)
+
+      // 单击
       this.dom.addEventListener('mousedown', e =>{
         if (!e.target.classList.contains('not-show')) return
 
         let id = e.target.id
         let [x,y] = id.split('_')
-
+        // 左键 扫雷
         if (e.button === 0) {
           if (this.stage === 'playing') {
             let cell = this._cells[id]
@@ -169,6 +212,7 @@ let game;
             this.initMine(+x,+y)
             this.timeStart()
           }
+        // 右键 插旗
         } else if (e.button === 2) {
           if (this.stage === 'playing') {
             let cell = this._cells[id]
@@ -176,8 +220,9 @@ let game;
           }
         }
 
-
       }, false)
+
+
 
     },
     // 初始化格子
@@ -264,7 +309,6 @@ let game;
     go(x,y) {
       let cell = this.getCell(x,y)
 
-      console.log(cell)
       let statu = cell.show(true)
       if (statu === 'continue') {
         goContinue(cell,this)
@@ -317,10 +361,10 @@ let game;
     info(){
       switch (this.stage) {
         case 'died':
-          this.game.el.minfo.innerHTML = 'YOU DIED'
+          this.game.el.minfo.innerHTML = '你输了'
           break;
         case 'win':
-          this.game.el.minfo.innerHTML = 'YOU WIN'
+          this.game.el.minfo.innerHTML = '你赢了'
           break;
         case 'playing':
           this.game.el.mineCount.innerHTML = this.mineCount

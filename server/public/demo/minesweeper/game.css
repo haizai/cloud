@@ -59,6 +59,8 @@ body {
   border-radius: 4px;
   font-size: 20px;
   font-weight: bold;
+  cursor: default;
+  transition: background-color .1s;
 }
 .cell.not-show {
   background-color: #bfefff;
@@ -93,6 +95,7 @@ body {
 .cell.flag {
   background-image: url('img/flag.png');
   background-repeat: no-repeat;
+  background-position: 0;
 }
 #clock {
   display: inline-block;
@@ -153,4 +156,9 @@ select {
 .info-right {
   position: absolute;
   left: 50%;
+}
+
+.cell.pika {
+  
+  background-color: #83d4ef;
 }
