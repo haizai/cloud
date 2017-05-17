@@ -10,14 +10,56 @@
   <h2 class="title">扫雷</h2>
 
   <div class="info">
-    宽：<input class="info-input" type="text" id="width" maxlength="2">
-    高：<input class="info-input" type="text" id="height" maxlength="2">
-    炸弹数：<input class="info-input" type="text" id="count" maxlength="4">
-    <span class="btn" id="confire-detailed">确定</span>
+    <span id="clock" style="display: none"></span>
+    <span id="time"></span>
+    <span id="safe" style="display: none"></span>
+    <span id="safe-count"></span>
+    <span id="mine24" style="display: none"></span>
+    <span id="mine-count"></span>
+    <span id="minfo"></span>
   </div>
-  <div class="info" id="minfo"></div>
   <div id="container"></div>
-  
+  <div class="info" id="brief">
+    <span class="info-left">
+    地图大小
+      <select id="area">
+        <option value="8,8">小</option>
+        <option value="15,10">中</option>
+        <option value="20,12">大</option>
+        <option value="25,15">特大</option>
+      </select>
+      难度 
+      <select id="ratio">
+        <option value="10">简单</option>
+        <option value="15">正常</option>
+        <option value="20">困难</option>
+        <option value="25">噩梦</option>
+      </select>
+    </span>
+    <span class="info-right">
+      <span class="btn" id="confire-brief">确定</span>
+      <span class="btn" id="toggle-brief">自定义</span>
+    </span>
+  </div>
+  <div class="info" id="detailed" style="display: none;">
+    <span class="info-left">
+      宽 <input class="info-input" type="text" id="width" maxlength="2">
+      高 <input class="info-input" type="text" id="height" maxlength="2">
+      炸弹数 <input class="info-input" type="text" id="count" maxlength="4">
+    </span>
+    <span class="info-right">   
+      <span class="btn" id="confire-detailed">确定</span>
+      <span class="btn" id="toggle-detailed">预设难度</span>
+    </span>
+  </div>
+  <p class="tip">
+    使用<code>鼠标左键</code>扫雷，<code>鼠标右键</code>插棋
+  </p>
+  <p class="tip">
+    2017 
+    <a href="https://github.com/haizai" target="_blank">haizai</a>
+    <a href="https://github.com/haizai/cloud/tree/master/server/public/demo/minesweeper" target="_blank">源码</a>
+  </p>
   <script src="game.js"></script>
 </body>
 </html>

@@ -4,15 +4,32 @@ let game;
 
 (function(){
   const Game = function(){
+    function $(id) {
+      return document.getElementById(id)
+    }
     this.el = {
-      height: document.getElementById('height'),
-      width: document.getElementById('width'),
-      count: document.getElementById('count'),
-      confireDetailed: document.getElementById('confire-detailed'),
-      container: document.getElementById('container'),
-      minfo: document.getElementById('minfo'),
+      height: $('height'),
+      width: $('width'),
+      count: $('count'),
+      confireDetailed: $('confire-detailed'),
+      container: $('container'),
+      minfo: $('minfo'),
+      area: $('area'),
+      ratio: $('ratio'),
+      confireBrief: $('confire-brief'),
+      time: $('time'),
+      toggleDetailed: $('toggle-detailed'),
+      toggleBrief: $('toggle-brief'),
+      brief: $('brief'),
+      detailed: $('detailed'),
+      mineCount: $('mine-count'),
+      safeCount: $('safe-count'),
+      safe: $('safe'),
+      mine24: $('mine24'),
+      clock: $('clock'),
     }
     this.mission = null
+    this.timer = null
     this.bindEvent()
   }
   Game.prototype = {
@@ -61,21 +78,46 @@ let game;
           alert('炸弹数过大')
           return
         }
-        if (this.mission){
-          this.mission.destroy()
-        }
-        this.mission = new Mission({
+        this.initMission({
           width,
           height,
           count,
         })
-        this.mission.game = this
-        this.mission.init()
       }, false)
 
+      this.el.confireBrief.addEventListener('click', e=>{
 
+        let arr = this.el.area.value.split(',')
+        let width = +arr[0]
+        let height = +arr[1]
+        let count = Math.round((+this.el.ratio.value) * 0.01 * width*height)
+
+        this.initMission({
+          width,
+          height,
+          count,
+        })
+
+      },false)
+
+
+      this.el.toggleBrief.addEventListener('click', e=>{
+        this.el.brief.style.display = 'none'
+        this.el.detailed.style.display = 'block'
+      },false)
+      this.el.toggleDetailed.addEventListener('click', e=>{
+        this.el.detailed.style.display = 'none'
+        this.el.brief.style.display = 'block'
+      },false)
     },
-
+    initMission(o) {
+      if (this.mission){
+        this.mission.destroy()
+      }
+      this.mission = new Mission(o)
+      this.mission.game = this
+      this.mission.init()
+    }
   }
 
   const Mission = function(o){
@@ -88,7 +130,8 @@ let game;
     this.dom = null
     this.mineCount = o.count
     this.safeCount = o.width * o.height - o.count
-    this.mineCells = []
+    this.time = 0
+    // this.mineCells = []
   }
   Mission.prototype = {
 
@@ -124,6 +167,7 @@ let game;
           } else if (this.stage === 'init') {
             this.stage = 'playing'
             this.initMine(+x,+y)
+            this.timeStart()
           }
         } else if (e.button === 2) {
           if (this.stage === 'playing') {
@@ -174,12 +218,19 @@ let game;
         let x = Math.floor(num/this.width)
         let y = num%this.width
         let cell = this.getCell(x,y)
-        this.mineCells.push(cell)
+        // this.mineCells.push(cell)
         cell.isMine = true
       });
 
+
+
       this.initMineCount()
       this.go(x,y)
+
+      this.game.el.clock.style.display = 'inline-block'
+      this.game.el.safe.style.display = 'inline-block'
+      this.game.el.mine24.style.display = 'inline-block'
+
 
     },
     // 计算每个格子周围地雷数
@@ -234,16 +285,25 @@ let game;
     },
     // 删除dom，同时取消事件绑定
     destroy(){
+      this.timeEnd()
       this.dom.parentElement.removeChild(this.dom)
+      this.game.el.time.innerHTML = ''
+      this.game.el.mineCount.innerHTML = ''
+      this.game.el.safeCount.innerHTML = ''
+      this.game.el.clock.style.display = 'none'
+      this.game.el.safe.style.display = 'none'
+      this.game.el.mine24.style.display = 'none'
     },
     died(){
       this.stage = 'died'
       this.showAll()
+      this.timeEnd()
       this.info()
     },
     win(){
       this.stage = 'win'
       this.showAll()
+      this.timeEnd()
       this.info()
     },
     showAll(){
@@ -262,8 +322,13 @@ let game;
         case 'win':
           this.game.el.minfo.innerHTML = 'YOU WIN'
           break;
-        default:
-          this.game.el.minfo.innerHTML = '安全格子：'+this.safeCount+' 炸弹：' + this.mineCount
+        case 'playing':
+          this.game.el.mineCount.innerHTML = this.mineCount
+          this.game.el.safeCount.innerHTML = this.safeCount
+          this.game.el.minfo.innerHTML = ''
+          break;
+        case 'init':
+          this.game.el.minfo.innerHTML = '宽：'+this.width+'，高：'+this.height+'，炸弹：'+this.allMineCount
           break;
       }
       
@@ -272,9 +337,25 @@ let game;
       if (this.safeCount === 0) {
         this.win()
       }
-      if (this.mineCount === 0 && this.mineCells.every(cell=>cell.hasFlag)) {
-        this.win()
-      }
+      // if (this.mineCount === 0 && this.mineCells.every(cell=>cell.hasFlag)) {
+      //   this.win()
+      // }
+    },
+    timeStart(){
+      let time = this.game.el.time
+      time.innerHTML = '0 : 00'
+      this.time = 0
+      this.game.timer = setInterval(()=>{
+        this.time++
+        let s = ('0' + this.time%60).slice(-2)
+        let m = Math.floor(this.time/60)
+        let txt = m +' : ' + s
+        time.innerHTML = txt
+      }, 1000)
+    },
+    timeEnd(){
+      clearTimeout(this.game.timer)
+      this.game.timer = null
     }
   }
 
@@ -354,5 +435,9 @@ let game;
   }
 
   game = new Game()
-
+  game.initMission({
+    width: 8,
+    height: 8,
+    count: 6,
+  })
 }());
