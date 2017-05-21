@@ -24,7 +24,7 @@
     地图大小
       <select id="area">
         <option value="8,8">小</option>
-        <option value="15,10">中</option>
+        <option value="12,10">中</option>
         <option value="20,12">大</option>
         <option value="25,15">特大</option>
       </select>
@@ -38,7 +38,7 @@
     </span>
     <span class="info-right">
       <span class="btn" id="confire-brief">确定</span>
-      <span class="btn" id="toggle-brief">自定义</span>
+      <span class="btn" id="toggle-brief">自定义难度</span>
     </span>
   </div>
   <div class="info" id="detailed" style="display: none;">
@@ -53,13 +53,23 @@
     </span>
   </div>
   <p class="tip">
-    使用<code>鼠标左键</code>扫雷，<code>鼠标右键</code>插棋，<code>鼠标左键双击</code>自动打开周围格子
+    使用<code>鼠标左键</code>扫雷，<code>鼠标右键</code>插棋，<code>鼠标左键双击</code>快捷打开周围未插旗格子
   </p>
   <p class="tip">
     2017 
     <a href="https://github.com/haizai" target="_blank">haizai</a>
     <a href="https://github.com/haizai/cloud/tree/master/server/public/demo/minesweeper" target="_blank">源码</a>
   </p>
-  <script src="game.js"></script>
+  <script>
+    var script = document.createElement('script')
+    var src = 'game.js'
+    try {
+      eval('let a = new Set(); const b = {f(){}};')
+    } catch(e) {
+      src = 'game-babel.js'
+    }
+    script.src = src
+    document.body.appendChild(script)
+  </script>
 </body>
 </html>

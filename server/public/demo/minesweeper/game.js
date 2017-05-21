@@ -1,5 +1,6 @@
 'use strict';
 
+// game对象可以外部访问，便于测试
 let game;
 
 (function(){
