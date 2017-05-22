@@ -40,6 +40,30 @@ a {
 .header-item a {
   color: #fff;
 }
+
+
+#header-item-game-ul {
+  position: absolute;
+  background: #fff;
+  width: 136px;
+  margin-top: -4px;
+  margin-left: -30px;
+  border-radius: 2px;
+  z-index: 1000;
+  border: 1px solid #aaa;
+  display: none;
+}
+#header-item-game-ul li {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  color: #333;
+}
+#header-item-game-ul li:hover {
+  background: #eee;
+  color: #00a1d6;
+}
 .header-hr {
   display: inline-block;
   position: absolute;

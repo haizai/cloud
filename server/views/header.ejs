@@ -17,10 +17,19 @@
     <div class="header-title<%if(title == 'index'){%><%=' header-active'%><%}%>"><a href="/"><img class="header-img" src="../../img/common/haizainaive_20.png" alt="haizainaive"></a></div>
     <div class="header-user"></div>
     <ul class="header-menu">
-      <li class="header-item<%if(title == 'animes'){%><%=' header-active'%><%}%>"><a href="/animes">动漫</a>
-      </li><li class="header-hr">
-      </li><li class="header-item<%if(title == 'gomoku'){%><%=' header-active'%><%}%>"><a href="/gomoku">五子棋</a>
-      </li><li class="header-hr">
+      <a href="javascript:;" id="header-item-game"><li class="header-item">
+        游戏
+      </li></a><ul id="header-item-game-ul">
+        <a href="./demo/sokoban/game.html"><li>推箱子</li></a>
+        <a href="./demo/minesweeper/game.html"><li>扫雷</li></a>
+        <a href="./demo/flex/flex.html"><li>flex布局</li></a>
+      </ul><li class="header-hr">
+      </li><a href="/animes"><li class="header-item<%if(title == 'animes'){%><%=' header-active'%><%}%>">
+        动漫
+      </li></a><li class="header-hr">
+      </li><a href="/gomoku"><li class="header-item<%if(title == 'gomoku'){%><%=' header-active'%><%}%>">
+        五子棋
+      </li></a><li class="header-hr">
       </li>
     </ul>
   </div>

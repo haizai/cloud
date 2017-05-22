@@ -55,6 +55,24 @@ jQuery(function($){
     })
   }
 
+
+
+  var _isHeaderItemGameULShow = false
+  $('#header-item-game').hover(function(){
+    $('#header-item-game-ul').fadeIn(100)
+  },function(){
+    setTimeout(function(){
+      if (!_isHeaderItemGameULShow) $('#header-item-game-ul').fadeOut(100)
+    }, 100)
+  })
+  $('#header-item-game-ul').hover(function(){
+    _isHeaderItemGameULShow = true
+  },function(){
+    _isHeaderItemGameULShow = false
+    setTimeout(function(){
+      if (!_isHeaderItemGameULShow) $('#header-item-game-ul').fadeOut(100)
+    }, 100)
+  })
 })
 
 
