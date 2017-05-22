@@ -2,8 +2,27 @@ body {
   font-size: 14px;
   font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
 }
-p {
+* {
   margin: 0;
+}
+.title {
+  text-align: center;
+  background: #727f80;
+  color: #fff;
+  height: 100px;
+  line-height: 100px;
+  margin-bottom: 10px;
+}
+.tip {
+  text-align: center;
+  margin: 20px;
+}
+code {
+  background: #727f80;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin: 0 3px;
 }
 #app{
   position: relative;

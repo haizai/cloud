@@ -6,7 +6,8 @@
   <link rel="stylesheet" href="flex.css">
 </head>
 <body>
-  <h3 style="text-align:center">flex布局测试 作者:<a href="https://github.com/haizai" target="_blank">haizai</a></h3>
+  <h2 class="title">flex布局测试</h2>
+  <!-- <h3 style="text-align:center">flex布局测试 作者:<a href="https://github.com/haizai" target="_blank">haizai</a></h3> -->
   <div id="app">
     <div class="parent" :style="parentStyle">
       <div class="part" v-for="(part,index) in parts" :style="part" @click="changeSelected(index)">
@@ -15,7 +16,10 @@
     </div>
 
     <ul v-for="(part,i) in parts" v-show="i===selected" class="style">
-      <p style="margin-bottom:5px;">子元素 margin: 5px; padding: 5px;</p>
+      <p style="margin-bottom:5px;">子元素 
+        <code>margin: 5px</code> 
+        <code>padding: 5px</code> 
+      </p>
       现在选中的是：<span class="import" style="background-color: #29aad4">part {{selected}}</span>
       <button @click="addPart()">增加part</button>
       <button @click="removePart()">减少part</button>
@@ -28,7 +32,11 @@
     </ul>
 
     <ul>
-      <p style="margin-bottom: 5px;">父元素 display: flex; width: 600px; height: 160px;</p>
+      <p style="margin-bottom: 5px;">父元素 
+        <code>display: flex</code> 
+        <code>width: 600px</code> 
+        <code>height: 160px</code>
+      </p>
       <li v-for="(arr, name) in parentAllStyle">
         <span class="import">{{name}}</span>
         <ul v-for="(item,i) in arr" class="radio">
@@ -36,8 +44,12 @@
         </ul>
       </li>
     </ul>
-
   </div>
+  <p class="tip">
+    2017 
+    <a href="https://github.com/haizai" target="_blank">haizai</a>
+    <a href="https://github.com/haizai/cloud/tree/master/server/public/demo/flex" target="_blank">源码</a>
+  </p>
   <script src="vue.min.js"></script>
   <script src="flex.js"></script>
 </body>
