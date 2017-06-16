@@ -2,34 +2,44 @@
 <html>
 <head>
   <%- include('head'); %>
-  <style>
-    html {
-      height: 100%;
-    }
-    body {
-      margin: 0;
-      height: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    #ball{
-      width: 50px;
-      height: 50px; 
-      display: inline-block;
-      border-radius: 50%;
-      background: yellow;
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0.8;
-      background: -webkit-radial-gradient( at 40% 40%,#fff 0, #f25d8e 100%);
-      background: radial-gradient( at 40% 40%,#fff 0, #f25d8e 100%);
-    }
-  </style>
+  <link rel="stylesheet" href="../../css/common/swiper.min.css">
+  <link rel="stylesheet" href="../../css/mobile/index.css">
 </head>
 <body>
-  <%- include('header') %>
+  <!-- <%- include('header') %> -->
   <div id="ball" style="top: 0;left: 0"></div>
+
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide index">
+        <div class="index-title">
+          <span class="s0">h</span>
+          <span class="s1">a</span>
+          <span class="s2">i</span>
+          <span class="s3">z</span>
+          <span class="s4">a</span>
+          <span class="s5">i</span>
+          <span class="s6">n</span>
+          <span class="s7">a</span>
+          <span class="s8">i</span>
+          <span class="s9">v</span>
+          <span class="s10">e</span>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <a href="javascript:;">进入动漫</a>
+      </div>
+      <div class="swiper-slide">Slide 3</div>
+    </div>
+    <div class="swiper-pagination swiper-write-bottom"></div>
+  </div>
+
+
   <script src="../../js/mobile/ball.js"></script>
+  <script src="../../js/common/swiper.min.js"></script>
+  <script src="../../js/mobile/index.js"></script>
+
+
+
 </body>
 </html>

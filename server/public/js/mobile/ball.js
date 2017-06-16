@@ -1,6 +1,6 @@
 window.onload = function () {
   var ball = document.getElementById('ball')
-  var vy = 0.2
+  var vy = 0.1
   var vx = 0
   var ay = 0
   var ax = 0

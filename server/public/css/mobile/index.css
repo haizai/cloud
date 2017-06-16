@@ -1,0 +1,107 @@
+  #ball{
+    width: 50px;
+    height: 50px; 
+    display: inline-block;
+    border-radius: 50%;
+    background: yellow;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.8;
+    background: -webkit-radial-gradient( at 40% 40%,#fff 0, #f25d8e 100%);
+    background: radial-gradient( at 40% 40%,#fff 0, #f25d8e 100%);
+    z-index: 1000;
+  }
+
+  body,html{
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+  }  
+
+  .index {
+    z-index: 2;
+    position: relative;
+    background: url('../../img/mobile/indexbg.jpg') no-repeat;
+    padding-bottom: 31px;
+    background-size: cover;
+    text-align: center;
+  }
+  .index-title {
+    z-index: -2;
+    position: relative;
+    font-size: 40px;
+    text-shadow: 0px 0px 2px #fff;
+    display: flex;
+    padding: 0 15%;
+    margin-top: 100px;
+  }
+  .index-title span {
+    z-index: -10;
+    flex: 1;
+    color: #fff;
+  }
+  .swiper-write-bottom {
+    background: linear-gradient(
+      to bottom, 
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0.6),
+      rgba(255, 255, 255, 0)
+    );
+
+    padding-bottom: 4px;
+  }
+
+  @keyframes updown{
+    0%,100%{
+      transform:translate(0,0);
+      color: #fff;
+    }
+    13%{
+      transform:translate(0,-60px);
+      color: #bf9f40;
+    }
+    25%{
+      transform:translate(0,0);
+      color: #80bf40;
+    }
+    37%{
+      transform:translate(0,45px);
+      color: #40bf60;
+    }
+    50%{
+      transform:translate(0,0);
+      color: #40bfbf;
+    }
+    63%{
+      transform:translate(0,-30px);
+      color: #4060bf;
+    }
+    75%{
+      transform:translate(0,0);
+      color: #7f40bf;
+    }
+    87%{
+      transform:translate(0,15px);
+      color: #bf409f;
+    }
+
+  }
+  .s0{animation: updown 1.5s linear;}
+  .s1{animation: updown 1.5s linear .05s;}
+  .s2{animation: updown 1.5s linear .1s;}
+  .s3{animation: updown 1.5s linear .15s;}
+  .s4{animation: updown 1.5s linear .2s;}
+  .s5{animation: updown 1.5s linear .25s;}
+  .s6{animation: updown 1.5s linear .3s;}
+  .s7{animation: updown 1.5s linear .35s;}
+  .s8{animation: updown 1.5s linear .4s;}
+  .s9{animation: updown 1.5s linear .45s;}
+  .s10{animation: updown 1.5s linear .5s;}
