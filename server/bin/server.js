@@ -661,19 +661,13 @@ TTTMission.prototype = {
     }
     return 'continue'
   },
-  log(){
-    for(let key in this._cells) {
-      let cell = this._cells[key]
-      console.log(cell.x,cell.y,':',cell.player)
-    }
-  }
 }
 
 let testMission = new TTTMission()
 
 
 const TTTRooms = {
-  num: 100,
+  num: 101,
   missions:{
 
   },
@@ -698,6 +692,7 @@ const TTTRooms = {
 let iot = io.of('ttt')
 iot.on('connection', function (socket) {
 
+  // console.log('connection',socket.id)
   var mission = TTTRooms.allotRoom(socket.id)
   var room = mission.room
   socket.join(room)
@@ -712,7 +707,13 @@ iot.on('connection', function (socket) {
 
 
   socket.on('disconnect',()=>{
-    // console.log('disconnect',socket.id)
+      // console.log('disconnect',socket.id)
+    if (mission.stage === 'playing') {
+      iot.to(room).emit('info','disconnect')
+      if (TTTRooms.num === room) {
+        TTTRooms.num++
+      }
+    }
   })
 
   socket.on('tryMove',(x,y)=> {
