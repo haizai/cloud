@@ -129,6 +129,7 @@
     color: #fff;
     font-size: 20px;
     min-height: 22px;
+    box-shadow: 0 1px 4px #727f80;
   }
   .anime-img{
     margin:2px 5px;
@@ -142,10 +143,16 @@
     padding-bottom: 30px;
     background: #f6f6f6;
     width: 100%;
+    box-shadow: 0 -1px 4px #eee;
   }
   .anime-a {
-    padding: 5px 20px;
-    border-radius: 20px;
+    padding: 5px 30px;
+    border-radius: 4px;
+    color: #f25d8e;
+    background: #fff;
+    border: 1px solid #f25d8e;
+  }
+  .anime-a:hover, .anime-a:active{
     background: #f25d8e;
     color: #fff;
   }
@@ -162,4 +169,8 @@
     border: 1px solid #888;
     border-radius: 4px;
     color: #333;
+  }
+  .ttt-enter a:hover,.ttt-enter a:active{
+    color: #fff;
+    background: #888;
   }

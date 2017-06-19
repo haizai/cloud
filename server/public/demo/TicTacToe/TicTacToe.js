@@ -32,8 +32,8 @@ window.onload = function(){
     if (scoket) {
       socket.close()
     }
-    socket = io('http://localhost/ttt');
-    // var socket = io('/ttt');
+    // socket = io('http://localhost/ttt');
+    socket = io('/ttt');
     socket.on('connect', function(){
       // console.log(socket.id);
     });
