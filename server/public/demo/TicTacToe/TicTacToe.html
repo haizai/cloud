@@ -5,112 +5,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Document</title>
-  <style>
-    *{
-      margin: 0;
-    }
-    html{
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
-    }
-    #board{
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-
-      -webkit-box-orient: vertical;
-      -webkit-flex-direction: column;
-      -ms-flex-direction: column;
-      flex-direction: column;
-
-    }
-    .line {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      
-      -webkit-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
-      flex: 1;
-    }
-    .line-br {
-      height: 2px;
-      background: #333;
-      margin: 0 10px;
-    }
-    .cell{
-      -webkit-box-flex: 1;
-      -webkit-flex: 1;
-      -ms-flex: 1;
-      flex: 1;
-    } 
-    .cell-br {
-      width: 2px;
-      background: #333;
-    }
-    .cell._2{
-      background: url('./img/2.png') no-repeat;
-      background-size: cover;
-    }
-    .cell._1{
-      background: url('./img/1.png') no-repeat;
-      background-size: cover;
-    }
-    .cell.win{
-      background-color: rgba(255, 172, 45,0.2)
-    }
-    .title {
-      text-align: center;
-      background: #727f80;
-      color: #fff;
-      line-height: 50px;
-      height: 50px;
-      width: 100%;
-      font-size: 24px;
-    }
-    #tip{
-      text-align: center;
-      height: 30px;
-      line-height: 30px;
-      background: #f6f6f6;
-    }
-    #room {
-      background: #f66;
-      color: #fff;
-      
-      border-radius: 5px;
-      display: inline-block;
-    }
-    .btn{
-      background: #29aad4;
-      color: #fff;
-      padding: 5px 30px;
-      border-radius: 4px;
-      text-decoration: none;
-    }
-    .btn-div {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-
-      -webkit-box-pack: justify;
-      -webkit-justify-content: space-around;
-      -ms-flex-pack: justify;
-      justify-content: space-around;
-    }
-  </style>
+  <title>井字棋</title>
+  <link rel="stylesheet" href="TicTacToe.css">
 </head>
 <body>
   <p class="title">井字棋</p>
@@ -142,126 +38,17 @@
     </div>
   </div>
   <div class="btn-div">
-    <a href="../mobile" class="btn">返回主页</a>
-    <span class="btn" id="reset">重置游戏</span>
+    <a href="/mobile" class="btn">返回主页</a>
+    <a href="javascript:;" class="btn" id="reset">重置游戏</a>
   </div>
+   <p style="text-align: center;">
+    2017 
+    <a href="https://github.com/haizai" target="_blank">haizai</a>
+    <!-- <a href="https://github.com/haizai/cloud/tree/master/server/public/demo/minesweeper" target="_blank">源码</a> -->
+  </p>
+
 
   <script src="socket.io.js"></script>
-
-  <script>
-
-window.onload = function(){
-
-
-  function lengthInresize(){
-    var outerHeight = document.body.offsetHeight
-    var outerWidth = document.body.offsetWidth
-    var unit = Math.min(outerHeight,outerWidth,600)
-    document.getElementById('board').style.width = unit + 'px'
-    document.getElementById('board').style.height = unit + 'px'
-  }
-  lengthInresize()
-
-  var nowPlayer = 1
-  var myPlayer = null
-  var stage = 'wait'
-  var scoket 
-
-   function reset(){
-    nowPlayer = 1
-    myPlayer = null
-    stage = 'wait'
-    document.getElementById('tip').innerHTML = 'reset'
-    Array.prototype.slice.apply(document.getElementsByClassName('cell')).forEach(function(dom){
-      dom.className = 'cell'
-    })
-   }
-
-
-
-  scokeConnect()
-  function scokeConnect(){
-    if (scoket) {
-      socket.close()
-    }
-    socket = io('http://localhost/ttt');
-    // var socket = io('/ttt');
-    socket.on('connect', function(){
-      // console.log(socket.id);
-    });
-
-    socket.on('info', function (data) {
-      console.info('info',data);
-      switch (data) {
-        case 'wait':
-          document.getElementById('tip').innerHTML = '等待他人中...'
-          break;
-        case 'disconnect':
-          alert('对方离开或重置游戏')
-          reset()
-          scokeConnect()
-          break;
-      }
-    });
-
-    socket.on('start', function (p1,p2,room) {
-      if (p1 === socket.id) {
-        myPlayer = 1
-      } else if (p2 === socket.id) {
-        myPlayer = 2
-      }
-      stage = 'playing'
-      var myPlayerChinese = myPlayer == 1 ? '你先落子' : '等待对方落子';
-      document.getElementById('tip').innerHTML = '游戏开始，'+myPlayerChinese
-      document.getElementById('room').innerHTML = '房间 '+room
-    });
-
-    socket.on('move', function (player,x,y) {
-      document.getElementById(x+'_'+y).classList.add('_'+player)
-      nowPlayer == 1 ? nowPlayer = 2 : nowPlayer = 1;
-      if (nowPlayer === myPlayer) {
-        document.getElementById('tip').innerHTML = '请落子'
-      } else {
-        document.getElementById('tip').innerHTML = '等待对方落子'
-      }
-    });
-    socket.on('end', function (player,x,y,winPlayer,ids) {
-      document.getElementById(x+'_'+y).classList.add('_'+player)
-      ids.forEach(function(id){
-        document.getElementById(id).classList.add('win')
-      })
-      if (winPlayer === myPlayer) {
-        document.getElementById('tip').innerHTML = '你赢了，可以下方点击「重置游戏」'
-      } else {
-        document.getElementById('tip').innerHTML = '你输了，可以下方点击「重置游戏」'
-      }
-    });
-
-  }
-
-    document.addEventListener('click', function(e){
-      if (stage!=='playing') return 
-      if (myPlayer!==nowPlayer) return
-      var tg = e.target
-      if(tg.classList.contains('cell') && !tg.classList.contains('_1')&& !tg.classList.contains('_2')){
-        var arr = tg.id.split('_')
-        var x = +arr[0]
-        var y = +arr[1]
-        socket.emit('tryMove',x,y)
-      }
-    })
-    window.addEventListener('resize',function(e){
-      lengthInresize()
-    })
-    document.getElementById('reset').addEventListener('click', function(e){
-      location.reload(true)
-    })
-    
-}
-
-
-
-
-  </script>
+  <script src="TicTacToe.js"></script>
 </body>
 </html>

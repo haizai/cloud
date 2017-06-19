@@ -1,0 +1,106 @@
+*{
+  margin: 0;
+}
+html{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Microsoft YaHei",Arial,Helvetica,sans-serif;
+}
+#board{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin: 0 auto;
+
+}
+.line {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.line-br {
+  height: 2px;
+  background: #333;
+  margin: 0 10px;
+}
+.cell{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+} 
+.cell-br {
+  width: 2px;
+  background: #333;
+}
+.cell._2{
+  background: url('./img/2.png') no-repeat;
+  background-size: cover;
+}
+.cell._1{
+  background: url('./img/1.png') no-repeat;
+  background-size: cover;
+}
+.cell.win{
+  background-color: rgba(255, 172, 45,0.2)
+}
+.title {
+  text-align: center;
+  background: #727f80;
+  color: #fff;
+  line-height: 50px;
+  height: 50px;
+  width: 100%;
+  font-size: 24px;
+}
+#tip{
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+  background: #f6f6f6;
+}
+#room {
+  background: #f66;
+  color: #fff;
+  
+  border-radius: 5px;
+  display: inline-block;
+}
+.btn{
+  background: #29aad4;
+  color: #fff;
+  padding: 5px 30px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.btn-div {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: justify;
+  justify-content: space-around;
+
+  margin: 10px 0;
+}

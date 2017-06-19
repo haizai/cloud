@@ -128,9 +128,10 @@
     width: 100%;
     color: #fff;
     font-size: 20px;
+    min-height: 22px;
   }
   .anime-img{
-    margin: 5px;
+    margin:2px 5px;
     border-radius: 10px;
   }
   .anime-enter {
@@ -147,5 +148,18 @@
     border-radius: 20px;
     background: #f25d8e;
     color: #fff;
-
+  }
+  .ttt-title {
+    font-size: 36px;
+    text-align: center;
+    margin: 40px 0;
+  }
+  .ttt-enter {
+    text-align: center;
+  }
+  .ttt-enter a {
+    padding: 5px 30px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    color: #333;
   }
