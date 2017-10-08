@@ -739,4 +739,5 @@ iot.on('connection', function (socket) {
 
   })
 });
+
 module.exports = server;
