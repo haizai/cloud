@@ -2,7 +2,21 @@
   width: 980px;
   margin: 0 auto;
 }
-
+.title {
+  text-align: center;
+  background: #727f80;
+  color: #fff;
+  height: 100px;
+  line-height: 100px;
+  margin-bottom: 10px;
+}
+.tip {
+  text-align: center;
+  margin: 20px;
+}
+* {
+  margin: 0;
+}
 p{
   margin: 0;
   font-size: 16px;
@@ -13,7 +27,7 @@ h4 {
 li {
   padding: 20px 0;
   overflow: hidden;
-  border-top: 2px dashed #333;
+  border-bottom: 2px dashed #333;
 }
 .left {
   float: left;
