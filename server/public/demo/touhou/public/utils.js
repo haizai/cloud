@@ -14,5 +14,17 @@ var Utils = {
 	randomInt(min,max) {
     let length = max - min + 1
     return Math.floor(Math.random() * length + min)
+	},
+	probability(val) {
+		return Math.random() < val
 	}
 }
+
+function error(text) {
+	console.error(text)
+}
+function log(text) {
+	console.log(text)
+}
+
+var game
