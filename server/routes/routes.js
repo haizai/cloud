@@ -34,6 +34,6 @@ function titleRouter() {
   } )
 }
 defalutRouter('user','gomoku')
-titleRouter('file')
+titleRouter('file','alpha')
 
 module.exports = router;

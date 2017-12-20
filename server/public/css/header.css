@@ -155,3 +155,119 @@ a {
   margin-top: 25px;
   font-size: 18px;
 }
+
+
+/* 
+  .nav {
+    height: 60px;
+    line-height: 60px;
+    background: #2e3033;
+    color: #eee;
+    position: relative;
+  }
+  .nav-title {
+    font-size: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    padding-left: 40px;
+  }
+  .nav-pc {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    height: 60px;
+  }
+  .nav-pc li {
+    display: inline-block;
+    padding: 0 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-pc-phone,.nav-phone {
+    display: none;
+  }
+  .nav-pc-item {
+    position: relative;
+  }
+  .nav-pc-item-more {
+    text-align: center;
+    position: absolute;
+    top: 45px;
+    margin-left: -35px;
+    padding: 20px 10px 10px;
+    background: #2e3033;
+    line-height: 30px;
+    border-radius: 5px;
+    transition: all 0.3s;
+    width: 150%;
+    z-index: 100;
+    display: none;
+  }
+  .nav-pc-item-more p {
+    color: #eee;
+  }
+  .nav-pc-item-name-hover, .nav-pc-item-more p:hover {
+    color: #1296db;
+  }
+  
+  @media screen and (max-width: 800px) {
+    .nav-pc {
+      display: none;
+    }
+    .nav-phone {
+      display: inline-block;
+    }
+    .nav-right-icon {
+      width: 70px;
+      height: 60px;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    .icon-category { 
+      background: url('../img/alpha/icon/category.png') no-repeat;
+      background-position: center;
+    }
+    .icon-close { 
+      background: url('../img/alpha/icon/close.png') no-repeat;
+      background-position: center;
+    }
+    .nav-phone {
+      background: #1d1e1f;
+      color: #fff;
+      width: 100%;
+      display: none;
+    }
+    .nav-phone-1 {
+      position: relative;
+      color: #fff;
+      line-height: 50px;
+      height: 50px;
+      padding-left: 20px;
+      font-size: 14px;
+      border-top: 1px solid #444;
+    }
+    .nav-phone-2 {
+      position: relative;
+      background: #2e3033;
+      line-height: 50px;
+      height: 50px;
+      padding-left: 40px;
+      font-size: 14px;
+      display: none;
+    }
+    .nav-phone-icon {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 13px;
+      right: 20px;
+    }
+    .icon-top { 
+      background: url('../img/alpha/icon/top.png') no-repeat;
+    }
+    .icon-bottom { 
+      background: url('../img/alpha/icon/bottom.png') no-repeat;
+    }
+  }
+
+ */

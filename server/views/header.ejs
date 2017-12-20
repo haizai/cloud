@@ -34,6 +34,62 @@
     </ul>
   </div>
 </div>
+<!-- 
+  <div>
+    <div class="nav">
+      <span class="nav-title">Haizainaive</span>
+      <ul class="nav-pc">
+        <li class="nav-pc-item">
+          <span>css案例</span>
+          <div class="nav-pc-item-more">
+            <a href="/demo/flex/flex.html" target="_blank"><p>flex布局</p></a>
+            <a href="/demo/transform/dist/index.html" target="_blank"><p>transform矩阵变换</p></a>
+            <a href="/demo/center/center.html" target="_blank"><p>水平垂直居中</p></a>
+          </div>
+        </li>
+        <li class="nav-pc-item">
+          <span>小游戏</span>
+          <div class="nav-pc-item-more">
+            <a href="/demo/sokoban/game.html" target="_blank"><p>扫雷</p></a>
+            <a href="/demo/minesweeper/game.html" target="_blank"><p>推箱子</p></a>
+          </div>
+        </li>
+        <li class="nav-pc-item">
+          <span>五子棋</span>
+          <div class="nav-pc-item-more">
+            <a href="/gomoku#/outline"><p>单人模式</p></a>
+            <a href="/gomoku#/online"><p>联机模式</p></a>
+            <a href="/gomoku#/ai"><p>人机对战</p></a>
+          </div>
+        </li>
+        <li>登录</li>
+        <li>注册</li>
+      </ul>
+      <i class="nav-right-icon" :class="phoneMoreShow?'icon-close':'icon-category'" @click="phoneMoreShow = !phoneMoreShow"></i>
+    </div>
+    <div v-show="phoneMoreShow" class="nav-phone">
+      <div @touchstart="cssIn=!cssIn" class="nav-phone-1">css案例 
+        <i class="nav-phone-icon" :class="cssIn?'icon-bottom':'icon-top'"></i>
+      </div>
+      <div class="nav-phone-2" v-show="cssIn">flex布局</div>
+      <div class="nav-phone-2" v-show="cssIn">transform矩阵变换</div>
+      <div @touchstart="gameIn=!gameIn" class="nav-phone-1">小游戏 
+        <i class="nav-phone-icon" :class="gameIn?'icon-bottom':'icon-top'"></i>
+      </div>
+      <div class="nav-phone-2" v-show="gameIn">扫雷</div>
+      <div class="nav-phone-2" v-show="gameIn">推箱子</div>
+      <div @touchstart="gomokuIn=!gomokuIn" class="nav-phone-1">五子棋 
+        <i class="nav-phone-icon" :class="gomokuIn?'icon-bottom':'icon-top'"></i>
+      </div>
+      <div class="nav-phone-2" v-show="gomokuIn">单人模式</div>
+      <div class="nav-phone-2" v-show="gomokuIn">联机模式</div>
+      <div class="nav-phone-2" v-show="gomokuIn">人机对战</div>
+    </div>
+  </div> -->
+
+
+
 <script src="js/common/jquery-3.1.1.min.js"></script>
 <script src="js/common/tip.js"></script>
+<!-- <script src="js/common/vue.min.js"></script> -->
 <script src="js/common/header.js"></script>

@@ -1,5 +1,34 @@
 
+
 jQuery(function($){
+
+  // $('.nav-pc-item').each(function (i) {
+  //   let $li = $(this)
+  //   $li.hover(function() {
+  //     $li.children().first().addClass('nav-pc-item-name-hover')
+  //     $li.children('.nav-pc-item-more').show()
+  //   },function () {
+  //     $li.children().first().removeClass('nav-pc-item-name-hover')
+  //     $li.children('.nav-pc-item-more').hide()
+  //   })
+  // })
+
+  // $('.nav-phone-icon').addClass('icon-top')
+  // $('.nav-right-icon').addClass('icon-category').click(function() {
+  //   $(this).toggleClass('icon-category').toggleClass('icon-close')
+  //   $('.nav-phone').slideToggle()
+  // })
+
+
+  // $('.nav-phone-1').each(function(i) {
+  //   let $1 = $(this)
+  //   $1.click(function() {
+  //     $1.children('.nav-phone-icon').toggleClass('icon-bottom').toggleClass('icon-top')
+  //     $1.nextUntil('.nav-phone-1').slideToggle()
+  //   })
+  // })
+
+
 
   function defalutUser() {
     $('.header-user').html("<a href='user#/register'>注册</a><span style='color:#f25d8e'> / </span><a href='user#/login'>登录</a>")
