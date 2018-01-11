@@ -4,7 +4,13 @@ console.log('process.env.NODE_ENV: ', process.env.NODE_ENV)
 
 
 var port = require('./port')
-var server = require('./server.js')
+var server = require('./socket.js').server
+
+require('./socket/ttt')
+require('./socket/gomoku')
+
+
+
 
 
 server.listen(port);
