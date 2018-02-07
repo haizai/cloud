@@ -116,17 +116,18 @@ Room.prototype = {
       // 一方获胜
       if (arr[0] !== null && arr[0] === arr[1] && arr[1] === arr[2] ) {
         this.stage = 'end'
-        this.winIndex = arr[0]
-        this.winPlayer = i
-        return 'end'
-      }
-      // 全部空格落完,平局
-      else if (Object.values(cells).every(a=>a.player!==null)) {
-        this.stage = 'end'
-        this.winPlayer = 0
+        this.winPlayer = arr[0]
         return 'end'
       }
     }
+
+    // 全部空格落完,平局
+    if (Object.values(cells).every(a=>a.player!==null)) {
+      this.stage = 'end'
+      this.winPlayer = 0
+      return 'end'
+    }
+    
     return 'continue'
   },
   reset(){
