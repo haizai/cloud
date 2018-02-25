@@ -86,22 +86,33 @@ jQuery(function($){
 
 
 
-  var _isHeaderItemGameULShow = false
-  $('#header-item-game').hover(function(){
-    $('#header-item-game-ul').fadeIn(100)
-  },function(){
-    setTimeout(function(){
-      if (!_isHeaderItemGameULShow) $('#header-item-game-ul').fadeOut(100)
-    }, 100)
+  var _show = [];
+
+  $('.header-item-a').each(function(index) {
+    var $a = $(this)
+    var $ul = $(this).next()
+    _show[index] = false
+
+    $a.hover(function(){
+      $ul.fadeIn(100)
+    },function(){
+      setTimeout(function(){
+        if (!_show[index]) $ul.fadeOut(100)
+      }, 100)
+    })
+    $ul.hover(function(){
+      _show[index] = true
+    },function(){
+      _show[index] = false
+      setTimeout(function(){
+        if (!_show[index]) $ul.fadeOut(100)
+      }, 100)
+    })
+
   })
-  $('#header-item-game-ul').hover(function(){
-    _isHeaderItemGameULShow = true
-  },function(){
-    _isHeaderItemGameULShow = false
-    setTimeout(function(){
-      if (!_isHeaderItemGameULShow) $('#header-item-game-ul').fadeOut(100)
-    }, 100)
-  })
+
+
+
 })
 
 

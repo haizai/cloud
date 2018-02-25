@@ -156,21 +156,22 @@
     background: #f25d8e;
     color: #fff;
   }
-  .ttt-title {
+  .game-title {
     font-size: 36px;
     text-align: center;
-    margin: 40px 0;
+    margin: 60px 0;
   }
-  .ttt-enter {
+  .game-enter {
     text-align: center;
+    margin:60px 0;
   }
-  .ttt-enter a {
+  .game-enter a {
     padding: 5px 30px;
     border: 1px solid #888;
     border-radius: 4px;
     color: #333;
   }
-  .ttt-enter a:hover,.ttt-enter a:active{
+  .game-enter a:hover,.game-enter a:active{
     color: #fff;
     background: #888;
   }

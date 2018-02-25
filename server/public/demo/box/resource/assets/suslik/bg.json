@@ -1,0 +1,5 @@
+{"file":"bg.png","frames":{
+"commbg":{"x":803,"y":483,"w":800,"h":480,"offX":0,"offY":0,"sourceW":800,"sourceH":480},
+"mapbg0":{"x":1,"y":483,"w":800,"h":480,"offX":0,"offY":0,"sourceW":800,"sourceH":480},
+"mapbg1":{"x":803,"y":1,"w":800,"h":480,"offX":0,"offY":0,"sourceW":800,"sourceH":480},
+"mapbg2":{"x":1,"y":1,"w":800,"h":480,"offX":0,"offY":0,"sourceW":800,"sourceH":480}}}

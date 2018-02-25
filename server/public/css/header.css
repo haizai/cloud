@@ -42,7 +42,7 @@ a {
 }
 
 
-#header-item-game-ul {
+.header-menu ul {
   position: absolute;
   background: #fff;
   width: 136px;
@@ -53,14 +53,14 @@ a {
   border: 1px solid #aaa;
   display: none;
 }
-#header-item-game-ul li {
+.header-menu ul li {
   height: 40px;
   line-height: 40px;
   text-align: center;
   cursor: pointer;
   color: #333;
 }
-#header-item-game-ul li:hover {
+.header-menu ul li:hover {
   background: #eee;
   color: #00a1d6;
 }

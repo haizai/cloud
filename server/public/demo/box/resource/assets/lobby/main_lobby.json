@@ -1,0 +1,5 @@
+{"file":"main_lobby.png","frames":{
+"bg":{"x":1,"y":1,"w":750,"h":1190,"offX":0,"offY":0,"sourceW":750,"sourceH":1190},
+"btn_0":{"x":753,"y":1,"w":118,"h":85,"offX":0,"offY":0,"sourceW":118,"sourceH":85},
+"btn_1":{"x":873,"y":1,"w":118,"h":85,"offX":0,"offY":0,"sourceW":118,"sourceH":85},
+"gold":{"x":753,"y":88,"w":44,"h":46,"offX":2,"offY":1,"sourceW":48,"sourceH":48}}}

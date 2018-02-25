@@ -1,0 +1,181 @@
+{
+	"groups": [
+		{
+			"keys": "description_json,bg_jieba_json,card_jieba_json,guide_jieba_json,loading_jieba_json,main_jieba_json,result_jieba_json,bet_mp3,ai_mp3,card_mp3,ko_mp3,pk_mp3,0_png,1_png,2_png,3_png,4_png,5_png,6_png,7_png,8_png,fruit_solt_json,main_slot_json,main_lobby_json,bg_json,gold_number_fnt,main_json",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/egret_icon.png",
+			"type": "image",
+			"name": "egret_icon_png"
+		},
+		{
+			"url": "config/description.json",
+			"type": "json",
+			"name": "description_json"
+		},
+		{
+			"url": "assets/jieba/bg/bg_jieba.json",
+			"type": "sheet",
+			"name": "bg_jieba_json",
+			"subkeys": "alertBg,bg,rule"
+		},
+		{
+			"url": "assets/jieba/bg/bg_base/alertBg.png",
+			"type": "image",
+			"name": "alertBg_png"
+		},
+		{
+			"url": "assets/jieba/bg/bg_base/bg.jpg",
+			"type": "image",
+			"name": "bg_jpg"
+		},
+		{
+			"url": "assets/jieba/bg/bg_base/rule.png",
+			"type": "image",
+			"name": "rule_png"
+		},
+		{
+			"url": "assets/jieba/card/card_jieba.json",
+			"type": "sheet",
+			"name": "card_jieba_json",
+			"subkeys": "0a,0b,10a,10b,11a,11b,1a,1b,2a,2b,3a,3b,4a,4b,5a,5b,6a,6b,7a,7b,8a,8b,9a,9b,bg,bg1"
+		},
+		{
+			"url": "assets/jieba/guide/guide_jieba.json",
+			"type": "sheet",
+			"name": "guide_jieba_json",
+			"subkeys": "bet,clear,result"
+		},
+		{
+			"url": "assets/jieba/loading/loading_jieba.json",
+			"type": "sheet",
+			"name": "loading_jieba_json",
+			"subkeys": "bg1,progress"
+		},
+		{
+			"url": "assets/jieba/main/main_jieba.json",
+			"type": "sheet",
+			"name": "main_jieba_json",
+			"subkeys": "back,bet1,bet2,cardBg,cardBg1,clear,go1,go2,gold,menu,music,music1,no,rate1,rate2,ruleBtn,select,title,yes"
+		},
+		{
+			"url": "assets/jieba/result/result_jieba.json",
+			"type": "sheet",
+			"name": "result_jieba_json",
+			"subkeys": "0,1,10,11,12,13,2,3,4,5,6,7,8,9"
+		},
+		{
+			"url": "sound/bet.mp3",
+			"type": "sound",
+			"name": "bet_mp3"
+		},
+		{
+			"url": "sound/ai.mp3",
+			"type": "sound",
+			"name": "ai_mp3"
+		},
+		{
+			"url": "sound/card.mp3",
+			"type": "sound",
+			"name": "card_mp3"
+		},
+		{
+			"url": "sound/ko.mp3",
+			"type": "sound",
+			"name": "ko_mp3"
+		},
+		{
+			"url": "sound/pk.mp3",
+			"type": "sound",
+			"name": "pk_mp3"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/0.png",
+			"type": "image",
+			"name": "0_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/1.png",
+			"type": "image",
+			"name": "1_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/2.png",
+			"type": "image",
+			"name": "2_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/3.png",
+			"type": "image",
+			"name": "3_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/4.png",
+			"type": "image",
+			"name": "4_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/5.png",
+			"type": "image",
+			"name": "5_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/6.png",
+			"type": "image",
+			"name": "6_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/7.png",
+			"type": "image",
+			"name": "7_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_base/8.png",
+			"type": "image",
+			"name": "8_png"
+		},
+		{
+			"url": "assets/slot/fruit/fruit_solt.json",
+			"type": "sheet",
+			"name": "fruit_solt_json",
+			"subkeys": "0,1,2,3,4,5,6,7,8"
+		},
+		{
+			"url": "assets/slot/main/main_slot.json",
+			"type": "sheet",
+			"name": "main_slot_json",
+			"subkeys": "bg,escBtn,goBtn0,goBtn1,goBtn2,handBall,handBase,handPole,head,light0,light1,machine,minusBet0,minusBet1,minusBet2,orangeLamp,plusBet0,plusBet1,plusBet2,ruleBtn0,ruleBtn1,shareBtn,soundOff0,soundOff1,soundOn0,soundOn1,yellowLamp"
+		},
+		{
+			"url": "assets/lobby/main_lobby.json",
+			"type": "sheet",
+			"name": "main_lobby_json",
+			"subkeys": "bg,btn_0,btn_1,gold"
+		},
+		{
+			"url": "assets/suslik/bg.json",
+			"type": "sheet",
+			"name": "bg_json",
+			"subkeys": "commbg,mapbg0,mapbg1,mapbg2"
+		},
+		{
+			"url": "assets/suslik/gold_number.fnt",
+			"type": "font",
+			"name": "gold_number_fnt"
+		},
+		{
+			"url": "assets/suslik/main.json",
+			"type": "sheet",
+			"name": "main_json",
+			"subkeys": "back,bomb0a,bomb0b,cui,dong0,dong1,dong2,dongtop0,dongtop1,dongtop2,ghost,gold,mace1,mace2,mace3,shu1a,shu1b,shu2a,shu2b,shu3a,shu3b,shu4a,shu4b,shu5a,shu5b,star01,star02,star03,star04,star05,star06,yun01,yun02"
+		}
+	]
+}
